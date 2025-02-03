@@ -1,0 +1,65 @@
+div {
+    color: green
+}
+
+.block {
+    color:red
+}
+
+#id-block {
+    color: purple;
+}
+
+[data-example] {
+    color:blue
+}
+
+[data-example="value2"] {
+    color:rgb(16, 16, 56)
+}
+.block3, .block4, .block5 {
+    color: brown;
+}
+
+div.blue-block {
+    color:aquamarine
+}
+
+div .orange {
+    color:rgb(75, 42, 67)
+}
+
+.parent>.child {
+    color: rgb(255, 217, 0);
+}
+
+.block {
+    width: 500px;
+    height: 500px;
+    background: #000;
+}
+/* Приоритет 100 */
+#block {
+    background:green;
+}
+
+/* Приоритет 10 */
+.block-2 {
+    background: red;
+}
+/* максимум осознания при использовании */
+/* div { 
+    background: #b3b02a !important;
+}*/
+
+.some-text {
+    font-family: 'Roboto', Arial, Helvetica, sans-serif;
+    font-size: 40px;
+    line-height: 60px;  
+    text-align: justify;
+    font-weight: 700;
+    font-style: italic;
+    text-decoration: underline;
+    /* line-height: 1.5; */
+    text-shadow: 5px 5px 5px rgba(150, 9, 9, 0.3);
+}
