@@ -378,33 +378,32 @@ body {
 } */
 
 @media (max-width: 1200px) {
+	
+}
 
 	.hero__inner {
-		flex-direction: column;
-		/* раскладываем элементы вертикально */
-		align-items: center;
-		/* по центру по горизонтали */
-		gap: 20px;
-		/* отступ между элементами */
-	}
-
-	.hero__img {
-		margin: 0 0 20px 0;
-		/* сбрасываем большой правый margin, добавляем отступ снизу */
-		max-width: 377px;
-		/* фиксируем максимальную ширину картинки */
-	}
-
-	.hero__button {
-		max-width: none;
-		/* отменяем ограничение по ширине */
-		margin-top: 0;
-		/* убираем лишние отступы сверху, можно добавить если нужно */
-		width: fit-content;
-		/* кнопка принимает ширину по содержимому */
-	}
-
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start; /* или space-between, как нужно */
+    gap: 30px;
+    flex-wrap: wrap; /* разрешаем перенос */
 }
+
+@media (max-width: 1200px) {
+
+    .hero__button-wrapper {
+        flex-basis: 100%; /* кнопка занимает всю ширину на новой строке */
+        display: flex;
+        justify-content: center; /* центрируем кнопку */
+        margin-top: 20px;
+    }
+
+    .hero__button {
+        max-width: none;
+        width: fit-content;
+    }
+}
+
 
 
 @media (max-width: 900px) {
