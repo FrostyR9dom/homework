@@ -365,7 +365,7 @@ body {
 
 
 
-/* @media (max-width: 1200px) {
+@media (max-width: 1200px) {
     .hero__img {
         margin: 0;
         max-width: 377px;
@@ -375,35 +375,7 @@ body {
         max-width: none;
         margin-top: 30px;
     }
-} */
-
-@media (max-width: 1200px) {
-	
 }
-
-	.hero__inner {
-    display: flex;
-    align-items: flex-end;
-    justify-content: flex-start; /* или space-between, как нужно */
-    gap: 30px;
-    flex-wrap: wrap; /* разрешаем перенос */
-}
-
-@media (max-width: 1200px) {
-
-    .hero__button-wrapper {
-        flex-basis: 100%; /* кнопка занимает всю ширину на новой строке */
-        display: flex;
-        justify-content: center; /* центрируем кнопку */
-        margin-top: 20px;
-    }
-
-    .hero__button {
-        max-width: none;
-        width: fit-content;
-    }
-}
-
 
 
 @media (max-width: 900px) {
