@@ -373,7 +373,7 @@ body {
     .hero__img-control {
         position: static;
         max-width: none;
-        margin-top: 30px;
+        margin-top: 10px;
     }
 }
 
