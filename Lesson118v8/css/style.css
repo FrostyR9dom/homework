@@ -242,45 +242,58 @@ body {
 }
 
 /* --------------------------------------------- */
+.footer {}
+
 .footer {
-}
-.container {
-}
-.footer--inner {
-}
-.footer__col {
-}
-.footer__logo {
-}
-.footer__logo-text {
-}
-.footer__col-list {
-}
-.footer__col-item {
-}
-.footer__col-link {
-}
-.footer__contact-list {
-}
-.footer__contact-item {
-}
-.footer__contact-link {
-}
-.footer__col-tel {
-}
-.footer__col-number {
-}
-.footer__col-copy {
+	padding: 20px;
+	background-color: var(--accent-bg);
+	/* например */
+	/* уберите display: none, или opacity: 0, если есть */
 }
 
-.socials {
+.footer__col-tel,
+.footer__col-copy {
+	display: block;
+	color: var(--general-text);
+	/* убедитесь, что цвет текста видим */
 }
-.socials-list {
-}
-.socials__item {
-}
-.socials__link {
-}
+
+
+.container {}
+
+.footer--inner {}
+
+.footer__col {}
+
+.footer__logo {}
+
+.footer__logo-text {}
+
+.footer__col-list {}
+
+.footer__col-item {}
+
+.footer__col-link {}
+
+.footer__contact-list {}
+
+.footer__contact-item {}
+
+.footer__contact-link {}
+
+.footer__col-tel {}
+
+.footer__col-number {}
+
+.footer__col-copy {}
+
+.socials {}
+
+.socials-list {}
+
+.socials__item {}
+
+.socials__link {}
 
 
 
@@ -417,15 +430,16 @@ body {
 
 
 @media (max-width: 1200px) {
-    .hero__img {
-        margin: 0;
-        max-width: 377px;
-    }
-    .hero__img-control {
-        position: static;
-        max-width: none;
-        margin-top: 10px;
-    }
+	.hero__img {
+		margin: 0;
+		max-width: 377px;
+	}
+
+	.hero__img-control {
+		position: static;
+		max-width: none;
+		margin-top: 10px;
+	}
 }
 
 
