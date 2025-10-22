@@ -259,9 +259,16 @@ body {
 }
 
 
-.container {}
+.footer {
+	background: #AB8261;
+	padding: 34px 0 66px;
+}
+/* .container {} */
 
-.footer--inner {}
+.footer--inner {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+}
 
 .footer__col {}
 
