@@ -363,14 +363,14 @@ body {
 /* делаю иконки анимированными, так как они идут в формате img */
 
 .socials__link img {
-    transition: var(--transition);
-    filter: brightness(0) invert(1);
+	transition: var(--transition);
+	filter: brightness(0) invert(1);
 }
 
 .socials__link:hover img {
-    filter: brightness(0) invert(70%) sepia(50%) saturate(500%) hue-rotate(330deg);
-    transform: scale(1.1);
-    opacity: 0.8;
+	filter: brightness(0) invert(70%) sepia(50%) saturate(500%) hue-rotate(330deg);
+	transform: scale(1.1);
+	opacity: 0.8;
 }
 
 
@@ -543,61 +543,62 @@ body {
 	.burger-icon {
 		display: flex;
 	}
-	@media (max-width: 900px) {
-    .footer__inner {
-        grid-template-columns: 1fr 1fr;
-        gap: 30px 15px;
-        text-align: center;
-        justify-items: center;
-    }
-    
-    .footer__col:first-child {
-        margin-top: 0;
-        align-items: center;
-        grid-column: 1 / -1;
-    }
-    
-    .socials__list {
-        justify-content: center;
-    }
-}
 
-@media (max-width: 600px) {
-    .footer__inner {
-        grid-template-columns: 1fr;
-        gap: 30px;
-        text-align: center;
-    }
-    
-    .footer__col:first-child {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    .footer__logo {
-        margin: 0 auto;
-    }
-    
-    .footer__logo-text {
-        text-align: center;
-    }
-    
-    .socials__list {
-        justify-content: center;
-    }
-    
-    .footer__col-list,
-    .footer__contact-list {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    .footer__col-tel {
-        text-align: center;
-    }
-}
+	@media (max-width: 900px) {
+		.footer__inner {
+			grid-template-columns: 1fr 1fr;
+			gap: 30px 15px;
+			text-align: center;
+			justify-items: center;
+		}
+
+		.footer__col:first-child {
+			margin-top: 0;
+			align-items: center;
+			grid-column: 1 / -1;
+		}
+
+		.socials__list {
+			justify-content: center;
+		}
+	}
+
+	@media (max-width: 600px) {
+		.footer__inner {
+			grid-template-columns: 1fr;
+			gap: 30px;
+			text-align: center;
+		}
+
+		.footer__col:first-child {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+
+		.footer__logo {
+			margin: 0 auto;
+		}
+
+		.footer__logo-text {
+			text-align: center;
+		}
+
+		.socials__list {
+			justify-content: center;
+		}
+
+		.footer__col-list,
+		.footer__contact-list {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+
+		.footer__col-tel {
+			text-align: center;
+		}
+	}
 }
 
 @media (max-width: 800px) {
