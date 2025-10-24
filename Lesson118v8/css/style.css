@@ -258,6 +258,9 @@ body {
 
 .footer__col:first-child {
 	margin-top: -30px;
+	display: flex;
+	flex-direction: column
+	align-items:center;
 }
 
 .footer__logo {
@@ -390,6 +393,7 @@ body {
 }
 
 /* ============================== */
+
 @media (max-width: 900px) {
 	.nav {
 		background: var(--general-bg);
