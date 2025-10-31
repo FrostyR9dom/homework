@@ -272,6 +272,9 @@ body {
 
 .about__img>img {
 	width: 100%;
+	height: 100px;
+	object-fit: cover;
+	offset-position: 50% 50%;
 }
 
 .about__img-control {
