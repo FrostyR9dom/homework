@@ -257,6 +257,11 @@ body {
 
 }
 .about__img {
+	border-radius: 20px;
+	overflow: hidden;
+}
+.about__img>img {
+	width: 100%;
 }
 .about__img-control {
 }
