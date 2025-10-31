@@ -241,6 +241,40 @@ body {
 .hero__img-button:hover::before {
 	opacity: 1;
 }
+/* ========================================================== */
+
+
+.about {
+}
+.container {
+}
+.about__innner {
+}
+.about__img {
+}
+.about__img-control {
+}
+.about__img-button {
+}
+.about__body {
+}
+.about__heading {
+}
+.about__title {
+}
+.about__title-text {
+}
+.about__text {
+}
+.avout__grid {
+}
+.about__grid-item {
+}
+.about__grid-img {
+}
+.grid-text {
+}
+
 
 /* --------------------------------------------- */
 .footer {
