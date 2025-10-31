@@ -241,14 +241,20 @@ body {
 .hero__img-button:hover::before {
 	opacity: 1;
 }
+
+	.header__hero {
+		padding: 50px 0 140px;
+
+	}
 /* ========================================================== */
 
 
 .about {
 }
-.container {
-}
 .about__innner {
+	display: flex;
+	gap: 53px;
+
 }
 .about__img {
 }
@@ -644,7 +650,6 @@ body {
 		text-align: center;
 	}
 }
-}
 
 @media (max-width: 800px) {
 
@@ -668,7 +673,7 @@ body {
 }
 
 @media (max-width: 600px) {
-	.hero {
+	.header__hero {
 		padding-bottom: 80px;
 	}
 
