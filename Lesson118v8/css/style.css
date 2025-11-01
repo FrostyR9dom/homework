@@ -322,7 +322,9 @@ body {
 
 .about__body {}
 
-.about__heading {}
+.about__heading {
+	margin-bottom: 30px;
+}
 
 .about__title {
 	font-family: "Gabriola";
