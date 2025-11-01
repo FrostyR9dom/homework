@@ -337,13 +337,36 @@ body {
 
 .about__title-text {}
 
-.about__text {}
+.about__text {
+	margin-bottom: 40px;
+}
 
-.avout__grid {}
+.avout__grid {
+	display: grid;
+	gap: 32px;
+	grid-template-columns: repeat(2, 1fr);
 
-.about__grid-item {}
+}
 
-.about__grid-img {}
+.about__grid-item {
+	background: var(--accent-bg);
+	border-radius: 20px;
+	padding: 29px 24px;
+	display: flex;
+	gap: 15px;
+	align-items: center;
+}
+
+.about__grid-img {
+	border: 1px solid var(--general-text);
+	border-radius: 50%;
+	width: 60px;
+	flex-shrink: 0;
+	height: 60px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
 
 .grid-text {}
 
