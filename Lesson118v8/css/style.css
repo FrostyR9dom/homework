@@ -341,7 +341,7 @@ body {
 	margin-bottom: 40px;
 }
 
-.avout__grid {
+.about__grid {
 	display: grid;
 	gap: 32px;
 	grid-template-columns: repeat(2, 1fr);
