@@ -128,7 +128,7 @@ body {
 .modal__form-input {
 	border: 1px solid #AC907A;
 	border-radius: 100px;
-	padding: 19px 28px;
+	padding: 19px 42px 19px 28px;
 	display: block;
 	width: 100%;
 	font-style: 16px;
@@ -147,6 +147,20 @@ body {
 
 .modal__form-input:hover::placeholder {
 	color: var(--accent-color);
+}
+
+.model__form-label{
+	position: relative;
+}
+
+.model__form-label span {
+	position: absolute;
+	top: 0;
+	font-size: 11px;
+}
+
+.model__form-label:focus{
+	padding: 26px 42px 12px 28px;
 }
 
 /* ========================================================= */
