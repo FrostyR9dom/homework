@@ -77,12 +77,15 @@ body {
 }
 
 .modal__window {
-	position: relative;
-	background: var(--general-bg);
-	border-radius: var(--border-radius);
-	padding: 0 60px 60px;
-	min-width: 428px;
+    position: relative;
+    background: var(--general-bg);
+    border-radius: var(--border-radius);
+    padding: 0 40px 40px; 
+    max-width: 380px; 
+	width: 100%;
+    margin: 0 20px;
 }
+
 
 .modal__cancel {
 	position: absolute;
@@ -107,15 +110,17 @@ body {
 }
 
 .modal__title {
-	font-family: "Gabriola";
-	font-size: 42px;
-	line-height: .9;
-	color: var(--accent-text);
-	margin-bottom: 10px;
+    font-family: "Gabriola";
+    font-size: 36px;
+    line-height: .9;
+    color: var(--accent-text);
+    margin-bottom: 10px;
+    text-align: center;
 }
 
 .modal__text {
-	margin-bottom: 30px;
+    margin-bottom: 25px;
+    text-align: center;
 }
 
 .modal__form {}
