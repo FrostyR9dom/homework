@@ -55,6 +55,7 @@ body {
 	padding: 3px 15px;
 	height: 62px;
 	transition: all 0.4s;
+	width: 100%;
 }
 
 .button:hover {
@@ -127,9 +128,15 @@ body {
 	font-style: 16px;
 	margin-bottom: 10px;
 }
+.modal__form-input:hover {
+	border-color: var(--accent-color);
+}
 
-.modal__firm-input::placeholder {
+.modal__form-input::placeholder {
 	color: #AC907A;
+}
+.modal__form-input:hover::placeholder {
+	color: var(--accent-color);
 }
 
 /* ========================================================= */
