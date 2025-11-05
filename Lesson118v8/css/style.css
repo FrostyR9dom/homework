@@ -90,7 +90,7 @@ body {
 	right: 20px;
 }
 
-.modal__cancel path .modal__cancel:hover rect {
+.modal__cancel:hover path .modal__cancel:hover rect {
 	transition: var(--transition);
 }
 
