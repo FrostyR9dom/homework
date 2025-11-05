@@ -108,7 +108,7 @@ body {
 
 .modal__title {
 	font-family: "Gabriola";
-	font-style: 42px;
+	font-size: 42px;
 	line-height: .9;
 	color: var(--accent-text);
 	margin-bottom: 10px;
