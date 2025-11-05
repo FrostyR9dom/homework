@@ -112,7 +112,9 @@ body {
 	margin-bottom: 10px;
 }
 
-.modal__text {}
+.modal__text {
+	margin-bottom: 30px;
+}
 
 .modal__form {}
 
@@ -123,6 +125,7 @@ body {
 	display: block;
 	width: 100%;
 	font-style: 16px;
+	margin-bottom: 10px;
 }
 
 .modal__firm-input::placeholder {
