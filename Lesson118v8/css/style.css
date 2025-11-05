@@ -75,11 +75,17 @@ body {
 }
 
 .modal_window {
-	background: var(--accent-bg);
-	border-radius:var(--border-radius);	
+	position: relative;
+	background: var(--general-bg);
+	border-radius:var(--border-radius);
+	padding: 0 60px 60px;	
 }
 
-.modal__cancel {}
+.modal__cancel {
+	position: absolute;
+	top: 20px;
+	right: 20px;
+	}
 
 .modal__title {}
 
