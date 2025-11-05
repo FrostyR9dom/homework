@@ -79,6 +79,7 @@ body {
 	background: var(--general-bg);
 	border-radius: var(--border-radius);
 	padding: 0 60px 60px;
+	min-width: 428px;
 }
 
 .modal__cancel {
@@ -96,15 +97,26 @@ body {
 	stroke: #AC907A
 }
 
-.modal__title {}
+.modal__img {
+	margin-left: 13px;
+	margin-bottom: 15px;
+	margin-top: -65px;
+	margin: -65px 0 15px 13px;
+	}
+
+.modal__title {
+	font-family: "Gabriola";
+	font-style: 42px;
+	line-height: .9;
+	color: var(--accent-text);
+	margin-bottom: 10px;
+}
 
 .modal__text {}
 
 .modal__form {}
 
 .modal__firm-input {}
-
-.Button {}
 
 /* ========================================================= */
 
