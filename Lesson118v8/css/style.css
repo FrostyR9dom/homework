@@ -127,7 +127,11 @@ body {
 	position: relative;
 }
 
-.modal__form-input {
+.modal__form-label {
+	margin-bottom: 10px;
+}
+
+.field__input {
 	border: 1px solid #AC907A;
 	border-radius: 100px;
 	padding: 19px 42px 19px 28px;
@@ -138,25 +142,26 @@ body {
 	transition: var(--transition);
 }
 
-.modal__form-input:hover {
+.field__input:hover {
 	border-color: var(--accent-color);
 }
 
-.modal__form-input::placeholder {
+.field__input::placeholder {
 	color: #AC907A;
 	transition: var(--transition);
 }
 
-.modal__form-input:hover::placeholder {
+.field__input:hover::placeholder {
 	color: var(--accent-color);
 }
 
-.modal__form-label {
+.field {
     position: relative;
     display: block;
+	margin-bottom: 10px;
 }
 
-.modal__form-label span {
+.field span {
     position: absolute;
     top: 6px;
     left: 28px;
@@ -167,11 +172,11 @@ body {
     transition: var(--transition);
 }
 
-.modal__form-label:focus {
+.field:focus {
 	padding: 26px 42px 12px 28px;
 }
 
-.modal__form-input:focus + span {
+.field__input:focus + span {
     opacity: 1;
     visibility: visible;
 }
