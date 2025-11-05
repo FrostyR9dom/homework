@@ -123,7 +123,9 @@ body {
 	text-align: center;
 }
 
-.modal__form {}
+.modal__form {
+	position: relative;
+}
 
 .modal__form-input {
 	border: 1px solid #AC907A;
@@ -149,29 +151,29 @@ body {
 	color: var(--accent-color);
 }
 
-.model__form-label {
-	position: relative;
+.modal__form-label {
+    position: relative;
+    display: block;
 }
 
-.model__form-label span {
-	position: absolute;
-	top: 0;
-	font-size: 11px;
-	color: #AC907A;
-	top: 12px;
-	left: 28px;
-	opacity: 0;
-	visibility: hidden;
-	transition: var(--transition);
+.modal__form-label span {
+    position: absolute;
+    top: 6px;
+    left: 28px;
+    font-size: 11px;
+    color: #AC907A;
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--transition);
 }
 
-.model__form-label:focus {
+.modal__form-label:focus {
 	padding: 26px 42px 12px 28px;
 }
 
-.model__form-label:focus + span {
-	opacity: 1;
-	visibility: visible;
+.modal__form-input:focus + span {
+    opacity: 1;
+    visibility: visible;
 }
 
 /* ========================================================= */
