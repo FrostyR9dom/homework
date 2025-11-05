@@ -57,6 +57,29 @@ body {
 	background: #FF9138;
 }
 
+/* ================================================= */
+
+
+.modal {
+	position: fixed;
+	inset: 0;
+	background: #00000048;
+}
+
+.modal_window {}
+
+.modal__cancel {}
+
+.modal__title {}
+
+.modal__text {}
+
+.modal__form {}
+
+.modal__firm-input {}
+
+.Button {}
+
 /* ========================================================= */
 
 .header {
