@@ -73,9 +73,10 @@ body {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	transition: var(--transition);
 }
 
-.modal_window {
+.modal__window {
 	position: relative;
 	background: var(--general-bg);
 	border-radius: var(--border-radius);
@@ -129,6 +130,7 @@ body {
 	margin-bottom: 10px;
 	transition: var(--transition);
 }
+
 .modal__form-input:hover {
 	border-color: var(--accent-color);
 }
@@ -137,6 +139,7 @@ body {
 	color: #AC907A;
 	transition: var(--transition);
 }
+
 .modal__form-input:hover::placeholder {
 	color: var(--accent-color);
 }
