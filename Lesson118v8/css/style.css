@@ -19,6 +19,9 @@ body {
 	overflow: hidden;
 }
 
+.body--opened-modal {
+	overflow: hidden;
+}
 
 .wrapper {
 	min-height: 100%;
