@@ -77,23 +77,24 @@ body {
 .modal_window {
 	position: relative;
 	background: var(--general-bg);
-	border-radius:var(--border-radius);
-	padding: 0 60px 60px;	
+	border-radius: var(--border-radius);
+	padding: 0 60px 60px;
 }
 
 .modal__cancel {
 	position: absolute;
 	top: 20px;
 	right: 20px;
-	}
+}
 
-	.modal__cancel path {
-transition: var(--transition);
-	}
+.modal__cancel path .modal__cancel:hover rect {
+	transition: var(--transition);
+}
 
-		.modal__cancel:hover path {
-fill: #AC907A
-	}
+.modal__cancel:hover path,
+.modal__cancel:hover rect {
+	stroke: #AC907A
+}
 
 .modal__title {}
 
