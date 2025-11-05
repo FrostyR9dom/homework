@@ -87,6 +87,14 @@ body {
 	right: 20px;
 	}
 
+	.modal__cancel path {
+transition: var(--transition);
+	}
+
+		.modal__cancel:hover path {
+fill: #AC907A
+	}
+
 .modal__title {}
 
 .modal__text {}
