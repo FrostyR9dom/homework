@@ -5,6 +5,7 @@
 	--accent-bg: #FFE0CB;
 	--accent-color: #FFA55C;
 	--transition: all .4s;
+	--border-radius: 20px;
 }
 
 body {
@@ -75,7 +76,7 @@ body {
 
 .modal_window {
 	background: var(--accent-bg);
-	border-radius: 20px;	
+	border-radius:var(--border-radius);	
 }
 
 .modal__cancel {}
