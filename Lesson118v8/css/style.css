@@ -77,13 +77,13 @@ body {
 }
 
 .modal__window {
-    position: relative;
-    background: var(--general-bg);
-    border-radius: var(--border-radius);
-    padding: 0 40px 40px; 
-    max-width: 380px; 
+	position: relative;
+	background: var(--general-bg);
+	border-radius: var(--border-radius);
+	padding: 0 40px 40px;
+	max-width: 380px;
 	width: 100%;
-    margin: 0 20px;
+	margin: 0 20px;
 }
 
 
@@ -110,17 +110,17 @@ body {
 }
 
 .modal__title {
-    font-family: "Gabriola";
-    font-size: 36px;
-    line-height: .9;
-    color: var(--accent-text);
-    margin-bottom: 10px;
-    text-align: center;
+	font-family: "Gabriola";
+	font-size: 36px;
+	line-height: .9;
+	color: var(--accent-text);
+	margin-bottom: 10px;
+	text-align: center;
 }
 
 .modal__text {
-    margin-bottom: 25px;
-    text-align: center;
+	margin-bottom: 25px;
+	text-align: center;
 }
 
 .modal__form {}
@@ -149,7 +149,7 @@ body {
 	color: var(--accent-color);
 }
 
-.model__form-label{
+.model__form-label {
 	position: relative;
 }
 
@@ -157,10 +157,21 @@ body {
 	position: absolute;
 	top: 0;
 	font-size: 11px;
+	color: #AC907A;
+	top: 12px;
+	left: 28px;
+	opacity: 0;
+	visibility: hidden;
+	transition: var(--transition);
 }
 
-.model__form-label:focus{
+.model__form-label:focus {
 	padding: 26px 42px 12px 28px;
+}
+
+.model__form-label:focus + span {
+	opacity: 1;
+	visibility: visible;
 }
 
 /* ========================================================= */
