@@ -74,7 +74,8 @@ body {
 }
 
 .modal_window {
-	
+	background: var(--accent-bg);
+	border-radius: 20px;	
 }
 
 .modal__cancel {}
