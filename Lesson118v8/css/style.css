@@ -102,7 +102,7 @@ body {
 	margin-bottom: 15px;
 	margin-top: -65px;
 	margin: -65px 0 15px 13px;
-	}
+}
 
 .modal__title {
 	font-family: "Gabriola";
@@ -116,7 +116,18 @@ body {
 
 .modal__form {}
 
-.modal__firm-input {}
+.modal__firm-input {
+	border: 1px solid #AC907A;
+	border-radius: 100px;
+	padding: 19px 42px 19px 28px;
+	display: block;
+	width: 100%;
+	font-style: 16px;
+}
+
+.modal__firm-input::placeholder {
+	color: #AC907A;
+}
 
 /* ========================================================= */
 
