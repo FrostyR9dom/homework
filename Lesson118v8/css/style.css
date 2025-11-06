@@ -916,8 +916,15 @@ git push origin main
 }
 .about__img {
 	max-width: 500px;
+	justify-self: center;
 }
 
+.about__body {
+	text-align: center;
+}
+.about__grid {
+	grid-template: none;
+}
 
 }
 
