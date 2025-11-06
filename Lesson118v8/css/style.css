@@ -930,6 +930,12 @@ body {
 }
 
 @media (max-width: 600px) {
+
+	.main_about {
+		padding: 60px 0 80px;
+	}
+/* ======================= */
+
 	.header__hero {
 		padding-bottom: 80px;
 	}
