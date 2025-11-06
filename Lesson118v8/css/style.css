@@ -76,6 +76,7 @@ body {
 	opacity: 0;
 	visibility: hidden;
 	transition: all .6;
+	padding: 15px;
 }
 
 .body--opened-modal .modal {
@@ -114,6 +115,7 @@ body {
 	margin-bottom: 15px;
 	margin-top: -65px;
 	margin: -65px 0 15px 13px;
+	min-width: 100%;
 }
 
 .modal__title {
@@ -967,4 +969,16 @@ body {
 
 }
 
-@media (max-width: 450px) {}
+@media (max-width: 450px) {
+	.modal__window {
+		width: 50%;
+		margin-top: -45px;
+	}
+
+	.modal__title{
+		font-size: 35px;
+	}
+	.modal__window {
+		padding: 0 15px 45px;
+	}
+}
