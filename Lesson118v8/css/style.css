@@ -780,6 +780,10 @@ body {
 	grid-row: auto;
 }
 
+.about__body {
+	grid-self: center;
+}
+
 .about__grid {
 	grid-column: 1 /-1;
 }
@@ -902,6 +906,19 @@ body {
 		display: flex;
 		margin: 0 0 30px;
 	}
+
+/* ----------------------- */
+git add .
+git commit -m "Ваше сообщение"
+git push origin main
+.about__inner {
+	grid-template: none;
+}
+.about__img {
+	max-width: 500px;
+}
+
+
 }
 
 @media (max-width: 600px) {
@@ -912,4 +929,4 @@ body {
 	.hero__title {
 		font-size: 12vw;
 	}
-}
+} 
