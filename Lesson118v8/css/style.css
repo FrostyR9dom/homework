@@ -401,6 +401,7 @@ body {
 	border-radius: 20px;
 	overflow: hidden;
 	position: relative;
+	grid-row: 1/-1;
 }
 
 .about__img>img {
@@ -772,6 +773,17 @@ body {
 		max-width: none;
 		margin-top: 10px;
 	}
+}
+
+@media (max-width: 1100px) {
+.about__img {
+	grid-row: auto;
+}
+
+.about__grid {
+	grid-column: 1 /-1;
+}
+
 }
 
 @media (max-width: 900px) {
