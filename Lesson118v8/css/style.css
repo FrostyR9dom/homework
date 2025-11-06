@@ -941,6 +941,14 @@ body {
 	.about__title {
 		font-style: 12vw;
 	}
+	.about__img-control{ 
+		bottom: 0;
+		left: 0;
+		right: 0;
+		min-width: none;
+		border-radius: 0;
+		padding: 10px 15px;
+	}
 
 	.about__grid-item {
 		padding: 10px 15px;
