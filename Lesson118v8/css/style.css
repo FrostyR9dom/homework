@@ -43,6 +43,16 @@ body {
 	height: 100%;
 }
 
+
+.title {
+	font-family: 'Gabriola';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 74px;
+	line-height: 0.82;
+	color: var(--accent-text);
+}
+
 .button {
 	line-height: 1.6;
 	font-size: 16px;
@@ -245,7 +255,6 @@ body {
 .nav__link:hover::before {
 	opacity: 1;
 }
-
 
 .hero {
 	padding: 50px 0 140px;
@@ -462,15 +471,15 @@ body {
 }
 
 .about__title {
-	font-family: "Gabriola";
+	/* font-family: "Gabriola";
 	font-style: normal;
 	font-weight: 400;
 	font-size: 74px;
-	line-height: 0.82;
+	line-height: 0.82; */
 	color: var(--accent-text);
 }
 
-.about__title-text {}
+.about_title-text {}
 
 .about__text {
 	margin-bottom: 40px;
@@ -936,7 +945,8 @@ body {
 	.main_about {
 		padding: 60px 0 80px;
 	}
-/* ======================= */
+
+	/* ======================= */
 
 	.header__hero {
 		padding-bottom: 80px;
@@ -949,7 +959,8 @@ body {
 	.about__title {
 		font-style: 12vw;
 	}
-	.about__img-control{ 
+
+	.about__img-control {
 		bottom: 0;
 		left: 0;
 		right: 0;
@@ -975,9 +986,10 @@ body {
 		margin-top: -45px;
 	}
 
-	.modal__title{
+	.modal__title {
 		font-size: 35px;
 	}
+
 	.modal__window {
 		padding: 0 15px 45px;
 	}
