@@ -302,14 +302,14 @@ body {
 	content: none;
 }
 
-.hero__title {
+/* .hero__title {
 	font-family: 'Gabriola';
 	font-style: normal;
 	font-weight: 400;
 	font-size: 74px;
 	line-height: 0.82;
 	margin-bottom: 30px;
-}
+} */
 
 .hero__text {
 	margin-bottom: 40px;
