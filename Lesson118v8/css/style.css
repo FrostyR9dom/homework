@@ -552,21 +552,13 @@ body {
 .tab-controls__item {}
 
 .tab-controls__link {
+	display: block;
     padding: 14px 30px;
     border-radius: 100px;
     background: #fff9f4;
-    color: #AB8261;
     box-shadow: 0px 4px 20px rgba(206, 195, 185, 0.3);
-    font-weight: 500;
-    font-size: 16px;
-    text-align: center;
-    transition: background 0.3s, color 0.3s;
-    border: none;
-    display: inline-block; /* кнопки по ширине по содержимому */
-    width: auto;
 }
 
-.tab-controls__link--active,
 .tab-controls__link:hover {
     background: #FFE0CB;
     color: #AB8261;
