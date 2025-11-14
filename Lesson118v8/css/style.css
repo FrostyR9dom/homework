@@ -524,15 +524,17 @@ body {
 }
 
 .program__top {
+	display: flex;
+	justify-content: space-between;
+	align-items: end;
 }
 .program__heading {
 }
 .program__title {
+	margin-bottom: 20px;
 }
 
 .program__text {
-}
-.program__tab-content {
 }
 
 .tab-controls {
@@ -540,6 +542,9 @@ body {
 .tab-controls__item {
 }
 .tab-controls__link {
+}
+
+.tab-content {
 }
 
 
