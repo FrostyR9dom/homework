@@ -580,6 +580,11 @@ body {
 	box-shadow: 0px 4px 20px rgba(206, 195, 185, 0.3);
 }
 
+.tab-content--show {
+	display: flex;
+
+}
+
 
 /* --------------------------------------------- */
 .footer {
