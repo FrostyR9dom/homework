@@ -41,31 +41,34 @@
     }
     // ТАБЫ!!!
 
- const tabControls = document.querySelector('.tab-controls')
+    const tabControls = document.querySelector('.tab-controls')
 
-tabControls.addEventListener('click', toggleTab)
+    tabControls.addEventListener('click', toggleTab)
 
-function toggleTab(e) {
+    function toggleTab(e) {
 
-    const tabControl = e.target.closest('.tab-controls__link')
-    if (!tabControl) return
+        const tabControl = e.target.closest('.tab-controls__link')
+        if (!tabControl) return
+        e.preventDefault()
 
-    e.preventDefault()
+        if (tabControl.classList.contains('tab-controls__link--active')) return
 
-    const tabContentID = tabControl.getAttribute('href')
+        e.preventDefault()
 
-
-    document.querySelectorAll('.tab-controls__link--active').forEach(link => {
-        link.classList.remove('tab-controls__link--active')
-    })
-    
-
-    document.querySelectorAll('.tab-content--show').forEach(tab => {
-        tab.classList.remove('tab-content--show')
-    })
+        const tabContentID = tabControl.getAttribute('href')
 
 
-    tabControl.classList.add('tab-controls__link--active')
-    document.querySelector(tabContentID).classList.add('tab-content--show')
-}
+        document.querySelectorAll('.tab-controls__link--active').forEach(link => {
+            link.classList.remove('tab-controls__link--active')
+        })
+
+
+        document.querySelectorAll('.tab-content--show').forEach(tab => {
+            tab.classList.remove('tab-content--show')
+        })
+
+
+        tabControl.classList.add('tab-controls__link--active')
+        document.querySelector(tabContentID).classList.add('tab-content--show')
+    }
 })()
