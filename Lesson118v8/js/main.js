@@ -45,5 +45,13 @@
 
     tabControls.addEventListener('click', toggleTab)
     
-    function toggleTab (e)
+    function toggleTab (e) {
+
+        const tabControl = e.target.closest('.tab-controls__link')
+        if (!tabControl) return
+
+        e.preventDefault()
+
+        const tabContentID = tabControl.getAttribute('href')
+    }
 })()
