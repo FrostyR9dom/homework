@@ -53,5 +53,7 @@
         e.preventDefault()
 
         const tabContentID = tabControl.getAttribute('href')
+
+        document.querySelector(tabContentID).classList.add('tab-content--show')
     }
 })()
