@@ -532,21 +532,37 @@ body {
 }
 .program__title {
 	margin-bottom: 20px;
+	gap: 26px;
 }
 
 .program__text {
 }
 
 .tab-controls {
+	display: flex;
 }
 .tab-controls__item {
 }
 .tab-controls__link {
+	display: block;
+	border-radius: 100px;
+	padding: 14px 30px;
+	box-shadow: 0px 4px 20px rgba(206, 195, 185, 0.3);
+	transition: var(--transition);
 }
+
+.tab-controls__link:hover {
+	background: #FFE0CB;
+	box-shadow: 0px 4px 20px rgba(206, 195, 185, 0.3);
+}
+
 
 .tab-content {
 }
-
+.tab-controls__link--active {
+	background: #FFE0CB;
+	box-shadow: 0px 4px 20px rgba(206, 195, 185, 0.3);
+}
 
 
 
