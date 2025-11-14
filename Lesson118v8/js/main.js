@@ -39,5 +39,11 @@
         }
 
     }
+    // ТАБЫ!!!
 
+    const tabControls =  document.querySelector('.tab-controls')
+
+    tabControls.addEventListener('click', toggleTab)
+    
+    function toggleTab (e)
 })()
