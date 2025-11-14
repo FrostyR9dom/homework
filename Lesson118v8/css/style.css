@@ -567,7 +567,7 @@ body {
 
 .tab-content {
     display: none;
-    background: #8b8b8b;
+    background: #dfdfdf;
     border-radius: var(--border-radius);
     height: 400px;
     align-items: center;

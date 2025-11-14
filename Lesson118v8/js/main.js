@@ -41,11 +41,11 @@
     }
     // ТАБЫ!!!
 
-    const tabControls =  document.querySelector('.tab-controls')
+    const tabControls = document.querySelector('.tab-controls')
 
     tabControls.addEventListener('click', toggleTab)
-    
-    function toggleTab (e) {
+
+    function toggleTab(e) {
 
         const tabControl = e.target.closest('.tab-controls__link')
         if (!tabControl) return
@@ -54,6 +54,8 @@
 
         const tabContentID = tabControl.getAttribute('href')
 
+
+        document.querySelector('.tab-content--show').classList.remove('tab-content--show')
         document.querySelector(tabContentID).classList.add('tab-content--show')
     }
 })()
