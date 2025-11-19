@@ -57,6 +57,11 @@
 
         const tabContentID = tabControl.getAttribute('href')
 
+        const tabContent = document.querySelector(tabContentID)
+
+        // const activeContol
+        // const activeContent
+
 
         document.querySelectorAll('.tab-controls__link--active').forEach(link => {
             link.classList.remove('tab-controls__link--active')
