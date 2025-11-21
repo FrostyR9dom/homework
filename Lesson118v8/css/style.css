@@ -585,11 +585,45 @@ body {
 }
 
 .tab-content--show {
-	display: flex;
+	display: block;
 
+}
+/*  АККАРДИОН */
+
+.tab-content {
+}
+.tab-content--show {
+}
+.accordion-list {
+}
+.accordion-list__item {
+}
+.accordion-list__item--opened {
+}
+.accordion-list__control {
+}
+.accordion-list__control-title {
+}
+.accordion-list__control-icon {
+}
+.accordion-list__content {
 }
 
 
+.accordion-content {
+}
+.accordion-content__col {
+}
+.accordion-content__title {
+}
+.accordion-content__list {
+}
+.accordion-content__item {
+}
+.accordion-content__icon {
+}
+.accordion-content__text {
+}
 /* --------------------------------------------- */
 .footer {
 	color: var(--general-bg);
@@ -1083,16 +1117,4 @@ body {
 	.modal__window {
 		padding: 0 15px 45px;
 	}
-}
-
-
-.accordion-list {
-}
-.accordion-list__item {
-}
-.accordion-list__item--opened {
-}
-.accordion-list__control {
-}
-.accordion-list__content {
 }
