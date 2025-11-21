@@ -599,11 +599,23 @@ body {
 .accordion-list {
 }
 .accordion-list__item {
+	border: 1px	solid var(--accent-color);
+	border-radius: var(--border-radius);
 	margin-bottom: 30px;
+}
+.accordion-list__item::last-child {
+	margin-bottom: 0px;
 }
 .accordion-list__item--opened {
 }
 .accordion-list__control {
+	padding: 41px 30px;
+	width: 100%;
+	background: transparent;
+	font-size: inherit;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
 .accordion-list__control-title {
 }
