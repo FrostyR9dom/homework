@@ -595,47 +595,29 @@ body {
 }
 
 /*  АККАРДИОН */
-
-.tab-content {
-	display: none;
-}
-
-.tab-content--show {
-	display: block;
-}
-
-.accordion-list {}
-
-.accordion-list__item {
-	border: 1px solid var(--accent-color);
-	border-radius: var(--border-radius);
-	margin-bottom: 30px;
-}
-
-.accordion-list__item::last-child {
-	margin-bottom: 0px;
-}
-
-.accordion-list__item--opened {}
-
 .accordion-list__control {
-	padding: 41px 30px;
-	width: 100%;
-	background: transparent;
-	/* font-size: inherit; */
-	
-	justify-content: space-between;
-
-	align-items: center;
-	font-family: 'Gabriola';
-	font-size: 42px;
-	line-height: 90%;
-	color: var(--accent-text);
+    padding: 41px 30px;
+    width: 100%;
+    background: transparent;
+    border: none; /* ДОБАВЬ эту строку */
+    display: flex; /* ДОБАВЬ эту строку */
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Gabriola';
+    font-size: 42px;
+    line-height: 90%;
+    color: var(--accent-text);
+    cursor: pointer; /* ДОБАВЬ эту строку */
 }
 
 .accordion-list__content {
     display: none;
+    padding: 0 30px 40px;
+    /* УБЕРИ эти строки: */
+    /* display: flex; */
+    /* gap: 80px; */
 }
+
 .accordion-list__item--opened .accordion-list__content {
     display: block;
 }
@@ -645,17 +627,63 @@ body {
     gap: 40px;
 }
 
-.accordion-list__control-title {}
-
-.accordion-list__control-icon {}
-
-.accordion-list__content {
-	padding: 0 30px 40px;
-	display: flex;
-	gap: 80px;
-
+/* ДОБАВЬ эти стили: */
+.accordion-content__col {
+    flex: 1;
 }
 
+.accordion-content__title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: var(--accent-text);
+}
+
+.accordion-content__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.accordion-content__item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.accordion-content__icon {
+    margin-right: 10px;
+    width: 20px;
+    height: 20px;
+}
+
+.accordion-content__text {
+    font-size: 16px;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.program__top-flex {
+    align-items: flex-start; /* вместо center */
+}
+
+.accordion-list {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.accordion-list__control-title {
+    margin: 0;
+    text-align: left;
+    flex: 1;
+}
+
+.accordion-list__control-icon {
+    flex-shrink: 0;
+    margin-left: 20px;
+}
 .accordion-content {}
 
 .accordion-content__col {}
@@ -671,6 +699,9 @@ body {
 .accordion-content__icon {}
 
 .accordion-content__text {}
+
+
+
 
 /* --------------------------------------------- */
 .footer {
