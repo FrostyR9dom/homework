@@ -622,6 +622,10 @@ body {
 .accordion-list__control-icon {
 }
 .accordion-list__content {
+	padding: 0 30px 40px;
+	display: flex;
+	gap: 80px;
+
 }
 
 
