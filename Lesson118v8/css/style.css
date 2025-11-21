@@ -632,6 +632,18 @@ body {
 	color: var(--accent-text);
 }
 
+.accordion-list__content {
+    display: none;
+}
+.accordion-list__item--opened .accordion-list__content {
+    display: block;
+}
+
+.accordion-content {
+    display: flex;
+    gap: 40px;
+}
+
 .accordion-list__control-title {}
 
 .accordion-list__control-icon {}
