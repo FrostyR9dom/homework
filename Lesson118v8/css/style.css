@@ -591,12 +591,15 @@ body {
 /*  АККАРДИОН */
 
 .tab-content {
+	display: none;
 }
 .tab-content--show {
-}
+	display: block;
+	}
 .accordion-list {
 }
 .accordion-list__item {
+	margin-bottom: 30px;
 }
 .accordion-list__item--opened {
 }
