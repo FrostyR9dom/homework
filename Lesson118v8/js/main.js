@@ -38,7 +38,7 @@
         }
     }
 
-    // Табы!!! - ИСПРАВЛЕННЫЕ СЕЛЕКТОРЫ
+    // Табы!!! 
     const tabControls = document.querySelector('.tab-controls') // было .tab-conrols
 
     tabControls.addEventListener('click', toggleTab)
@@ -52,7 +52,7 @@
 
         const tabContentID = tabControl.getAttribute('href')
         
-        // Убираем активные классы у всех
+
         document.querySelectorAll('.tab-controls__link--active').forEach(link => {
             link.classList.remove('tab-controls__link--active')
         })
@@ -61,12 +61,12 @@
             tab.classList.remove('tab-content--show')
         })
 
-        // Добавляем активные классы к текущим элементам
+ 
         tabControl.classList.add('tab-controls__link--active')
         document.querySelector(tabContentID).classList.add('tab-content--show')
     }
 
-    // Аккордеон!!!! - ПРОСТАЯ ИСПРАВЛЕННАЯ ВЕРСИЯ
+    // Аккордеон!!!! 
     document.addEventListener('DOMContentLoaded', function() {
         const accordionItems = document.querySelectorAll('.accordion-list__item');
         
@@ -74,14 +74,14 @@
             const control = item.querySelector('.accordion-list__control');
             
             control.addEventListener('click', function() {
-                // Закрываем все другие аккордеоны
+
                 accordionItems.forEach(otherItem => {
                     if (otherItem !== item) {
                         otherItem.classList.remove('accordion-list__item--opened');
                     }
                 });
                 
-                // Открываем/закрываем текущий аккордеон
+
                 item.classList.toggle('accordion-list__item--opened');
             });
         });
