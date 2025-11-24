@@ -51,36 +51,35 @@
         if (tabControl.classList.contains('tab-controls__link--active')) return // исправлено
 
         const tabContentID = tabControl.getAttribute('href')
-        
+
 
         document.querySelectorAll('.tab-controls__link--active').forEach(link => {
             link.classList.remove('tab-controls__link--active')
         })
-        
+
         document.querySelectorAll('.tab-content--show').forEach(tab => {
             tab.classList.remove('tab-content--show')
         })
 
- 
         tabControl.classList.add('tab-controls__link--active')
         document.querySelector(tabContentID).classList.add('tab-content--show')
     }
 
     // Аккордеон!!!! 
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         const accordionItems = document.querySelectorAll('.accordion-list__item');
-        
+
         accordionItems.forEach(item => {
             const control = item.querySelector('.accordion-list__control');
-            
-            control.addEventListener('click', function() {
+
+            control.addEventListener('click', function () {
 
                 accordionItems.forEach(otherItem => {
                     if (otherItem !== item) {
                         otherItem.classList.remove('accordion-list__item--opened');
                     }
                 });
-                
+
 
                 item.classList.toggle('accordion-list__item--opened');
             });
