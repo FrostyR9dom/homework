@@ -39,16 +39,15 @@
     }
 
     // Табы!!! 
-    const tabControls = document.querySelector('.tab-controls') // было .tab-conrols
+    const tabControls = document.querySelector('.tab-controls')
 
     tabControls.addEventListener('click', toggleTab)
 
     function toggleTab(e) {
-        const tabControl = e.target.closest('.tab-controls__link') // было .tab-conrols__link
-
+        const tabControl = e.target.closest('.tab-controls__link')
         if (!tabControl) return
         e.preventDefault()
-        if (tabControl.classList.contains('tab-controls__link--active')) return // исправлено
+        if (tabControl.classList.contains('tab-controls__link--active')) return 
 
         const tabContentID = tabControl.getAttribute('href')
 
