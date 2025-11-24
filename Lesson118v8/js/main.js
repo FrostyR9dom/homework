@@ -1,9 +1,9 @@
 (function () {
 
+    // Бургер МЕНЮ!
     document.addEventListener('click', burgerInit)
 
     function burgerInit(e) {
-
         const burgerIcon = e.target.closest('.burger-icon')
         const burgerNavLink = e.target.closest('.nav__link')
 
@@ -15,9 +15,9 @@
         } else {
             document.body.classList.remove('body--opened-menu')
         }
-
     }
 
+    // Модалка
     const modal = document.querySelector('.modal')
     const modalButton = document.querySelector('.about__img-button')
 
@@ -31,49 +31,60 @@
 
     function closeModal(e) {
         e.preventDefault()
-
         const target = e.target
 
         if (target.closest('.modal__cancel') || target.classList.contains('modal')) {
             document.body.classList.remove('body--opened-modal')
         }
-
     }
-    // ТАБЫ!!!
 
-    const tabControls = document.querySelector('.tab-controls')
+    // Табы!!! - ИСПРАВЛЕННЫЕ СЕЛЕКТОРЫ
+    const tabControls = document.querySelector('.tab-controls') // было .tab-conrols
 
     tabControls.addEventListener('click', toggleTab)
 
     function toggleTab(e) {
+        const tabControl = e.target.closest('.tab-controls__link') // было .tab-conrols__link
 
-        const tabControl = e.target.closest('.tab-controls__link')
         if (!tabControl) return
         e.preventDefault()
-
-        if (tabControl.classList.contains('tab-controls__link--active')) return
-
-        e.preventDefault()
+        if (tabControl.classList.contains('tab-controls__link--active')) return // исправлено
 
         const tabContentID = tabControl.getAttribute('href')
-
-        const tabContent = document.querySelector(tabContentID)
-
-        // const activeContol
-        // const activeContent
-
-
+        
+        // Убираем активные классы у всех
         document.querySelectorAll('.tab-controls__link--active').forEach(link => {
             link.classList.remove('tab-controls__link--active')
         })
-
-
+        
         document.querySelectorAll('.tab-content--show').forEach(tab => {
             tab.classList.remove('tab-content--show')
         })
 
-
+        // Добавляем активные классы к текущим элементам
         tabControl.classList.add('tab-controls__link--active')
         document.querySelector(tabContentID).classList.add('tab-content--show')
     }
+
+    // Аккордеон!!!! - ПРОСТАЯ ИСПРАВЛЕННАЯ ВЕРСИЯ
+    document.addEventListener('DOMContentLoaded', function() {
+        const accordionItems = document.querySelectorAll('.accordion-list__item');
+        
+        accordionItems.forEach(item => {
+            const control = item.querySelector('.accordion-list__control');
+            
+            control.addEventListener('click', function() {
+                // Закрываем все другие аккордеоны
+                accordionItems.forEach(otherItem => {
+                    if (otherItem !== item) {
+                        otherItem.classList.remove('accordion-list__item--opened');
+                    }
+                });
+                
+                // Открываем/закрываем текущий аккордеон
+                item.classList.toggle('accordion-list__item--opened');
+            });
+        });
+    });
+
 })()
