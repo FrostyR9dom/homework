@@ -523,6 +523,36 @@ body {
 .grid-text {}
 
 /* --------------------------------------------- */
+
+.program__tab-content {
+
+} 
+
+.program__bottom {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 15px;
+}
+.program__action {
+}
+.program__discount {
+}
+.program__discount-value {
+}
+.program__price {
+}
+.program__price-text {
+}
+.program__price-value {
+}
+.program__price-value--big {
+}
+.program__button {
+}
+.button {
+}
+
 .program {}
 
 .program__top-flex {
