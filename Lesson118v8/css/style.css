@@ -525,7 +525,7 @@ body {
 /* --------------------------------------------- */
 
 .program__tab-content {
-
+margin-bottom: 40px;
 } 
 
 .program__bottom {
@@ -535,8 +535,13 @@ body {
 	gap: 15px;
 }
 .program__action {
+	display: grid;
+	grid-template: repeat(3, auto) / 1fr 1fr;
 }
 .program__discount {
+	grid-row: 1 /3;
+	background: var(--accent-bg);
+	border-radius: var(--border-radius);
 }
 .program__discount-value {
 }
