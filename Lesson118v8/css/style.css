@@ -573,8 +573,7 @@ body {
 	}
 
 	100% {
-transform: scale(1.1);
-
+		transform: translate(3%) scale(1.1);
 		color: #FF9138;
 	}
 
