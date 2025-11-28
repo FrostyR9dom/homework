@@ -537,8 +537,9 @@ body {
 
 .program__action {
 	display: grid;
-	grid-template: repeat(3, auto) / 1fr 1fr;
+	grid-template: repeat(3, auto) / 1.65fr 1fr;
 	gap: 40px;
+	min-width: 501px;
 }
 
 .program__discount {
@@ -565,19 +566,37 @@ body {
 .program__discount span {
 	font-size: 16px;
 	margin-left: 35%;
-	pa
 }
-
 
 .program__price {}
 
-.program__price-text {}
+.program__price-text {
+	line-height: 1.6;
+	text-transform: uppercase;
+	color: #ceaad0;
+	margin-bottom: 5px;
+}
 
-.program__price-value {}
+.program__price-value {
+	font-family: "Gabriola";
+	font-size: 32px;
+	line-height: .9;
+}
+
+.program__price-value--big{
+	font-style: 50px;
+	color: var(--accent-text);
+}
+
+.program__img img {
+	width: 100%;
+}
 
 .program__price-value--big {}
 
-.program__button {}
+.program__button {
+	grid-column: 1/-1;
+}
 
 .button {}
 
@@ -603,6 +622,8 @@ body {
 }
 
 .program__text {}
+
+/* ------ */
 
 .tab-controls {
 	display: flex;
