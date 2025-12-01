@@ -720,6 +720,8 @@ body {
 	line-height: 90%;
 	color: var(--accent-text);
 	transition: var(--transition);
+	gap: 15px;
+	text-align: left;
 }
 
 .accordion-list__item--opened .accordion-list__content {
@@ -1167,6 +1169,25 @@ body {
 	}
 
 	@media (max-width: 600px) {
+
+
+		/* ---- */
+		.program__title {
+			text-align: center;
+		}
+
+		.program__top {
+			text-align: center;
+		}
+
+		.tab-controls {
+			justify-content: center;
+		}
+
+		/* ------ */
+
+
+
 		.footer__inner {
 			grid-template-columns: 1fr;
 			gap: 30px;
