@@ -1180,10 +1180,12 @@ body {
 		/* -- */
 		.program__action {
 			min-width: none;
+			grid-template: repeat(3, auto) / minmax(280px, 1fr) 1fr;
 		}
+
 		/* -- */
 
-		
+
 		.footer__inner {
 			grid-template-columns: 1fr 1fr;
 			gap: 30px 15px;
@@ -1218,6 +1220,16 @@ body {
 		.tab-controls {
 			justify-content: center;
 		}
+
+		.program__discount {
+			grid-row: auto;
+			grid-column: 1/-1;
+		}
+
+		.program__action {
+			grid-template: repeat(3, auto) / 1fr 1fr;
+		}
+
 
 		/* ------ */
 
