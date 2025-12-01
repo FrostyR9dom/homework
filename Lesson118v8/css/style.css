@@ -1400,4 +1400,16 @@ body {
 	.modal__window {
 		padding: 0 15px 45px;
 	}
+
+	/* ----- */
+	.accordion-list__control {
+		padding: 17px 15px;
+	}
+	.accordion-content {
+		padding: 0 15px 30px;
+	}
+
+	.accordion-content__item {
+		margin-bottom: 10px;
+	}
 }
