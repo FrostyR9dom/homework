@@ -1127,7 +1127,13 @@ body {
 
 	}
 
+
 	/* ---- */
+.accordion-content {
+	padding: 0 30px 40px;
+	display: flex;
+	gap: 30px;
+}
 
 }
 
@@ -1196,7 +1202,6 @@ body {
 		}
 
 		/* ------ */
-
 
 
 		.footer__inner {
@@ -1353,8 +1358,10 @@ body {
 	}
 
 
-
-	/* ---- */
+	/* ---- */ 
+	.accordion-list__item {
+		margin-bottom: 10px;
+	}
 
 	.accordion-list__control-icon {
 		width: 26px;
