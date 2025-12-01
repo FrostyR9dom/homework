@@ -1120,14 +1120,14 @@ body {
 		grid-column: 1 /-1;
 	}
 
-/* ---- */
-.accordion-list__control {
-	padding: 25px 30px;
-	font-size: 42px;
+	/* ---- */
+	.accordion-list__control {
+		padding: 25px 30px;
+		font-size: 42px;
 
-}
+	}
 
-/* ---- */
+	/* ---- */
 
 }
 
@@ -1350,6 +1350,19 @@ body {
 
 	.about__grid {
 		gap: 15px;
+	}
+
+
+
+	/* ---- */
+
+	.accordion-list__control-icon {
+		width: 26px;
+		height: 26px;
+	}
+
+	.accordion-list__control-icon svg {
+		width: 10px;
 	}
 
 }
