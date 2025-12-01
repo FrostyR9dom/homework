@@ -540,6 +540,8 @@ body {
 	grid-template: repeat(3, auto) / 1.2fr 1fr;
 	gap: 30px;
 	min-width: 120px;
+	flex-shrink: 0;
+	/* width: 100%; */
 }
 
 .program__discount {
@@ -1138,6 +1140,13 @@ body {
 }
 
 @media (max-width: 900px) {
+
+	/* -- */
+	.program__img {
+		display: none;
+	}
+
+	/* --- */
 	.nav {
 		position: fixed;
 		inset: 0;
@@ -1167,6 +1176,14 @@ body {
 	}
 
 	@media (max-width: 900px) {
+
+		/* -- */
+		.program__action {
+			min-width: none;
+		}
+		/* -- */
+
+		
 		.footer__inner {
 			grid-template-columns: 1fr 1fr;
 			gap: 30px 15px;
@@ -1183,6 +1200,7 @@ body {
 		.socials__list {
 			justify-content: center;
 		}
+
 	}
 
 	@media (max-width: 600px) {
@@ -1405,6 +1423,7 @@ body {
 	.accordion-list__control {
 		padding: 17px 15px;
 	}
+
 	.accordion-content {
 		padding: 0 15px 30px;
 	}
