@@ -1227,7 +1227,9 @@ body {
 		}
 
 		.program__action {
-			grid-template: repeat(3, auto) / 1fr 1fr;
+			grid-template: repeat(3, auto) / auto auto;
+			gap: 15px;
+			justify-self: center;
 		}
 
 
@@ -1442,5 +1444,13 @@ body {
 
 	.accordion-content__item {
 		margin-bottom: 10px;
+	}
+
+	.program__action {
+		grid-template: none;
+	}
+
+	.program__price {
+		text-align: center;
 	}
 }
