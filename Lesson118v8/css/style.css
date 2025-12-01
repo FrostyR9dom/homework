@@ -536,10 +536,10 @@ body {
 }
 
 .program__action {
-	display: grid;
-	grid-template: repeat(3, auto) / 1.65fr 1fr;
-	gap: 40px;
-	min-width: 501px;
+    display: grid;
+    grid-template: repeat(3, auto) / 1.2fr 1fr;
+    gap: 30px;
+    min-width: 120px;
 }
 
 .program__discount {
@@ -549,6 +549,7 @@ body {
 	border-radius: var(--border-radius);
 	padding: 40px;
 	position: relative;
+
 }
 
 .program__discount-value {
