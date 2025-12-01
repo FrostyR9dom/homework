@@ -743,6 +743,8 @@ body {
 	transition: var(--transition);
 }
 
+
+
 .accordion-list__control-icon svg {
 	margin-left: 2px;
 }
@@ -1117,6 +1119,15 @@ body {
 	.about__grid {
 		grid-column: 1 /-1;
 	}
+
+/* ---- */
+.accordion-list__control {
+	padding: 25px 30px;
+	font-size: 42px;
+
+}
+
+/* ---- */
 
 }
 
