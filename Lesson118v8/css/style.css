@@ -809,8 +809,8 @@ body {
 }
 
 .accordion-content__icon {
-	width: 20px;
-	height: 20px;
+	width: 24px;
+	height: 24px;
 	border: 1px solid #CEAAD0;
 	border-radius: 50%;
 	display: inline-flex;
@@ -821,8 +821,8 @@ body {
 }
 
 .accordion-content__icon img {
-	width: 10px;
-	height: 10px;
+	width: 12px;
+	height: 12px;
 }
 
 .accordion-content__text {
@@ -1488,3 +1488,15 @@ body {
 	.program__price {
 		text-align: center;
 	}
+
+	.accordion-content__icon {
+		width: 20px;
+		height: 20px;
+	}
+
+	.accordion-content__icon img {
+		width: 10px;
+		height: 10px;
+	}
+
+}
