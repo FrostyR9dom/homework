@@ -1424,7 +1424,18 @@ body {
 
 }
 
+/* ДОБАВИЛ для корректировки с 511 по 570 */
+@media (max-width: 570px) {
+	.program__action {
+		grid-template-columns: 1fr;
+		gap: 15px;
+	}
 
+	.program__discount {
+		grid-column: 1;
+		grid-row: auto;
+	}
+}
 
 /* Исправление для 510px */
 
@@ -1487,18 +1498,5 @@ body {
 	.accordion-content__icon img {
 		width: 10px;
 		height: 10px;
-	}
-}
-
-/* ДОБАВИЛ для корректировки с 511 по 570 */
-@media (max-width: 570px) {
-	.program__action {
-		grid-template-columns: 1fr;
-		gap: 15px;
-	}
-
-	.program__discount {
-		grid-column: 1;
-		grid-row: auto;
 	}
 }
