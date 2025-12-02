@@ -1066,7 +1066,6 @@ body {
 	bottom: -8px;
 }
 
-
 .body--opened-menu .burger-icon span {
 	background: transparent;
 }
@@ -1083,8 +1082,6 @@ body {
 
 /* ============================================================== */
 
-
-
 @media (max-width: 1200px) {
 	.hero__img {
 		margin: 0;
@@ -1098,7 +1095,6 @@ body {
 	}
 }
 
-
 /* ------------------ */
 
 .program__top {
@@ -1110,9 +1106,7 @@ body {
 	flex-wrap: wrap;
 }
 
-
 /* ------------- */
-
 
 @media (max-width: 1100px) {
 	.about__img {
@@ -1133,7 +1127,6 @@ body {
 		font-size: 42px;
 
 	}
-
 
 	/* ---- */
 	.accordion-content {
@@ -1190,7 +1183,6 @@ body {
 
 		/* -- */
 
-
 		.footer__inner {
 			grid-template-columns: 1fr 1fr;
 			gap: 30px 15px;
@@ -1211,7 +1203,6 @@ body {
 	}
 
 	@media (max-width: 600px) {
-
 
 		/* ---- */
 		.program__title {
@@ -1237,9 +1228,7 @@ body {
 			justify-self: center;
 		}
 
-
 		/* ------ */
-
 
 		.footer__inner {
 			grid-template-columns: 1fr;
@@ -1340,7 +1329,6 @@ body {
 		height: auto;
 	}
 
-
 	.about__img {
 		max-width: 500px;
 		justify-self: center;
@@ -1365,8 +1353,6 @@ body {
 	.accordion-content__text {
 		min-width: none;
 	}
-
-
 }
 
 @media (max-width: 600px) {
@@ -1450,7 +1436,6 @@ body {
 		grid-row: auto;
 	}
 } */
-
 
 @media (max-width: 450px) {
 	.modal__window {
