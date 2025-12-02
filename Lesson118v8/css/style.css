@@ -81,7 +81,6 @@ body {
 
 /* ================================================= */
 
-
 .modal {
 	position: fixed;
 	inset: 0;
@@ -380,7 +379,6 @@ body {
 	opacity: 1;
 }
 
-
 .hero__img-button::before {
 	content: '';
 	position: absolute;
@@ -401,7 +399,6 @@ body {
 }
 
 /* ========================================================== */
-
 
 .about {
 	padding: 80px 0;
@@ -568,7 +565,6 @@ body {
 	animation: discount-grow .8s infinite alternate;
 }
 
-
 @keyframes discount-grow {
 	0% {
 		transform: scale(1);
@@ -674,7 +670,6 @@ body {
 	color: #AB8261;
 }
 
-
 .tab-content {
 	display: none;
 	background: transparent;
@@ -744,8 +739,6 @@ body {
 	justify-content: center;
 	transition: var(--transition);
 }
-
-
 
 .accordion-list__control-icon svg {
 	margin-left: 2px;
@@ -958,7 +951,6 @@ body {
 	transform: scale(1.1);
 	opacity: 0.8;
 }
-
 
 /* ====================================================================================== */
 
