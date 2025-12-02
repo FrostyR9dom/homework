@@ -1439,7 +1439,7 @@ body {
 
 /* Исправление для 510px */
 
-@media (max-width: 510px) {
+/* @media (max-width: 510px) {
 	.program__action {
 		grid-template-columns: 1fr;
 		gap: 15px;
@@ -1449,7 +1449,7 @@ body {
 		grid-column: 1;
 		grid-row: auto;
 	}
-}
+} */
 
 
 @media (max-width: 450px) {
