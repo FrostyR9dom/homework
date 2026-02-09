@@ -10,12 +10,13 @@ caption {
     padding: 8px;
 }
 
-td, th {
+td,
+th {
     border: 1px solid black;
     padding: 8px;
     text-align: center;
 }
 
-.saturday, .saturday-header {
+.sunday {
     color: red;
 }
