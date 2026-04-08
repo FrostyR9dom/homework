@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Анкета</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="form-container">
+        <h2>Ваши личные данные</h2>
+
+        <form id="myForm">
+            <fieldset class="form-group">
+                <label>Ваше имя</label>
+                <input type="text" id="name" placeholder="Введите ваше имя">
+
+                <label>Ваш возраст</label>
+                <input type="number" id="age" placeholder="Введите возраст">
+
+                <label>Ваш номер телефона</label>
+                <input type="tel" id="phone" placeholder="+7 999 999-99-99">
+
+                <label>Ваша почта</label>
+                <input type="email" id="email" placeholder="example@mail.ru">
+            </fieldset>
+
+            <fieldset class="form-group">
+                <label>Сообщение</label>
+                <textarea id="message" rows="3" placeholder="Введите сообщение"></textarea>
+
+                <div class="checkbox">
+                    <input type="checkbox" id="agree">
+                    <label>Я принимаю правила</label>
+                </div>
+            </fieldset>
+
+            <button type="submit">Отправить</button>
+        </form>
+    </div>
+
+    <script>
+        const form = document.getElementById('myForm');
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const age = document.getElementById('age').value;
+            const phone = document.getElementById('phone').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+            const agree = document.getElementById('agree').checked;
+
+            if (name === '') {
+                alert('Введите имя');
+                return;
+            }
+
+            if (age === '') {
+                alert('Введите возраст');
+                return;
+            }
+
+            if (phone === '') {
+                alert('Введите телефон');
+                return;
+            }
+
+            if (email === '') {
+                alert('Введите почту');
+                return;
+            }
+
+            if (message === '') {
+                alert('Введите сообщение');
+                return;
+            }
+
+            if (!agree) {
+                alert('Примите правила');
+                return;
+            }
+
+            alert('Спасибо! Форма отправлена.');
+        });
+    </script>
+</body>
+
+</html>
