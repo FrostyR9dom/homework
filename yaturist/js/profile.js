@@ -1,24 +1,30 @@
 /**
- * profile.js
- * Логика для личного кабинета пользователя
+ * profile.js - Логика личного кабинета
  */
 
-// Глобальные переменные
-var currentUser = null;
-
+// Ждём полной загрузки DOM
 document.addEventListener('DOMContentLoaded', function() {
+
+    console.log('profile.js загружен');
 
     // ===== 1. ЗАГРУЗКА ДАННЫХ ПОЛЬЗОВАТЕЛЯ =====
     function loadUserProfile() {
-        currentUser = getCurrentUser();
+        // Проверяем, что функция getCurrentUser существует
+        if (typeof getCurrentUser === 'undefined') {
+            console.error('getCurrentUser не определена! auth.js не загружен?');
+            setTimeout(loadUserProfile, 100); // Пробуем ещё раз через 100мс
+            return;
+        }
+
+        var currentUser = getCurrentUser();
+        console.log('currentUser:', currentUser);
 
         if (!currentUser) {
-            // Если пользователь не авторизован - перенаправляем на вход
             window.location.href = 'register.html';
             return;
         }
 
-        // Заполняем данные из localStorage
+        // Заполняем данные
         document.getElementById('profileName').textContent = currentUser.firstName + ' ' + currentUser.lastName;
 
         var userNameSpans = document.querySelectorAll('#profileUserName');
@@ -26,7 +32,6 @@ document.addEventListener('DOMContentLoaded', function() {
             userNameSpans[i].textContent = currentUser.firstName + ' ' + currentUser.lastName;
         }
 
-        // Аватар
         var avatarImg = document.getElementById('profileAvatar');
         if (currentUser.avatar && currentUser.avatar !== 'undefined') {
             avatarImg.src = currentUser.avatar;
@@ -34,309 +39,232 @@ document.addEventListener('DOMContentLoaded', function() {
             avatarImg.src = 'img/avatars/default-avatar.png';
         }
 
-        // Биография
-        var bioElement = document.getElementById('profileBio');
-        if (currentUser.bio && currentUser.bio.trim() !== '') {
-            bioElement.textContent = currentUser.bio;
-        } else {
-            bioElement.textContent = 'Путешественник. Люблю открывать новые места.';
-        }
+        document.getElementById('profileBio').textContent = currentUser.bio || 'Путешественник. Люблю открывать новые места.';
+        document.getElementById('profileLocation').textContent = currentUser.city ? currentUser.city + ', Краснодарский край' : 'Краснодарский край';
 
-        // Город
-        var locationElement = document.getElementById('profileLocation');
-        if (currentUser.city && currentUser.city.trim() !== '') {
-            locationElement.textContent = currentUser.city + ', Краснодарский край';
-        } else {
-            locationElement.textContent = 'Краснодарский край';
-        }
-
-        // Дата регистрации
-        var sinceElement = document.getElementById('profileSince');
         if (currentUser.createdAt) {
             var date = new Date(currentUser.createdAt);
-            sinceElement.textContent = 'На сайте с ' + date.getFullYear();
+            document.getElementById('profileSince').textContent = 'На сайте с ' + date.getFullYear();
         } else {
-            sinceElement.textContent = 'На сайте с 2024';
+            document.getElementById('profileSince').textContent = 'На сайте с 2024';
         }
 
-        // Статус автора
         var authorStatusElement = document.getElementById('profileAuthorStatus');
         if (currentUser.isAuthor) {
             authorStatusElement.textContent = 'Верифицированный автор';
-            authorStatusElement.style.color = 'var(--success)';
+            authorStatusElement.style.color = '#43A047';
         } else {
             authorStatusElement.textContent = 'Путешественник';
-            authorStatusElement.style.color = 'var(--gray)';
+            authorStatusElement.style.color = '#78909C';
         }
 
-        // Показываем/скрываем кнопку создания маршрута
         var createRouteBtn = document.getElementById('createRouteBtn');
         if (createRouteBtn) {
-            if (currentUser.isAuthor) {
-                createRouteBtn.style.display = 'inline-flex';
-            } else {
-                createRouteBtn.style.display = 'none';
-            }
+            createRouteBtn.style.display = currentUser.isAuthor ? 'inline-flex' : 'none';
         }
 
-        // Обновляем форму настроек
+        // Заполняем форму настроек
         document.getElementById('settingsFirstName').value = currentUser.firstName || '';
         document.getElementById('settingsLastName').value = currentUser.lastName || '';
         document.getElementById('settingsEmail').value = currentUser.email || '';
         document.getElementById('settingsCity').value = currentUser.city || '';
         document.getElementById('settingsBio').value = currentUser.bio || '';
+        if (document.getElementById('settingsIsAuthor')) {
+            document.getElementById('settingsIsAuthor').checked = currentUser.isAuthor || false;
+        }
 
-        // Статистика (имитация)
-        document.getElementById('routesCount').textContent = currentUser.isAuthor ? '3' : '0';
-        document.getElementById('salesCount').textContent = currentUser.isAuthor ? '1,247' : '0';
-        document.getElementById('avgRating').textContent = currentUser.isAuthor ? '4.9' : '0';
-        document.getElementById('totalEarnings').textContent = currentUser.isAuthor ? '348,203 ₽' : '0 ₽';
-        document.getElementById('allTimeEarnings').textContent = currentUser.isAuthor ? '348,203 ₽' : '0 ₽';
+        // Загружаем маршруты и статистику
+        loadUserRoutes(currentUser);
+        loadPurchasedRoutes(currentUser);
+        updateStatistics(currentUser);
     }
 
-    // ===== 2. ПЕРЕКЛЮЧЕНИЕ ВКЛАДОК =====
-    var tabs = document.querySelectorAll('.profile-tab');
-    var contents = document.querySelectorAll('.profile-tab-content');
+    // ===== 2. ЗАГРУЗКА МАРШРУТОВ ПОЛЬЗОВАТЕЛЯ =====
+    function loadUserRoutes(currentUser) {
+        var container = document.getElementById('myRoutesList');
+        if (!container) return;
 
-    function switchTab(tabId) {
-        // Скрываем все вкладки
-        for (var i = 0; i < contents.length; i++) {
-            contents[i].classList.remove('active');
-        }
-
-        // Убираем активный класс со всех кнопок
-        for (var j = 0; j < tabs.length; j++) {
-            tabs[j].classList.remove('active');
-        }
-
-        // Показываем выбранную вкладку
-        var activeContent = document.getElementById(tabId);
-        if (activeContent) {
-            activeContent.classList.add('active');
-        }
-
-        // Активируем кнопку
-        var activeTab = document.querySelector('[data-tab="' + tabId + '"]');
-        if (activeTab) {
-            activeTab.classList.add('active');
-        }
-
-        // Сохраняем в localStorage
-        localStorage.setItem('activeProfileTab', tabId);
-
-        // Если переключились на вкладку настроек, обновляем форму
-        if (tabId === 'settings' && currentUser) {
-            document.getElementById('settingsFirstName').value = currentUser.firstName || '';
-            document.getElementById('settingsLastName').value = currentUser.lastName || '';
-            document.getElementById('settingsEmail').value = currentUser.email || '';
-            document.getElementById('settingsCity').value = currentUser.city || '';
-            document.getElementById('settingsBio').value = currentUser.bio || '';
-        }
-    }
-
-    // Вешаем обработчики на вкладки
-    for (var k = 0; k < tabs.length; k++) {
-        tabs[k].addEventListener('click', function() {
-            var tabId = this.getAttribute('data-tab');
-            switchTab(tabId);
-        });
-    }
-
-    // Восстанавливаем последнюю активную вкладку
-    var savedTab = localStorage.getItem('activeProfileTab');
-    if (savedTab && document.getElementById(savedTab)) {
-        switchTab(savedTab);
-    }
-
-    // ===== 3. ЗАГРУЗКА МОИХ МАРШРУТОВ =====
-    function loadMyRoutes() {
-        var routesList = document.getElementById('myRoutesList');
-        if (!routesList) return;
-
-        if (!currentUser || !currentUser.isAuthor) {
-            routesList.innerHTML = '<div class="empty-state"><i class="fas fa-info-circle"></i><br>Вы не являетесь автором. Чтобы создавать маршруты, отметьте галочку "Хочу создавать маршруты" в настройках.</div>';
-            return;
-        }
-
-        // Загружаем маршруты пользователя из localStorage
         var allRoutes = JSON.parse(localStorage.getItem('yatyrist_routes') || '[]');
         var myRoutes = allRoutes.filter(function(route) {
             return route.author && route.author.id === currentUser.id;
         });
 
-        // Если нет своих маршрутов, показываем примеры
         if (myRoutes.length === 0) {
-            myRoutes = [{
-                    id: 1,
-                    title: 'Агурские водопады и Орлиные скалы',
-                    type: 'hike',
-                    typeName: 'Пеший',
-                    rating: 4.9,
-                    sales: 1247,
-                    views: 3892,
-                    income: 348203
-                },
-                {
-                    id: 2,
-                    title: 'Восхождение на гору Фишт',
-                    type: 'hike',
-                    typeName: 'Пеший',
-                    rating: 4.8,
-                    sales: 156,
-                    views: 2104,
-                    income: 186444
-                }
-            ];
+            container.innerHTML = '<div class="empty-state"><i class="fas fa-map-signs" style="font-size: 3rem; opacity: 0.3;"></i><br>У вас пока нет созданных маршрутов<br><a href="create-route.html" class="btn btn-primary btn-small" style="margin-top: 15px;">Создать маршрут</a></div>';
+            return;
         }
 
         var html = '';
         for (var i = 0; i < myRoutes.length; i++) {
             var route = myRoutes[i];
-            html += '<div class="route-item" data-route-id="' + route.id + '">';
-            html += '<div class="route-item-img" style="background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); display: flex; align-items: center; justify-content: center; color: white;"><i class="fas fa-route"></i></div>';
-            html += '<div class="route-item-info">';
-            html += '<h3>' + route.title + '</h3>';
-            html += '<div class="route-item-meta">';
-            html += '<span class="badge ' + route.type + '">' + (route.typeName || route.type) + '</span>';
-            html += '<span><i class="fas fa-star"></i> ' + (route.rating || '4.5') + '</span>';
-            html += '<span><i class="fas fa-shopping-cart"></i> ' + (route.sales || '0') + ' продаж</span>';
-            html += '<span><i class="fas fa-eye"></i> ' + (route.views || '0') + ' просмотров</span>';
-            html += '</div>';
-            html += '<div class="route-item-stats">';
-            html += '<span>Доход: ' + ((route.income || 0).toLocaleString()) + ' ₽</span>';
-            html += '</div>';
-            html += '</div>';
-            html += '<div class="route-item-actions">';
-            html += '<button class="btn-icon" title="Редактировать" onclick="editRoute(' + route.id + ')">';
-            html += '<i class="fas fa-edit"></i></button>';
-            html += '<button class="btn-icon" title="Статистика" onclick="viewStats(' + route.id + ')">';
-            html += '<i class="fas fa-chart-bar"></i></button>';
-            html += '<button class="btn-icon danger" title="Удалить" onclick="deleteRoute(' + route.id + ')">';
-            html += '<i class="fas fa-trash"></i></button>';
-            html += '</div>';
-            html += '</div>';
-        }
+            var typeName = route.type === 'car' ? 'Авто' : (route.type === 'bike' ? 'Вело' : 'Пеший');
+            var sales = route.sales || 0;
+            var views = route.views || 0;
+            var income = Math.round((route.price || 0) * sales * 0.7);
 
-        routesList.innerHTML = html;
+            html += '<div class="route-item" data-route-id="' + route.id + '">' +
+                '<div class="route-item-img"><i class="fas fa-route"></i></div>' +
+                '<div class="route-item-info">' +
+                '<h3>' + route.title + '</h3>' +
+                '<div class="route-item-meta">' +
+                '<span class="badge ' + route.type + '">' + typeName + '</span>' +
+                '<span><i class="fas fa-shopping-cart"></i> ' + sales + ' продаж</span>' +
+                '<span><i class="fas fa-eye"></i> ' + views + ' просмотров</span>' +
+                '</div>' +
+                '<div class="route-item-stats">💰 Доход: ' + income.toLocaleString() + ' ₽</div>' +
+                '</div>' +
+                '<div class="route-item-actions">' +
+                '<button class="btn-icon" onclick="editRoute(' + route.id + ')"><i class="fas fa-edit"></i></button>' +
+                '<button class="btn-icon" onclick="viewStats(' + route.id + ')"><i class="fas fa-chart-bar"></i></button>' +
+                '<button class="btn-icon danger" onclick="deleteRoute(' + route.id + ')"><i class="fas fa-trash"></i></button>' +
+                '</div></div>';
+        }
+        container.innerHTML = html;
     }
 
-    // ===== 4. ЗАГРУЗКА КУПЛЕННЫХ МАРШРУТОВ =====
-    function loadPurchasedRoutes() {
-        var purchasedList = document.getElementById('purchasedList');
-        if (!purchasedList) return;
+    // ===== 3. ЗАГРУЗКА КУПЛЕННЫХ МАРШРУТОВ =====
+    function loadPurchasedRoutes(currentUser) {
+        var container = document.getElementById('purchasedList');
+        if (!container) return;
 
-        // Загружаем купленные маршруты
-        var purchased = JSON.parse(localStorage.getItem('yatyrist_purchased') || '[]');
+        var purchased = JSON.parse(localStorage.getItem('yatyrist_purchased_' + currentUser.id) || '[]');
 
-        // Если нет купленных, показываем пример
-        if (purchased.length === 0 && currentUser) {
-            purchased = [{
-                    id: 3,
-                    title: 'Автопутешествие на плато Лаго-Наки',
-                    author: 'Марат Горный',
-                    purchaseDate: new Date().toLocaleDateString(),
-                    price: 999
-                },
-                {
-                    id: 2,
-                    title: 'Велопрогулка: Геленджик — Кабардинка',
-                    author: 'Сергей Вело',
-                    purchaseDate: new Date(Date.now() - 86400000).toLocaleDateString(),
-                    price: 199
-                }
-            ];
+        if (purchased.length === 0) {
+            container.innerHTML = '<div class="empty-state"><i class="fas fa-shopping-bag" style="font-size: 3rem; opacity: 0.3;"></i><br>У вас пока нет купленных маршрутов<br><a href="index.html" class="btn btn-primary btn-small" style="margin-top: 15px;">Купить маршрут</a></div>';
+            return;
         }
 
         var html = '';
         for (var i = 0; i < purchased.length; i++) {
             var item = purchased[i];
-            html += '<div class="purchased-item">';
-            html += '<div class="purchased-img" style="background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%); display: flex; align-items: center; justify-content: center; color: white;"><i class="fas fa-map"></i></div>';
-            html += '<div class="purchased-info">';
-            html += '<h3>' + item.title + '</h3>';
-            html += '<span class="author">Автор: ' + item.author + '</span>';
-            html += '<span class="purchase-date">Куплено: ' + item.purchaseDate + '</span>';
-            html += '</div>';
-            html += '<div class="purchased-actions">';
-            html += '<button class="btn btn-primary btn-small" onclick="downloadGPX(' + item.id + ')">';
-            html += '<i class="fas fa-download"></i> Скачать GPX</button>';
-            html += '<button class="btn btn-outline btn-small" onclick="leaveReview(' + item.id + ')">';
-            html += '<i class="fas fa-star"></i> Оставить отзыв</button>';
-            html += '</div>';
-            html += '</div>';
+            html += '<div class="purchased-item">' +
+                '<div class="purchased-img" style="background: linear-gradient(135deg, #66BB6A, #2E7D32); width: 80px; height: 60px; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white;"><i class="fas fa-map"></i></div>' +
+                '<div class="purchased-info" style="flex: 1;">' +
+                '<h3>' + item.title + '</h3>' +
+                '<span class="author">Автор: ' + item.author + '</span>' +
+                '<span class="purchase-date" style="display: block; color: #888; font-size: 12px;">Куплено: ' + item.purchaseDate + '</span>' +
+                '</div>' +
+                '<div class="purchased-actions">' +
+                '<button class="btn btn-primary btn-small" onclick="downloadGPX(' + item.routeId + ')"><i class="fas fa-download"></i> Скачать GPX</button>' +
+                '<button class="btn btn-outline btn-small" onclick="leaveReview(' + item.routeId + ')"><i class="fas fa-star"></i> Оставить отзыв</button>' +
+                '</div></div>';
         }
-
-        purchasedList.innerHTML = html;
+        container.innerHTML = html;
     }
 
-    // ===== 5. ЗАГРУЗКА ТАБЛИЦЫ ФИНАНСОВ =====
-    function loadEarnings() {
+    // ===== 4. ОБНОВЛЕНИЕ СТАТИСТИКИ =====
+    function updateStatistics(currentUser) {
+        var allRoutes = JSON.parse(localStorage.getItem('yatyrist_routes') || '[]');
+        var myRoutes = allRoutes.filter(function(route) {
+            return route.author && route.author.id === currentUser.id;
+        });
+
+        var routesCount = myRoutes.length;
+        var totalSales = 0;
+        var totalIncome = 0;
+        var totalRating = 0;
+        var ratingCount = 0;
+
+        for (var i = 0; i < myRoutes.length; i++) {
+            var route = myRoutes[i];
+            totalSales += route.sales || 0;
+            totalIncome += Math.round((route.price || 0) * (route.sales || 0) * 0.7);
+
+            var reviews = JSON.parse(localStorage.getItem('reviews_' + route.id) || '[]');
+            for (var r = 0; r < reviews.length; r++) {
+                totalRating += reviews[r].rating;
+                ratingCount++;
+            }
+        }
+
+        var avgRating = ratingCount > 0 ? (totalRating / ratingCount).toFixed(1) : 0;
+
+        document.getElementById('routesCount').textContent = routesCount;
+        document.getElementById('salesCount').textContent = totalSales.toLocaleString();
+        document.getElementById('avgRating').textContent = avgRating;
+        document.getElementById('totalEarnings').textContent = totalIncome.toLocaleString() + ' ₽';
+        document.getElementById('allTimeEarnings').textContent = totalIncome.toLocaleString() + ' ₽';
+
+        var monthIncome = Math.round(totalIncome * 0.3);
+        document.getElementById('monthEarnings').textContent = monthIncome.toLocaleString() + ' ₽';
+        document.getElementById('availableEarnings').textContent = (totalIncome - monthIncome).toLocaleString() + ' ₽';
+
+        // История операций
+        updateEarningsHistory(myRoutes);
+    }
+
+    function updateEarningsHistory(myRoutes) {
         var tbody = document.getElementById('earningsTableBody');
         if (!tbody) return;
 
-        if (!currentUser || !currentUser.isAuthor) {
-            tbody.innerHTML = '<tr><td colspan="4" style="text-align: center;">Вы не являетесь автором. Создавайте маршруты и зарабатывайте!</td></tr>';
+        var allTransactions = [];
+        for (var i = 0; i < myRoutes.length; i++) {
+            var route = myRoutes[i];
+            var routePurchases = JSON.parse(localStorage.getItem('route_purchases_' + route.id) || '[]');
+            for (var p = 0; p < routePurchases.length; p++) {
+                var purchase = routePurchases[p];
+                allTransactions.push({
+                    date: purchase.date,
+                    route: route.title,
+                    amount: Math.round((route.price || 0) * 0.7),
+                    status: 'success'
+                });
+            }
+        }
+
+        allTransactions.sort(function(a, b) {
+            return new Date(b.date) - new Date(a.date);
+        });
+
+        if (allTransactions.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="4" style="text-align: center;">Нет операций</td></tr>';
             return;
         }
 
-        var transactions = [
-            { date: new Date().toLocaleDateString(), route: 'Агурские водопады', amount: '279 ₽', status: 'success' },
-            { date: new Date(Date.now() - 86400000).toLocaleDateString(), route: 'Восхождение на Фишт', amount: '1,199 ₽', status: 'success' },
-            { date: new Date(Date.now() - 172800000).toLocaleDateString(), route: 'Агурские водопады', amount: '279 ₽', status: 'pending' },
-            { date: new Date(Date.now() - 259200000).toLocaleDateString(), route: 'Агурские водопады', amount: '279 ₽', status: 'success' }
-        ];
-
         var html = '';
-        for (var i = 0; i < transactions.length; i++) {
-            var t = transactions[i];
-            var statusClass = t.status === 'success' ? 'success' : 'pending';
-            var statusText = t.status === 'success' ? 'Выплачено' : 'Ожидает';
-
-            html += '<tr>';
-            html += '<td>' + t.date + '</td>';
-            html += '<td>' + t.route + '</td>';
-            html += '<td>' + t.amount + '</td>';
-            html += '<td><span class="status ' + statusClass + '">' + statusText + '</span></td>';
-            html += '</tr>';
+        for (var t = 0; t < Math.min(allTransactions.length, 10); t++) {
+            var trans = allTransactions[t];
+            html += '<tr><td>' + trans.date + '</td><td>' + trans.route + '</td><td>' + trans.amount.toLocaleString() + ' ₽</td><td><span class="status success">Выплачено</span></td></tr>';
         }
-
         tbody.innerHTML = html;
     }
 
-    // ===== 6. СОХРАНЕНИЕ НАСТРОЕК =====
+    // ===== 5. СОХРАНЕНИЕ НАСТРОЕК =====
     var settingsForm = document.getElementById('settingsForm');
     if (settingsForm) {
         settingsForm.addEventListener('submit', function(e) {
             e.preventDefault();
 
+            var currentUser = getCurrentUser();
             if (!currentUser) return;
 
-            // Получаем новые значения
-            var newFirstName = document.getElementById('settingsFirstName').value;
-            var newLastName = document.getElementById('settingsLastName').value;
-            var newEmail = document.getElementById('settingsEmail').value;
-            var newCity = document.getElementById('settingsCity').value;
-            var newBio = document.getElementById('settingsBio').value;
-
-            // Обновляем объект пользователя
-            currentUser.firstName = newFirstName;
-            currentUser.lastName = newLastName;
-            currentUser.email = newEmail;
-            currentUser.city = newCity;
-            currentUser.bio = newBio;
-
-            // Сохраняем
-            if (updateUserData(currentUser)) {
-                // Обновляем отображение
-                loadUserProfile();
-                alert('✅ Настройки сохранены!');
-            } else {
-                alert('❌ Ошибка при сохранении настроек');
+            currentUser.firstName = document.getElementById('settingsFirstName').value;
+            currentUser.lastName = document.getElementById('settingsLastName').value;
+            currentUser.email = document.getElementById('settingsEmail').value;
+            currentUser.city = document.getElementById('settingsCity').value;
+            currentUser.bio = document.getElementById('settingsBio').value;
+            if (document.getElementById('settingsIsAuthor')) {
+                currentUser.isAuthor = document.getElementById('settingsIsAuthor').checked;
             }
+
+            if (typeof updateUserData === 'function') {
+                updateUserData(currentUser);
+            } else {
+                localStorage.setItem('yatyrist_user', JSON.stringify(currentUser));
+                var users = JSON.parse(localStorage.getItem('yatyrist_users') || '[]');
+                var index = users.findIndex(function(u) { return u.id === currentUser.id; });
+                if (index !== -1) {
+                    users[index] = {...users[index], ...currentUser };
+                    localStorage.setItem('yatyrist_users', JSON.stringify(users));
+                }
+            }
+
+            loadUserProfile();
+            alert('✅ Настройки сохранены!');
         });
     }
 
-    // ===== 7. СМЕНА АВАТАРА =====
+    // ===== 6. СМЕНА АВАТАРА =====
     var changeAvatarBtn = document.getElementById('changeAvatarBtn');
     var avatarInput = document.getElementById('avatarInput');
     var profileAvatar = document.getElementById('profileAvatar');
@@ -348,84 +276,108 @@ document.addEventListener('DOMContentLoaded', function() {
 
         avatarInput.addEventListener('change', function(e) {
             var file = e.target.files[0];
-            if (file && currentUser) {
+            if (file) {
                 var reader = new FileReader();
                 reader.onload = function(ev) {
-                    var avatarUrl = ev.target.result;
-                    profileAvatar.src = avatarUrl;
-                    currentUser.avatar = avatarUrl;
-                    updateUserData(currentUser);
-                    updateAuthUI();
-                    alert('✅ Фото профиля обновлено!');
+                    var currentUser = getCurrentUser();
+                    if (currentUser) {
+                        currentUser.avatar = ev.target.result;
+                        localStorage.setItem('yatyrist_user', JSON.stringify(currentUser));
+                        profileAvatar.src = ev.target.result;
+                        alert('✅ Аватар обновлён!');
+                    }
                 };
                 reader.readAsDataURL(file);
             }
         });
     }
 
-    // ===== 8. КНОПКА ВЫВОДА СРЕДСТВ =====
-    var withdrawBtn = document.getElementById('withdrawBtn');
-    if (withdrawBtn) {
-        withdrawBtn.addEventListener('click', function() {
-            alert('💰 Заявка на вывод средств создана. Деньги поступят в течение 3 рабочих дней.');
-        });
-    }
-
-    // ===== 9. КНОПКА "ПОКАЗАТЬ ЕЩЁ" =====
-    var loadMoreBtn = document.getElementById('loadMoreMyRoutes');
-    if (loadMoreBtn) {
-        loadMoreBtn.addEventListener('click', function() {
-            alert('📋 В реальном проекте здесь загрузятся ещё маршруты.');
-        });
-    }
-
-    // ===== 10. КНОПКА ВЫХОДА В ПРОФИЛЕ =====
-    var logoutBtnProfile = document.getElementById('logoutBtn');
-    if (logoutBtnProfile) {
-        logoutBtnProfile.addEventListener('click', function() {
-            if (confirm('Вы уверены, что хотите выйти?')) {
+    // ===== 7. КНОПКИ =====
+    var logoutBtn = document.getElementById('logoutBtn');
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', function() {
+            if (confirm('Выйти?')) {
                 localStorage.removeItem('yatyrist_user');
                 window.location.href = 'index.html';
             }
         });
     }
 
-    // ===== 11. КНОПКА РЕДАКТИРОВАНИЯ =====
     var editProfileBtn = document.getElementById('editProfileBtn');
     if (editProfileBtn) {
         editProfileBtn.addEventListener('click', function() {
-            switchTab('settings');
+            document.querySelector('[data-tab="settings"]').click();
         });
     }
 
-    // Загружаем все данные
-    loadUserProfile();
-    loadMyRoutes();
-    loadPurchasedRoutes();
-    loadEarnings();
+    var withdrawBtn = document.getElementById('withdrawBtn');
+    if (withdrawBtn) {
+        withdrawBtn.addEventListener('click', function() {
+            alert('💰 Заявка на вывод средств создана!');
+        });
+    }
 
-    console.log('✅ Профиль загружен для пользователя:', currentUser ? currentUser.firstName : 'не найден');
+    // ===== 8. ПЕРЕКЛЮЧЕНИЕ ВКЛАДОК =====
+    var tabs = document.querySelectorAll('.profile-tab');
+    var contents = document.querySelectorAll('.profile-tab-content');
+
+    function switchTab(tabId) {
+        for (var i = 0; i < contents.length; i++) {
+            contents[i].classList.remove('active');
+        }
+        for (var j = 0; j < tabs.length; j++) {
+            tabs[j].classList.remove('active');
+        }
+        var activeContent = document.getElementById(tabId);
+        if (activeContent) activeContent.classList.add('active');
+        var activeTab = document.querySelector('[data-tab="' + tabId + '"]');
+        if (activeTab) activeTab.classList.add('active');
+        localStorage.setItem('activeProfileTab', tabId);
+    }
+
+    for (var k = 0; k < tabs.length; k++) {
+        tabs[k].addEventListener('click', function() {
+            var tabId = this.getAttribute('data-tab');
+            switchTab(tabId);
+        });
+    }
+
+    var savedTab = localStorage.getItem('activeProfileTab');
+    if (savedTab && document.getElementById(savedTab)) {
+        switchTab(savedTab);
+    }
+
+    // ЗАПУСКАЕМ ЗАГРУЗКУ
+    loadUserProfile();
+    console.log('✅ profile.js завершил загрузку');
 });
 
 // ===== ГЛОБАЛЬНЫЕ ФУНКЦИИ =====
 function editRoute(id) {
-    alert('✏️ Редактирование маршрута #' + id + '\n\nВ реальном проекте здесь будет форма редактирования.');
+    alert('✏️ Редактирование маршрута #' + id);
 }
 
 function viewStats(id) {
-    alert('📊 Статистика маршрута #' + id + '\n\nПросмотров: 2,500\nПродаж: 150\nДоход: 45,000 ₽');
+    alert('📊 Статистика маршрута #' + id);
 }
 
 function deleteRoute(id) {
-    if (confirm('Вы уверены, что хотите удалить этот маршрут?')) {
-        alert('🗑️ Маршрут #' + id + ' удалён');
-        var routeItem = document.querySelector('[data-route-id="' + id + '"]');
-        if (routeItem) routeItem.remove();
+    if (confirm('Удалить маршрут?')) {
+        var allRoutes = JSON.parse(localStorage.getItem('yatyrist_routes') || '[]');
+        var newRoutes = [];
+        for (var i = 0; i < allRoutes.length; i++) {
+            if (allRoutes[i].id !== id) {
+                newRoutes.push(allRoutes[i]);
+            }
+        }
+        localStorage.setItem('yatyrist_routes', JSON.stringify(newRoutes));
+        alert('🗑️ Маршрут удалён');
+        location.reload();
     }
 }
 
 function downloadGPX(id) {
-    alert('⬇️ Скачивание GPX трека для маршрута #' + id + '\n\nФайл будет загружен на ваше устройство.');
+    alert('⬇️ Скачивание GPX трека');
 }
 
 function leaveReview(id) {

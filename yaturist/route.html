@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <style>
-        /* ===== ДОПОЛНИТЕЛЬНЫЕ СТИЛИ ДЛЯ СТРАНИЦЫ МАРШРУТА ===== */
+        /* ===== ДОПОЛНИТЕЛЬНЫЕ СТИЛИ ===== */
         
         .route-page {
             padding: 30px 0 50px;
@@ -99,7 +99,7 @@
         
         .gallery-main {
             width: 100%;
-            height: 350px;
+            height: 400px;
             border-radius: var(--border-radius);
             overflow: hidden;
             margin-bottom: 12px;
@@ -107,12 +107,18 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
+        }
+        
+        .gallery-main img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
         
         .gallery-thumbs {
             display: flex;
             gap: 10px;
+            flex-wrap: wrap;
         }
         
         .gallery-thumbs .thumb {
@@ -179,7 +185,6 @@
             width: 70px;
             height: 70px;
             border-radius: 50%;
-            object-fit: cover;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -542,7 +547,7 @@
 
 <body>
 
-    <!-- ===== ШАПКА САЙТА ===== -->
+    <!-- ===== ШАПКА ===== -->
     <header class="header">
         <div class="container header-inner">
             <a href="index.html" class="logo">
@@ -567,127 +572,95 @@
                 <i class="fas fa-chevron-right"></i>
                 <a href="index.html">Маршруты</a>
                 <i class="fas fa-chevron-right"></i>
-                <span>Загрузка...</span>
+                <span id="breadcrumbTitle">Загрузка...</span>
             </div>
 
             <!-- Заголовок маршрута -->
             <div class="route-header">
-                <h1 class="route-title">Загрузка...</h1>
+                <h1 class="route-title" id="routeTitle">Загрузка...</h1>
                 <div class="route-meta-header">
-                    <span class="route-badge hike"><i class="fas fa-hiking"></i> Загрузка...</span>
-                    <span class="route-difficulty medium"><i class="fas fa-signal"></i> Загрузка...</span>
-                    <span class="route-location-header"><i class="fas fa-map-pin"></i> Загрузка...</span>
+                    <span class="route-badge hike" id="routeType"><i class="fas fa-hiking"></i> Загрузка...</span>
+                    <span class="route-difficulty medium" id="routeDifficulty"><i class="fas fa-signal"></i> Загрузка...</span>
+                    <span class="route-location-header" id="routeLocation"><i class="fas fa-map-pin"></i> Загрузка...</span>
                 </div>
             </div>
 
-            <!-- Галерея -->
+            <!-- ГАЛЕРЕЯ С ФОТО -->
             <div class="route-gallery">
-                <div class="gallery-main">
+                <div class="gallery-main" id="galleryMain">
                     <i class="fas fa-mountain" style="font-size: 4rem; opacity: 0.8;"></i>
                 </div>
-                <div class="gallery-thumbs">
-                    <div class="thumb active" style="background: #4CAF50;"></div>
-                    <div class="thumb" style="background: #66BB6A;"></div>
-                    <div class="thumb" style="background: #81C784;"></div>
-                </div>
+                <div class="gallery-thumbs" id="galleryThumbs"></div>
             </div>
 
             <!-- Основная сетка -->
             <div class="route-content-grid">
 
-                <!-- ЛЕВАЯ КОЛОНКА - ИНФОРМАЦИЯ О МАРШРУТЕ -->
+                <!-- ЛЕВАЯ КОЛОНКА -->
                 <div class="route-info">
-
-                    <!-- Карточка автора -->
-                    <div class="author-card">
+                    <div class="author-card" id="authorCard">
                         <div class="author-avatar-large" style="background: #4CAF50;">А</div>
                         <div class="author-info-detailed">
-                            <h3>Загрузка...</h3>
-                            <div class="author-rating-large"><i class="fas fa-star"></i> Загрузка...</div>
-                            <p style="color: var(--gray-dark); font-size: 0.9rem;">Загрузка...</p>
+                            <h3 id="authorName">Загрузка...</h3>
+                            <div class="author-rating-large" id="authorRating"><i class="fas fa-star"></i> Загрузка...</div>
+                            <p style="color: var(--gray-dark); font-size: 0.9rem;" id="authorBio">Загрузка...</p>
                         </div>
                     </div>
 
-                    <!-- Описание -->
                     <div class="info-block">
                         <h2><i class="fas fa-info-circle"></i> Описание маршрута</h2>
-                        <p>Загрузка...</p>
+                        <p id="routeDescription">Загрузка...</p>
                     </div>
 
-                    <!-- Параметры -->
                     <div class="info-block">
                         <h2><i class="fas fa-chart-bar"></i> Параметры маршрута</h2>
                         <div class="params-grid">
-                            <div class="param-item">
-                                <i class="fas fa-route"></i>
-                                <span class="param-label">Протяжённость</span>
-                                <span class="param-value">--</span>
-                            </div>
-                            <div class="param-item">
-                                <i class="fas fa-clock"></i>
-                                <span class="param-label">Время в пути</span>
-                                <span class="param-value">--</span>
-                            </div>
-                            <div class="param-item">
-                                <i class="fas fa-arrow-up"></i>
-                                <span class="param-label">Набор высоты</span>
-                                <span class="param-value">--</span>
-                            </div>
-                            <div class="param-item">
-                                <i class="fas fa-calendar-alt"></i>
-                                <span class="param-label">Лучшее время</span>
-                                <span class="param-value">--</span>
-                            </div>
+                            <div class="param-item"><i class="fas fa-route"></i><span class="param-label">Протяжённость</span><span class="param-value" id="paramDistance">--</span></div>
+                            <div class="param-item"><i class="fas fa-clock"></i><span class="param-label">Время в пути</span><span class="param-value" id="paramDuration">--</span></div>
+                            <div class="param-item"><i class="fas fa-arrow-up"></i><span class="param-label">Набор высоты</span><span class="param-value" id="paramElevation">--</span></div>
+                            <div class="param-item"><i class="fas fa-calendar-alt"></i><span class="param-label">Лучшее время</span><span class="param-value" id="paramBestTime">--</span></div>
                         </div>
                     </div>
 
-                    <!-- Точки маршрута -->
                     <div class="info-block">
                         <h2><i class="fas fa-map-marked-alt"></i> Точки маршрута</h2>
                         <div class="point-item">
                             <div class="point-icon start"><i class="fas fa-flag-checkered"></i></div>
                             <div class="point-content">
                                 <h4>Старт</h4>
-                                <p>Загрузка...</p>
+                                <p id="startPoint">Загрузка...</p>
                             </div>
                         </div>
                         <div class="point-item">
                             <div class="point-icon end"><i class="fas fa-flag"></i></div>
                             <div class="point-content">
                                 <h4>Финиш</h4>
-                                <p>Загрузка...</p>
+                                <p id="endPoint">Загрузка...</p>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Лучшее время выхода -->
                     <div class="info-block highlight">
                         <h2><i class="fas fa-clock"></i> Когда лучше выходить</h2>
-                        <p>Загрузка...</p>
+                        <p id="bestStartTime">Загрузка...</p>
                     </div>
 
-                    <!-- Экипировка -->
                     <div class="info-block">
                         <h2><i class="fas fa-hiking"></i> Минимальная экипировка</h2>
-                        <div class="equipment-grid">
-                            <div class="equipment-card"><i class="fas fa-check-circle"></i> Загрузка...</div>
-                        </div>
+                        <div class="equipment-grid" id="equipmentGrid"></div>
                     </div>
 
-                    <!-- Рекомендации -->
                     <div class="info-block">
                         <h2><i class="fas fa-lightbulb"></i> Другие рекомендации</h2>
-                        <ul class="tips-list">
-                            <li>Загрузка...</li>
-                        </ul>
+                        <ul class="tips-list" id="recommendationsList"></ul>
                     </div>
                 </div>
 
-                <!-- ПРАВАЯ КОЛОНКА - КАРТОЧКА ПОКУПКИ -->
+                <!-- ПРАВАЯ КОЛОНКА -->
                 <div class="route-sidebar">
                     <div class="purchase-card">
                         <div class="purchase-header">
-                            <span class="purchase-price">-- ₽</span>
+                            <span class="purchase-price" id="routePrice">-- ₽</span>
                             <span class="purchase-badge">GPX трек + гайд</span>
                         </div>
                         <div class="purchase-features">
@@ -709,18 +682,9 @@
                     </div>
 
                     <div class="stats-card">
-                        <div class="stat-row">
-                            <span class="stat-label"><i class="fas fa-users"></i> Купили</span>
-                            <span class="stat-number">--</span>
-                        </div>
-                        <div class="stat-row">
-                            <span class="stat-label"><i class="fas fa-star"></i> Рейтинг</span>
-                            <span class="stat-number">--</span>
-                        </div>
-                        <div class="stat-row">
-                            <span class="stat-label"><i class="fas fa-comment"></i> Отзывов</span>
-                            <span class="stat-number">--</span>
-                        </div>
+                        <div class="stat-row"><span class="stat-label"><i class="fas fa-users"></i> Купили</span><span class="stat-number" id="statSales">--</span></div>
+                        <div class="stat-row"><span class="stat-label"><i class="fas fa-star"></i> Рейтинг</span><span class="stat-number" id="statRating">--</span></div>
+                        <div class="stat-row"><span class="stat-label"><i class="fas fa-comment"></i> Отзывов</span><span class="stat-number" id="statReviews">--</span></div>
                     </div>
                 </div>
             </div>
@@ -730,24 +694,13 @@
                 <div class="reviews-header">
                     <h2><i class="fas fa-comments"></i> Отзывы путешественников</h2>
                     <div class="reviews-summary">
-                        <span class="reviews-rating">--</span>
-                        <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
-                        <span class="reviews-count">-- отзывов</span>
+                        <span class="reviews-rating" id="reviewsSummaryRating">--</span>
+                        <div class="stars" id="reviewsStars"></div>
+                        <span class="reviews-count" id="reviewsCount">-- отзывов</span>
                     </div>
                 </div>
 
-                <div class="reviews-grid" id="reviewsGrid">
-                    <div class="review-card">
-                        <div class="review-header">
-                            <div class="review-avatar" style="background: #1976D2;">АП</div>
-                            <div><span class="review-author">Алексей Петров</span>
-                                <div class="review-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                            </div>
-                            <span class="review-date">12.04.2026</span>
-                        </div>
-                        <p class="review-text">Отличный маршрут! Всё понравилось!</p>
-                    </div>
-                </div>
+                <div class="reviews-grid" id="reviewsGrid"></div>
 
                 <div class="load-more-wrapper">
                     <button class="btn btn-outline" id="loadMoreReviewsBtn">Показать ещё отзывы</button>
@@ -767,7 +720,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <textarea placeholder="Поделитесь впечатлениями..." rows="3" style="width: 100%; padding: 12px; border: 2px solid var(--gray-light); border-radius: var(--border-radius-sm);"></textarea>
+                            <textarea id="reviewText" placeholder="Поделитесь впечатлениями о маршруте..." rows="3" style="width: 100%; padding: 12px; border: 2px solid var(--gray-light); border-radius: var(--border-radius-sm);"></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary">Отправить отзыв</button>
                     </form>
@@ -776,7 +729,6 @@
         </div>
     </main>
 
-    <!-- ===== ПОДВАЛ ===== -->
     <footer class="footer">
         <div class="container">
             <div class="footer-bottom">
@@ -785,333 +737,281 @@
         </div>
     </footer>
 
-    <!-- ===== JAVASCRIPT (ПОЛНОСТЬЮ РАБОЧАЯ ВЕРСИЯ) ===== -->
     <script>
-        /**
-         * route.js - ПОЛНОСТЬЮ РАБОЧАЯ ВЕРСИЯ
-         * Загружает маршрут из localStorage по ID из URL
-         * Автор: yatyrist
-         * Дата: 2026
-         */
-
-        // ===== 1. ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ =====
-
-        /**
-         * Получает ID маршрута из URL
-         * Пример: route.html?id=123 -> вернёт "123"
-         * @returns {string|null} ID маршрута или null
-         */
+        // ===== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ =====
         function getRouteId() {
             var params = new URLSearchParams(window.location.search);
             return params.get('id');
         }
 
-        /**
-         * Загружает маршрут по ID из localStorage или статической базы
-         * @param {string|number} id - ID маршрута
-         * @returns {Object|null} Объект маршрута или null
-         */
-        function getRouteById(id) {
-            // Преобразуем ID в число (из строки)
-            var numericId = parseInt(id);
-
-            // ===== ЗАГРУЗКА ИЗ LOCALSTORAGE (ПОЛЬЗОВАТЕЛЬСКИЕ МАРШРУТЫ) =====
-            var routesJson = localStorage.getItem('yatyrist_routes');
-            var allRoutes = routesJson ? JSON.parse(routesJson) : [];
-
-            // Ищем маршрут среди пользовательских
-            for (var i = 0; i < allRoutes.length; i++) {
-                if (allRoutes[i].id === numericId) {
-                    console.log('✅ Маршрут найден в localStorage:', allRoutes[i].title);
-                    return allRoutes[i];
+        function getCurrentUser() {
+            var userJson = localStorage.getItem('yatyrist_user');
+            if (userJson) {
+                try {
+                    return JSON.parse(userJson);
+                } catch (e) {
+                    return null;
                 }
             }
-
-            // ===== СТАТИЧЕСКИЕ МАРШРУТЫ (ДЕМО, ЕСЛИ НЕ НАШЛИ В LOCALSTORAGE) =====
-            var staticRoutes = {
-                1: {
-                    id: 1,
-                    title: 'Агурские водопады и Орлиные скалы',
-                    type: 'hike',
-                    typeName: 'Пеший поход',
-                    difficulty: 'medium',
-                    difficultyName: 'Средний',
-                    region: 'krasnodar',
-                    regionName: 'Краснодарский край',
-                    location: 'Сочи',
-                    price: 349,
-                    duration: '4-5 часов',
-                    distance: '6 км',
-                    elevation: '350 м',
-                    bestStartTime: '7:00 - 8:00 утра',
-                    startPoint: 'Санаторий "Зелёная Роща", ул. Курортный проспект, 120',
-                    endPoint: 'Смотровая башня на горе Ахун',
-                    author: {
-                        name: 'Анна Сочинская',
-                        rating: 4.9,
-                        bio: 'Местный гид, живу в Сочи 15 лет. Знаю все тайные тропы.'
-                    },
-                    description: 'Живописный маршрут по ущелью реки Агура.',
-                    fullDescription: 'Маршрут начинается от санатория "Зелёная Роща". Вы пройдёте через красивейшее ущелье, увидите три водопада, подниметесь на Орлиные скалы.',
-                    equipment: ['Треккинговые ботинки', 'Вода 1.5л', 'Дождевик', 'Перекус'],
-                    recommendations: 'На маршруте есть кафе "Орлиное гнездо". Вход в заповедник - 200₽.',
-                    photos: [],
-                    sales: 1247,
-                    views: 3892,
-                    rating: 4.9,
-                    reviews: 86
-                },
-                2: {
-                    id: 2,
-                    title: 'Велопрогулка: Геленджик — Кабардинка',
-                    type: 'bike',
-                    typeName: 'Велосипедный',
-                    difficulty: 'easy',
-                    difficultyName: 'Лёгкий',
-                    region: 'krasnodar',
-                    regionName: 'Краснодарский край',
-                    location: 'Геленджик',
-                    price: 199,
-                    duration: '3 часа',
-                    distance: '20 км',
-                    elevation: '50 м',
-                    bestStartTime: '9:00 - 10:00 утра',
-                    startPoint: 'Набережная Геленджика, у фонтана',
-                    endPoint: 'Центральный пляж Кабардинки',
-                    author: {
-                        name: 'Сергей Вело',
-                        rating: 4.7,
-                        bio: 'Вело-гид, организую прогулки по побережью.'
-                    },
-                    description: 'Лучший веломаршрут по побережью.',
-                    fullDescription: 'Ровная набережная, сосновый бор, виды на бухту. Подходит для начинающих.',
-                    equipment: ['Велосипед', 'Шлем', 'Вода', 'Солнцезащитный крем'],
-                    recommendations: 'Возьмите с собой купальник - можно искупаться.',
-                    photos: [],
-                    sales: 856,
-                    views: 2100,
-                    rating: 4.7,
-                    reviews: 42
-                },
-                3: {
-                    id: 3,
-                    title: 'Автопутешествие на плато Лаго-Наки',
-                    type: 'car',
-                    typeName: 'Автомобильный',
-                    difficulty: 'medium',
-                    difficultyName: 'Средний',
-                    region: 'adygea',
-                    regionName: 'Адыгея',
-                    location: 'Лаго-Наки',
-                    price: 999,
-                    duration: '2 дня',
-                    distance: '180 км',
-                    elevation: '1200 м',
-                    bestStartTime: '8:00 утра',
-                    startPoint: 'Майкоп, ул. Гагарина 1',
-                    endPoint: 'Турбаза "Лаго-Наки"',
-                    author: {
-                        name: 'Марат Горный',
-                        rating: 5.0,
-                        bio: 'Автопутешественник, знаю все горные дороги.'
-                    },
-                    description: 'Маршрут для внедорожников по Кавказскому заповеднику.',
-                    fullDescription: 'Альпийские луга, пещеры и вид на Оштен с Фиштом.',
-                    equipment: ['Внедорожник', 'Запасное колесо', 'Тёплые вещи'],
-                    recommendations: 'Заправьте полный бак перед выездом!',
-                    photos: [],
-                    sales: 234,
-                    views: 3450,
-                    rating: 5.0,
-                    reviews: 28
-                }
-            };
-
-            // Возвращаем статический маршрут, если есть
-            if (staticRoutes[numericId]) {
-                console.log('✅ Маршрут найден в статической базе:', staticRoutes[numericId].title);
-                return staticRoutes[numericId];
-            }
-
-            console.log('❌ Маршрут с ID', numericId, 'не найден');
             return null;
         }
 
-        /**
-         * Заполняет страницу данными маршрута
-         * @param {Object} route - Объект маршрута
-         */
-        function fillRouteData(route) {
-            // ===== ЗАГОЛОВОК И МЕТА =====
-            document.title = route.title + ' | yatyrist';
-            document.querySelector('.breadcrumbs span:last-child').textContent = route.title;
-            document.querySelector('.route-title').textContent = route.title;
+        function getRouteById(id) {
+            var numericId = parseInt(id);
+            var routesJson = localStorage.getItem('yatyrist_routes');
+            var allRoutes = routesJson ? JSON.parse(routesJson) : [];
 
-            // Тип маршрута (иконка и цвет)
-            var typeBadge = document.querySelector('.route-badge');
+            for (var i = 0; i < allRoutes.length; i++) {
+                if (allRoutes[i].id === numericId) {
+                    return allRoutes[i];
+                }
+            }
+            return null;
+        }
+
+        function getReviews(routeId) {
+            var reviewsJson = localStorage.getItem('reviews_' + routeId);
+            if (reviewsJson) {
+                return JSON.parse(reviewsJson);
+            }
+            return [];
+        }
+
+        function saveReview(routeId, review) {
+            var reviews = getReviews(routeId);
+            reviews.push(review);
+            localStorage.setItem('reviews_' + routeId, JSON.stringify(reviews));
+        }
+
+        function loadPhotos(route) {
+            var galleryMain = document.getElementById('galleryMain');
+            var galleryThumbs = document.getElementById('galleryThumbs');
+
+            if (route.photos && route.photos.length > 0) {
+                galleryMain.innerHTML = '<img src="' + route.photos[0].data + '" alt="' + route.title + '">';
+                var thumbsHtml = '';
+                for (var i = 0; i < route.photos.length; i++) {
+                    var activeClass = i === 0 ? 'active' : '';
+                    thumbsHtml += '<img src="' + route.photos[i].data + '" class="thumb ' + activeClass + '" data-index="' + i + '">';
+                }
+                galleryThumbs.innerHTML = thumbsHtml;
+
+                var thumbs = document.querySelectorAll('.gallery-thumbs .thumb');
+                for (var j = 0; j < thumbs.length; j++) {
+                    thumbs[j].addEventListener('click', function() {
+                        var index = parseInt(this.getAttribute('data-index'));
+                        var mainImg = galleryMain.querySelector('img');
+                        if (mainImg) {
+                            mainImg.src = route.photos[index].data;
+                        }
+                        for (var k = 0; k < thumbs.length; k++) {
+                            thumbs[k].classList.remove('active');
+                        }
+                        this.classList.add('active');
+                    });
+                }
+            } else {
+                galleryMain.innerHTML = '<i class="fas fa-mountain" style="font-size: 4rem; opacity: 0.8;"></i><p style="margin-top: 10px;">Фото отсутствуют</p>';
+                galleryThumbs.innerHTML = '<div class="thumb" style="background: #4CAF50;"></div><div class="thumb" style="background: #66BB6A;"></div><div class="thumb" style="background: #81C784;"></div>';
+            }
+        }
+
+        function loadReviews(routeId) {
+            var reviews = getReviews(routeId);
+            var reviewsGrid = document.getElementById('reviewsGrid');
+            var reviewsCountSpan = document.getElementById('reviewsCount');
+            var reviewsSummaryRating = document.getElementById('reviewsSummaryRating');
+            var reviewsStars = document.getElementById('reviewsStars');
+
+            if (reviews.length === 0) {
+                reviewsGrid.innerHTML = '<div class="review-card" style="text-align: center; color: var(--gray);"><i class="fas fa-comment" style="font-size: 2rem; margin-bottom: 10px;"></i><br>Будьте первым, кто оставит отзыв!</div>';
+                if (reviewsCountSpan) reviewsCountSpan.textContent = '0 отзывов';
+                if (reviewsSummaryRating) reviewsSummaryRating.textContent = '0';
+                if (reviewsStars) reviewsStars.innerHTML = '<i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>';
+                return;
+            }
+
+            var totalRating = 0;
+            for (var i = 0; i < reviews.length; i++) {
+                totalRating += reviews[i].rating;
+            }
+            var avgRating = (totalRating / reviews.length).toFixed(1);
+
+            if (reviewsCountSpan) reviewsCountSpan.textContent = reviews.length + ' отзывов';
+            if (reviewsSummaryRating) reviewsSummaryRating.textContent = avgRating;
+
+            var starsHtml = '';
+            var fullStars = Math.floor(avgRating);
+            var halfStar = (avgRating % 1) >= 0.5;
+            for (var s = 1; s <= 5; s++) {
+                if (s <= fullStars) {
+                    starsHtml += '<i class="fas fa-star"></i>';
+                } else if (s === fullStars + 1 && halfStar) {
+                    starsHtml += '<i class="fas fa-star-half-alt"></i>';
+                } else {
+                    starsHtml += '<i class="far fa-star"></i>';
+                }
+            }
+            if (reviewsStars) reviewsStars.innerHTML = starsHtml;
+
+            var reviewsHtml = '';
+            for (var r = 0; r < reviews.length; r++) {
+                var rev = reviews[r];
+                var revStars = '';
+                for (var rs = 1; rs <= 5; rs++) {
+                    revStars += rs <= rev.rating ? '<i class="fas fa-star"></i>' : '<i class="far fa-star"></i>';
+                }
+                reviewsHtml += '<div class="review-card">' +
+                    '<div class="review-header">' +
+                    '<div class="review-avatar" style="background: #1976D2;">' + (rev.avatar || rev.author.charAt(0)) + '</div>' +
+                    '<div><span class="review-author">' + rev.author + '</span>' +
+                    '<div class="review-rating">' + revStars + '</div></div>' +
+                    '<span class="review-date">' + rev.date + '</span>' +
+                    '</div>' +
+                    '<p class="review-text">' + rev.text + '</p>' +
+                    '</div>';
+            }
+            reviewsGrid.innerHTML = reviewsHtml;
+        }
+
+        function fillRouteData(route) {
+            document.title = route.title + ' | yatyrist';
+            document.getElementById('breadcrumbTitle').textContent = route.title;
+            document.getElementById('routeTitle').textContent = route.title;
+
             var typeIcon = route.type === 'car' ? 'car' : (route.type === 'bike' ? 'bicycle' : 'hiking');
             var typeName = route.typeName || (route.type === 'car' ? 'Автомобильный' : route.type === 'bike' ? 'Велосипедный' : 'Пеший поход');
+            var typeBadge = document.getElementById('routeType');
             typeBadge.className = 'route-badge ' + (route.type || 'hike');
             typeBadge.innerHTML = '<i class="fas fa-' + typeIcon + '"></i> ' + typeName;
 
-            // Сложность
-            var difficultySpan = document.querySelector('.route-difficulty');
             var difficultyName = route.difficultyName || (route.difficulty === 'easy' ? 'Лёгкий' : route.difficulty === 'medium' ? 'Средний' : 'Сложный');
+            var difficultySpan = document.getElementById('routeDifficulty');
             difficultySpan.className = 'route-difficulty ' + (route.difficulty || 'medium');
             difficultySpan.innerHTML = '<i class="fas fa-signal"></i> ' + difficultyName;
 
-            // Локация
-            document.querySelector('.route-location-header').innerHTML = '<i class="fas fa-map-pin"></i> ' + (route.location || route.regionName || 'Краснодарский край');
+            document.getElementById('routeLocation').innerHTML = '<i class="fas fa-map-pin"></i> ' + (route.location || route.regionName || 'Краснодарский край');
 
-            // ===== АВТОР =====
             if (route.author) {
-                var authorCard = document.querySelector('.author-card');
-                var authorName = route.author.name || 'Автор';
-                var authorInitial = authorName.charAt(0).toUpperCase();
-                authorCard.innerHTML = '<div class="author-avatar-large" style="background: #4CAF50; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 1.5rem;">' + authorInitial + '</div>' +
-                    '<div class="author-info-detailed">' +
-                    '<h3>' + authorName + '</h3>' +
-                    '<div class="author-rating-large"><i class="fas fa-star"></i> ' + (route.author.rating || '5.0') + ' (' + (route.reviews || 0) + ' отзывов)</div>' +
-                    '<p style="color: var(--gray-dark); font-size: 0.9rem;">' + (route.author.bio || 'Автор маршрута') + '</p>' +
-                    '</div>';
+                var authorInitial = route.author.name.charAt(0).toUpperCase();
+                document.getElementById('authorName').textContent = route.author.name;
+                document.getElementById('authorRating').innerHTML = '<i class="fas fa-star"></i> ' + (route.author.rating || '5.0');
+                document.getElementById('authorBio').textContent = route.author.bio || 'Автор маршрута';
+                var avatarDiv = document.querySelector('#authorCard .author-avatar-large');
+                if (avatarDiv) avatarDiv.textContent = authorInitial;
             }
 
-            // ===== ОПИСАНИЕ =====
-            var descBlock = document.querySelector('.info-block p');
-            if (descBlock) {
-                descBlock.innerHTML = (route.fullDescription || route.description || 'Описание отсутствует');
-            }
+            document.getElementById('routeDescription').textContent = route.fullDescription || route.description || 'Описание отсутствует';
+            document.getElementById('paramDistance').textContent = route.distance || 'не указано';
+            document.getElementById('paramDuration').textContent = route.duration || 'не указано';
+            document.getElementById('paramElevation').textContent = route.elevation || 'не указан';
+            document.getElementById('paramBestTime').textContent = route.bestStartTime || 'не указано';
+            document.getElementById('startPoint').textContent = route.startPoint || 'Не указана';
+            document.getElementById('endPoint').textContent = route.endPoint || 'Не указана';
+            document.getElementById('bestStartTime').innerHTML = '<strong>Рекомендуемое время старта:</strong> ' + (route.bestStartTime || 'утро');
 
-            // ===== ПАРАМЕТРЫ МАРШРУТА =====
-            var params = document.querySelectorAll('.param-value');
-            if (params.length >= 4) {
-                params[0].textContent = route.distance || 'не указано';
-                params[1].textContent = route.duration || 'не указано';
-                params[2].textContent = route.elevation || 'не указан';
-                params[3].textContent = route.bestStartTime || 'не указано';
-            }
-
-            // ===== ТОЧКИ СТАРТА И ФИНИША =====
-            var points = document.querySelectorAll('.point-content p');
-            if (points.length >= 2) {
-                points[0].innerHTML = route.startPoint || 'Не указана';
-                points[1].innerHTML = route.endPoint || 'Не указана';
-            }
-
-            // ===== ЛУЧШЕЕ ВРЕМЯ ВЫХОДА =====
-            var bestTimeBlock = document.querySelector('.info-block.highlight p');
-            if (bestTimeBlock) {
-                bestTimeBlock.innerHTML = '<strong>Рекомендуемое время старта:</strong> ' + (route.bestStartTime || 'утро');
-            }
-
-            // ===== ЭКИПИРОВКА =====
-            var equipmentGrid = document.querySelector('.equipment-grid');
-            if (equipmentGrid) {
-                if (route.equipment && route.equipment.length > 0) {
-                    var equipHtml = '';
-                    for (var i = 0; i < route.equipment.length; i++) {
-                        equipHtml += '<div class="equipment-card"><i class="fas fa-check-circle"></i> ' + route.equipment[i] + '</div>';
-                    }
-                    equipmentGrid.innerHTML = equipHtml;
-                } else {
-                    equipmentGrid.innerHTML = '<div class="equipment-card"><i class="fas fa-check-circle"></i> Базовая экипировка</div>';
+            var equipmentGrid = document.getElementById('equipmentGrid');
+            if (route.equipment && route.equipment.length > 0) {
+                var equipHtml = '';
+                for (var i = 0; i < route.equipment.length; i++) {
+                    equipHtml += '<div class="equipment-card"><i class="fas fa-check-circle"></i> ' + route.equipment[i] + '</div>';
                 }
+                equipmentGrid.innerHTML = equipHtml;
+            } else {
+                equipmentGrid.innerHTML = '<div class="equipment-card"><i class="fas fa-check-circle"></i> Базовая экипировка</div>';
             }
 
-            // ===== РЕКОМЕНДАЦИИ =====
-            var tipsList = document.querySelector('.tips-list');
-            if (tipsList) {
-                if (route.recommendations) {
-                    var tipsArray = route.recommendations.split('\n');
-                    var tipsHtml = '';
-                    for (var i = 0; i < tipsArray.length; i++) {
-                        if (tipsArray[i].trim()) {
-                            tipsHtml += '<li>✓ ' + tipsArray[i].trim() + '</li>';
-                        }
+            var tipsList = document.getElementById('recommendationsList');
+            if (route.recommendations) {
+                var tipsArray = route.recommendations.split('\n');
+                var tipsHtml = '';
+                for (var t = 0; t < tipsArray.length; t++) {
+                    if (tipsArray[t].trim()) {
+                        tipsHtml += '<li>✓ ' + tipsArray[t].trim() + '</li>';
                     }
-                    tipsList.innerHTML = tipsHtml || '<li>✓ Следуйте по маршруту</li>';
-                } else {
-                    tipsList.innerHTML = '<li>✓ Следуйте по размеченной тропе</li>';
                 }
+                tipsList.innerHTML = tipsHtml || '<li>✓ Следуйте по маршруту</li>';
+            } else {
+                tipsList.innerHTML = '<li>✓ Следуйте по размеченной тропе</li>';
             }
 
-            // ===== ЦЕНА =====
-            var priceSpan = document.querySelector('.purchase-price');
-            if (priceSpan) priceSpan.textContent = route.price + ' ₽';
+            document.getElementById('routePrice').textContent = route.price + ' ₽';
+            document.getElementById('statSales').textContent = (route.sales || 0).toLocaleString();
+            document.getElementById('statRating').textContent = route.rating || '5.0';
+            document.getElementById('statReviews').textContent = (route.reviews || 0);
 
-            // ===== СТАТИСТИКА ПРОДАЖ =====
-            var statNumbers = document.querySelectorAll('.stats-card .stat-number');
-            if (statNumbers.length >= 3) {
-                statNumbers[0].textContent = (route.sales || 0).toLocaleString();
-                statNumbers[1].textContent = route.rating || '5.0';
-                statNumbers[2].textContent = (route.reviews || 0);
-            }
-
-            // ===== ОТЗЫВЫ (ОБНОВЛЯЕМ СУММАРНУЮ ИНФОРМАЦИЮ) =====
-            var reviewsRatingSpan = document.querySelector('.reviews-rating');
-            var reviewsCountSpan = document.querySelector('.reviews-count');
-            if (reviewsRatingSpan) reviewsRatingSpan.textContent = route.rating || '5.0';
-            if (reviewsCountSpan) reviewsCountSpan.textContent = (route.reviews || 0) + ' отзывов';
+            loadPhotos(route);
         }
 
-        /**
-         * Проверяет, куплен ли маршрут, и показывает блок скачивания
-         * @param {string|number} routeId - ID маршрута
-         */
-        function checkPurchaseStatus(routeId) {
-            var purchased = localStorage.getItem('route_' + routeId + '_purchased');
-            if (purchased === 'true') {
-                var downloadBlock = document.getElementById('downloadBlock');
-                var addReviewBlock = document.getElementById('addReviewBlock');
-                var buyBtn = document.getElementById('buyRouteBtn');
-
-                if (downloadBlock) downloadBlock.style.display = 'block';
-                if (addReviewBlock) addReviewBlock.style.display = 'block';
-                if (buyBtn) {
-                    buyBtn.innerHTML = '<i class="fas fa-check"></i> Маршрут куплен';
-                    buyBtn.disabled = true;
-                    buyBtn.style.opacity = '0.6';
-                    buyBtn.style.cursor = 'not-allowed';
-                }
-            }
-        }
-
-        /**
-         * Настраивает кнопку покупки маршрута
-         * @param {Object} route - Объект маршрута
-         */
         function setupBuyButton(route) {
             var buyBtn = document.getElementById('buyRouteBtn');
             if (!buyBtn) return;
 
-            // Удаляем старые обработчики
-            var newBtn = buyBtn.cloneNode(true);
-            buyBtn.parentNode.replaceChild(newBtn, buyBtn);
+            var routeId = route.id;
+            var purchased = localStorage.getItem('route_' + routeId + '_purchased');
 
-            newBtn.addEventListener('click', function() {
-                var downloadBlock = document.getElementById('downloadBlock');
-                var addReviewBlock = document.getElementById('addReviewBlock');
+            if (purchased === 'true') {
+                buyBtn.innerHTML = '<i class="fas fa-check"></i> Маршрут куплен';
+                buyBtn.disabled = true;
+                buyBtn.style.opacity = '0.6';
+                document.getElementById('downloadBlock').style.display = 'block';
+                document.getElementById('addReviewBlock').style.display = 'block';
+                return;
+            }
 
-                if (downloadBlock) downloadBlock.style.display = 'block';
-                if (addReviewBlock) addReviewBlock.style.display = 'block';
-
+            buyBtn.addEventListener('click', function() {
+                document.getElementById('downloadBlock').style.display = 'block';
+                document.getElementById('addReviewBlock').style.display = 'block';
                 this.innerHTML = '<i class="fas fa-check"></i> Маршрут куплен';
                 this.disabled = true;
                 this.style.opacity = '0.6';
-                this.style.cursor = 'not-allowed';
-
-                localStorage.setItem('route_' + route.id + '_purchased', 'true');
-
-                alert('✅ Маршрут "' + route.title + '" успешно куплен!\n\n' +
-                    '💰 Сумма: ' + route.price + ' ₽\n' +
-                    '📁 Теперь вам доступны GPX трек и PDF-гайд\n' +
-                    '⭐ Вы можете оставить отзыв о маршруте');
+                localStorage.setItem('route_' + routeId + '_purchased', 'true');
+                alert('✅ Маршрут "' + route.title + '" успешно куплен!\n\nТеперь вы можете скачать GPX трек и оставить отзыв.');
             });
         }
 
-        /**
-         * Настраивает ссылки для скачивания
-         */
+        function setupReviewForm(routeId) {
+            var reviewForm = document.getElementById('reviewForm');
+            if (!reviewForm) return;
+
+            reviewForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                var currentUser = getCurrentUser();
+                if (!currentUser) {
+                    alert('❌ Чтобы оставить отзыв, нужно войти в аккаунт!');
+                    window.location.href = 'register.html';
+                    return;
+                }
+
+                var rating = document.querySelector('input[name="rating"]:checked');
+                var reviewText = document.getElementById('reviewText').value;
+
+                if (!rating) {
+                    alert('❌ Поставьте оценку маршруту!');
+                    return;
+                }
+                if (!reviewText.trim()) {
+                    alert('❌ Напишите текст отзыва!');
+                    return;
+                }
+
+                var newReview = {
+                    id: Date.now(),
+                    author: currentUser.firstName + ' ' + currentUser.lastName,
+                    rating: parseInt(rating.value),
+                    text: reviewText,
+                    date: new Date().toLocaleDateString(),
+                    avatar: (currentUser.firstName || 'U').charAt(0) + (currentUser.lastName || 'S').charAt(0)
+                };
+
+                saveReview(routeId, newReview);
+                loadReviews(routeId);
+                reviewForm.reset();
+                alert('⭐ Спасибо за отзыв! Он появится в списке.');
+            });
+        }
+
         function setupDownloadLinks() {
             var downloadGpx = document.getElementById('downloadGpxLink');
             var downloadPdf = document.getElementById('downloadPdfLink');
@@ -1119,133 +1019,46 @@
             if (downloadGpx) {
                 downloadGpx.addEventListener('click', function(e) {
                     e.preventDefault();
-                    alert('⬇️ Скачивание GPX трека...\n\nФайл будет загружен на ваше устройство.');
+                    alert('⬇️ Скачивание GPX трека...');
                 });
             }
-
             if (downloadPdf) {
                 downloadPdf.addEventListener('click', function(e) {
                     e.preventDefault();
-                    alert('⬇️ Скачивание PDF гайда...\n\nФайл будет загружен на ваше устройство.');
+                    alert('⬇️ Скачивание PDF гайда...');
                 });
             }
         }
 
-        /**
-         * Настраивает форму отправки отзыва
-         */
-        function setupReviewForm() {
-            var reviewForm = document.getElementById('reviewForm');
-            if (reviewForm) {
-                reviewForm.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    var rating = document.querySelector('input[name="rating"]:checked');
-                    var ratingValue = rating ? rating.value : 'не выбрана';
-                    alert('⭐ Спасибо за отзыв!\n\nВаша оценка: ' + ratingValue + ' звёзд.\nОтзыв появится после модерации.');
-                    this.reset();
-                });
-            }
-        }
+        // ===== ЗАПУСК =====
+        document.addEventListener('DOMContentLoaded', function() {
+            var routeId = getRouteId();
 
-        /**
-         * Настраивает кнопку "Показать ещё отзывы"
-         */
-        function setupLoadMoreReviews() {
+            if (!routeId) {
+                document.querySelector('.container').innerHTML = '<div style="text-align:center;padding:100px"><h1>Маршрут не найден</h1><a href="index.html" class="btn btn-primary">На главную</a></div>';
+                return;
+            }
+
+            var route = getRouteById(routeId);
+
+            if (!route) {
+                document.querySelector('.container').innerHTML = '<div style="text-align:center;padding:100px"><h1>Маршрут не найден</h1><p>Маршрут с ID ' + routeId + ' не существует</p><a href="index.html" class="btn btn-primary">На главную</a></div>';
+                return;
+            }
+
+            fillRouteData(route);
+            loadReviews(routeId);
+            setupBuyButton(route);
+            setupReviewForm(routeId);
+            setupDownloadLinks();
+
             var loadMoreBtn = document.getElementById('loadMoreReviewsBtn');
             if (loadMoreBtn) {
                 loadMoreBtn.addEventListener('click', function() {
-                    alert('📝 В реальном проекте здесь загрузятся ещё отзывы из базы данных.');
+                    alert('📝 Все отзывы уже загружены!');
                 });
             }
-        }
-
-        /**
-         * Настраивает переключение фото в галерее
-         */
-        function setupGallery() {
-            var thumbs = document.querySelectorAll('.gallery-thumbs .thumb');
-            var mainGallery = document.querySelector('.gallery-main');
-
-            if (thumbs.length > 0 && mainGallery) {
-                for (var i = 0; i < thumbs.length; i++) {
-                    thumbs[i].addEventListener('click', function() {
-                        for (var j = 0; j < thumbs.length; j++) {
-                            thumbs[j].classList.remove('active');
-                        }
-                        this.classList.add('active');
-
-                        // Меняем фон главной галереи под цвет выбранной миниатюры
-                        var bgColor = window.getComputedStyle(this).backgroundColor;
-                        if (bgColor && bgColor !== 'rgba(0, 0, 0, 0)') {
-                            mainGallery.style.background = bgColor;
-                        }
-                    });
-                }
-            }
-        }
-
-        /**
-         * Показывает ошибку, если маршрут не найден
-         * @param {string} routeId - ID маршрута
-         */
-        function showNotFoundError(routeId) {
-            var container = document.querySelector('.container');
-            if (container) {
-                container.innerHTML = '<div style="text-align: center; padding: 100px 20px;">' +
-                    '<i class="fas fa-map-marked-alt" style="font-size: 4rem; color: var(--gray); margin-bottom: 20px;"></i>' +
-                    '<h1 style="margin-bottom: 10px;">Маршрут не найден</h1>' +
-                    '<p style="color: var(--gray); margin-bottom: 30px;">Маршрут с ID ' + routeId + ' не существует или был удалён</p>' +
-                    '<a href="index.html" class="btn btn-primary">Вернуться на главную</a>' +
-                    '</div>';
-            }
-        }
-
-        // ===== ГЛАВНАЯ ФУНКЦИЯ ЗАГРУЗКИ СТРАНИЦЫ =====
-        function init() {
-            // Получаем ID из URL
-            var routeId = getRouteId();
-
-            // Проверяем, что ID есть
-            if (!routeId) {
-                showNotFoundError('не указан');
-                return;
-            }
-
-            // Загружаем маршрут
-            var route = getRouteById(routeId);
-
-            // Если маршрут не найден - показываем ошибку
-            if (!route) {
-                showNotFoundError(routeId);
-                return;
-            }
-
-            // Заполняем страницу данными
-            fillRouteData(route);
-
-            // Проверяем статус покупки
-            checkPurchaseStatus(routeId);
-
-            // Настраиваем кнопку покупки
-            setupBuyButton(route);
-
-            // Настраиваем скачивание
-            setupDownloadLinks();
-
-            // Настраиваем форму отзыва
-            setupReviewForm();
-
-            // Настраиваем кнопку "Показать ещё"
-            setupLoadMoreReviews();
-
-            // Настраиваем галерею
-            setupGallery();
-
-            console.log('✅ Страница маршрута загружена:', route.title);
-        }
-
-        // Запускаем всё после загрузки DOM
-        document.addEventListener('DOMContentLoaded', init);
+        });
     </script>
 </body>
 

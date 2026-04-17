@@ -18,7 +18,7 @@
 
 <body>
 
-    <!-- ===== ШАПКА (ИСПРАВЛЕНА - ДИНАМИЧЕСКАЯ) ===== -->
+    <!-- ===== ШАПКА (ДИНАМИЧЕСКАЯ) ===== -->
     <header class="header">
         <div class="container header-inner">
             <a href="index.html" class="logo">
@@ -83,7 +83,7 @@
                 </div>
             </div>
 
-            <!-- ===== СТАТИСТИКА ===== -->
+            <!-- ===== СТАТИСТИКА (ДИНАМИЧЕСКАЯ) ===== -->
             <div class="stats-dashboard">
                 <div class="stat-card-dash">
                     <div class="stat-icon">
@@ -152,11 +152,9 @@
                         <i class="fas fa-plus"></i> Новый маршрут
                     </a>
                 </div>
-
                 <div class="my-routes-list" id="myRoutesList">
-                    <!-- Маршруты будут загружаться через JS -->
+                    <!-- Маршруты загружаются через JS -->
                 </div>
-
                 <div class="load-more-wrapper">
                     <button class="btn btn-outline" id="loadMoreMyRoutes">
                         <i class="fas fa-plus"></i> Показать ещё
@@ -167,7 +165,6 @@
             <!-- Купленные маршруты -->
             <div class="profile-tab-content" id="purchased">
                 <h2>Купленные маршруты</h2>
-
                 <div class="purchased-list" id="purchasedList">
                     <!-- Купленные маршруты загружаются через JS -->
                 </div>
@@ -187,7 +184,6 @@
             <!-- Финансы -->
             <div class="profile-tab-content" id="earnings">
                 <h2>Финансовая статистика</h2>
-
                 <div class="earnings-summary">
                     <div class="earning-card">
                         <h3>За всё время</h3>
@@ -203,9 +199,8 @@
                         <button class="btn btn-primary btn-small" id="withdrawBtn">Вывести</button>
                     </div>
                 </div>
-
                 <h3>История операций</h3>
-                <table class="earnings-table" id="earningsTable">
+                <table class="earnings-table">
                     <thead>
                         <tr>
                             <th>Дата</th>
@@ -220,39 +215,71 @@
                 </table>
             </div>
 
-            <!-- Настройки -->
+            <!-- ===== НАСТРОЙКИ (С ЧЕКБОКСОМ "СТАТЬ АВТОРОМ") ===== -->
             <div class="profile-tab-content" id="settings">
                 <h2>Настройки профиля</h2>
 
                 <form class="settings-form" id="settingsForm">
+                    <!-- Основная информация -->
                     <div class="form-group">
                         <label for="settingsFirstName">Имя</label>
                         <input type="text" id="settingsFirstName" class="form-control">
                     </div>
+
                     <div class="form-group">
                         <label for="settingsLastName">Фамилия</label>
                         <input type="text" id="settingsLastName" class="form-control">
                     </div>
+
                     <div class="form-group">
                         <label for="settingsEmail">Email</label>
                         <input type="email" id="settingsEmail" class="form-control">
                     </div>
+
                     <div class="form-group">
                         <label for="settingsCity">Город</label>
                         <input type="text" id="settingsCity" class="form-control">
                     </div>
+
                     <div class="form-group">
                         <label for="settingsBio">О себе</label>
                         <textarea id="settingsBio" rows="3" class="form-control"></textarea>
                     </div>
-                    <div class="form-group">
+
+                    <!-- ===== ЧЕКБОКС "СТАТЬ АВТОРОМ" (ДОБАВЛЕН) ===== -->
+                    <div class="form-group highlight-checkbox">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="settingsIsAuthor">
+                            <span class="checkbox-text">
+                                <strong><i class="fas fa-star"></i> Хочу быть автором</strong>
+                                <small>Создавайте и продавайте свои маршруты. Комиссия сервиса — 30% с каждой продажи.</small>
+                            </span>
+                        </label>
+                    </div>
+
+                    <!-- Платёжные реквизиты (только для авторов) -->
+                    <div class="form-group" id="paymentDetailsGroup" style="display: none;">
                         <label for="settingsPayment">Платёжные реквизиты</label>
                         <input type="text" id="settingsPayment" placeholder="Номер карты или телефона" class="form-control">
                         <small>Для получения выплат за продажи маршрутов</small>
                     </div>
 
-                    <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Сохранить изменения
+                    </button>
                 </form>
+
+                <!-- Информация для авторов -->
+                <div class="author-info-box" id="authorInfoBox" style="margin-top: 20px; padding: 15px; background: #E8F5E9; border-radius: 12px; display: none;">
+                    <i class="fas fa-info-circle" style="color: #2E7D32;"></i>
+                    <strong style="color: #2E7D32;">Преимущества статуса автора:</strong>
+                    <ul style="margin-top: 10px; margin-left: 20px; color: #555;">
+                        <li>💰 Зарабатывайте 70% с каждой продажи маршрута</li>
+                        <li>📈 Просматривайте статистику продаж</li>
+                        <li>⭐ Получайте отзывы от путешественников</li>
+                        <li>🏆 Попадайте в топ авторов</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </main>
@@ -290,6 +317,31 @@
     <!-- Подключаем JavaScript -->
     <script src="js/auth.js"></script>
     <script src="js/profile.js"></script>
+
+    <!-- Дополнительный скрипт для показа/скрытия полей в настройках -->
+    <script>
+        // Показываем/скрываем платёжные реквизиты и инфо-блок при изменении чекбокса
+        document.addEventListener('DOMContentLoaded', function() {
+            var authorCheckbox = document.getElementById('settingsIsAuthor');
+            var paymentGroup = document.getElementById('paymentDetailsGroup');
+            var authorInfoBox = document.getElementById('authorInfoBox');
+
+            if (authorCheckbox) {
+                function toggleAuthorFields() {
+                    if (authorCheckbox.checked) {
+                        if (paymentGroup) paymentGroup.style.display = 'block';
+                        if (authorInfoBox) authorInfoBox.style.display = 'block';
+                    } else {
+                        if (paymentGroup) paymentGroup.style.display = 'none';
+                        if (authorInfoBox) authorInfoBox.style.display = 'none';
+                    }
+                }
+
+                authorCheckbox.addEventListener('change', toggleAuthorFields);
+                toggleAuthorFields();
+            }
+        });
+    </script>
 </body>
 
 </html>
