@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профиль | yatyrist</title>
+
+    <!-- Подключаем ВСЕ стили отдельными файлами -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/forms.css">
+    <link rel="stylesheet" href="css/profile.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <!-- Иконки -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- ===== ШАПКА ===== -->
+    <header class="header">
+        <div class="container header-inner">
+            <a href="index.html" class="logo">
+                <i class="fas fa-mountain-sun"></i>
+                <span>yatyrist</span>
+                <span class="logo-region">Кубань</span>
+            </a>
+
+            <nav class="nav">
+                <a href="index.html" class="nav-link">
+                    <i class="fas fa-compass"></i> Маршруты
+                </a>
+                <a href="create-route.html" class="nav-link">
+                    <i class="fas fa-plus-circle"></i> Создать маршрут
+                </a>
+                <div class="user-menu">
+                    <span class="user-name" id="userNameDisplay">
+                        <i class="fas fa-user-circle"></i> 
+                        <span id="profileUserName">Анна Сочинская</span>
+                    </span>
+                    <button class="btn btn-outline btn-small" id="logoutBtn">
+                        <i class="fas fa-sign-out-alt"></i> Выйти
+                    </button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="profile-page">
+        <div class="container">
+
+            <!-- ===== ПРОФИЛЬ ПОЛЬЗОВАТЕЛЯ ===== -->
+            <div class="profile-header">
+                <div class="profile-cover">
+                    <img src="img/routes/agur-waterfalls.jpg" alt="Cover" id="coverImage">
+                </div>
+                <div class="profile-info-wrapper">
+                    <div class="profile-avatar-wrapper">
+                        <img src="img/avatars/anna-sochi.jpg" alt="Анна Сочинская" class="profile-avatar" id="profileAvatar">
+                        <button class="btn-change-avatar" title="Сменить фото" id="changeAvatarBtn">
+                            <i class="fas fa-camera"></i>
+                        </button>
+                        <input type="file" id="avatarInput" accept="image/*" style="display: none;">
+                    </div>
+                    <div class="profile-details">
+                        <h1 class="profile-name" id="profileName">Анна Сочинская</h1>
+                        <p class="profile-bio" id="profileBio">Местный гид, живу в Сочи 15 лет. Знаю все тайные тропы и лучшие видовые точки.</p>
+                        <div class="profile-meta">
+                            <span><i class="fas fa-map-pin"></i> <span id="profileLocation">Сочи, Краснодарский край</span></span>
+                            <span><i class="fas fa-calendar-alt"></i> На сайте с 2024</span>
+                            <span><i class="fas fa-check-circle"></i> Верифицированный автор</span>
+                        </div>
+                    </div>
+                    <div class="profile-actions">
+                        <a href="create-route.html" class="btn btn-primary">
+                            <i class="fas fa-plus-circle"></i> Создать маршрут
+                        </a>
+                        <button class="btn btn-outline" id="editProfileBtn">
+                            <i class="fas fa-edit"></i> Редактировать
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== СТАТИСТИКА ===== -->
+            <div class="stats-dashboard">
+                <div class="stat-card-dash">
+                    <div class="stat-icon">
+                        <i class="fas fa-route"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-value" id="routesCount">12</span>
+                        <span class="stat-label-dash">Маршрутов создано</span>
+                    </div>
+                </div>
+                <div class="stat-card-dash">
+                    <div class="stat-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-value" id="salesCount">1,247</span>
+                        <span class="stat-label-dash">Продаж</span>
+                    </div>
+                </div>
+                <div class="stat-card-dash">
+                    <div class="stat-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-value" id="avgRating">4.9</span>
+                        <span class="stat-label-dash">Средний рейтинг</span>
+                    </div>
+                </div>
+                <div class="stat-card-dash">
+                    <div class="stat-icon">
+                        <i class="fas fa-ruble-sign"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-value" id="totalEarnings">348,203 ₽</span>
+                        <span class="stat-label-dash">Заработано</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== ВКЛАДКИ ===== -->
+            <div class="profile-tabs">
+                <button class="profile-tab active" data-tab="my-routes">
+                    <i class="fas fa-map-signs"></i> Мои маршруты
+                </button>
+                <button class="profile-tab" data-tab="purchased">
+                    <i class="fas fa-shopping-bag"></i> Купленные
+                </button>
+                <button class="profile-tab" data-tab="favorites">
+                    <i class="fas fa-heart"></i> Избранное
+                </button>
+                <button class="profile-tab" data-tab="earnings">
+                    <i class="fas fa-chart-line"></i> Финансы
+                </button>
+                <button class="profile-tab" data-tab="settings">
+                    <i class="fas fa-cog"></i> Настройки
+                </button>
+            </div>
+
+            <!-- ===== КОНТЕНТ ВКЛАДОК ===== -->
+
+            <!-- Мои маршруты -->
+            <div class="profile-tab-content active" id="my-routes">
+                <div class="section-header-action">
+                    <h2>Мои опубликованные маршруты</h2>
+                    <a href="create-route.html" class="btn btn-primary btn-small">
+                        <i class="fas fa-plus"></i> Новый маршрут
+                    </a>
+                </div>
+
+                <div class="my-routes-list" id="myRoutesList">
+                    <!-- Маршруты будут загружаться через JS -->
+                </div>
+
+                <div class="load-more-wrapper">
+                    <button class="btn btn-outline" id="loadMoreMyRoutes">
+                        <i class="fas fa-plus"></i> Показать ещё
+                    </button>
+                </div>
+            </div>
+
+            <!-- Купленные маршруты -->
+            <div class="profile-tab-content" id="purchased">
+                <h2>Купленные маршруты</h2>
+
+                <div class="purchased-list" id="purchasedList">
+                    <!-- Купленные маршруты загружаются через JS -->
+                </div>
+            </div>
+
+            <!-- Избранное -->
+            <div class="profile-tab-content" id="favorites">
+                <h2>Избранные маршруты</h2>
+                <div id="favoritesList">
+                    <p class="empty-state">
+                        <i class="fas fa-heart" style="font-size: 3rem; opacity: 0.3;"></i>
+                        <br> У вас пока нет избранных маршрутов
+                    </p>
+                </div>
+            </div>
+
+            <!-- Финансы -->
+            <div class="profile-tab-content" id="earnings">
+                <h2>Финансовая статистика</h2>
+
+                <div class="earnings-summary">
+                    <div class="earning-card">
+                        <h3>За всё время</h3>
+                        <span class="earning-amount" id="allTimeEarnings">348,203 ₽</span>
+                    </div>
+                    <div class="earning-card">
+                        <h3>В этом месяце</h3>
+                        <span class="earning-amount" id="monthEarnings">24,500 ₽</span>
+                    </div>
+                    <div class="earning-card">
+                        <h3>Доступно к выводу</h3>
+                        <span class="earning-amount" id="availableEarnings">312,400 ₽</span>
+                        <button class="btn btn-primary btn-small" id="withdrawBtn">Вывести</button>
+                    </div>
+                </div>
+
+                <h3>История операций</h3>
+                <table class="earnings-table" id="earningsTable">
+                    <thead>
+                        <tr>
+                            <th>Дата</th>
+                            <th>Маршрут</th>
+                            <th>Сумма</th>
+                            <th>Статус</th>
+                        </tr>
+                    </thead>
+                    <tbody id="earningsTableBody">
+                        <!-- Данные загружаются через JS -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Настройки -->
+            <div class="profile-tab-content" id="settings">
+                <h2>Настройки профиля</h2>
+
+                <form class="settings-form" id="settingsForm">
+                    <div class="form-group">
+                        <label for="settingsFirstName">Имя</label>
+                        <input type="text" id="settingsFirstName" value="Анна" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="settingsLastName">Фамилия</label>
+                        <input type="text" id="settingsLastName" value="Сочинская" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="settingsEmail">Email</label>
+                        <input type="email" id="settingsEmail" value="anna.sochi@yandex.ru" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="settingsCity">Город</label>
+                        <input type="text" id="settingsCity" value="Сочи" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="settingsBio">О себе</label>
+                        <textarea id="settingsBio" rows="3">Местный гид, живу в Сочи 15 лет. Знаю все тайные тропы и лучшие видовые точки.</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="settingsPayment">Платёжные реквизиты</label>
+                        <input type="text" id="settingsPayment" placeholder="Номер карты или телефона" class="form-control">
+                        <small>Для получения выплат за продажи маршрутов</small>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!-- ===== ПОДВАЛ ===== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h4>yatyrist Кубань</h4>
+                    <p>Авторские туристические маршруты по Краснодарскому краю и Адыгее.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul>
+                        <li><a href="index.html">Маршруты</a></li>
+                        <li><a href="create-route.html">Стать автором</a></li>
+                        <li><a href="profile.html">Профиль</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Контакты</h4>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> hello@yatyrist.ru</li>
+                        <li><i class="fab fa-telegram"></i> @yatyrist_bot</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 yatyrist. Все маршруты проверены авторами.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Подключаем JavaScript отдельными файлами -->
+    <script src="js/profile.js"></script>
+</body>
+
+</html>

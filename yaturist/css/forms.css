@@ -1,0 +1,352 @@
+/* ===== СТИЛИ ДЛЯ ФОРМ ===== */
+
+.form-section {
+    background: var(--white);
+    border-radius: var(--border-radius);
+    padding: 25px;
+    margin-bottom: 25px;
+    box-shadow: var(--shadow);
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid var(--gray-light);
+}
+
+.section-header h2 {
+    font-size: 1.3rem;
+    color: var(--dark);
+}
+
+.section-header h2 i {
+    color: var(--primary);
+    margin-right: 8px;
+}
+
+.required-note {
+    font-size: 0.8rem;
+    color: var(--gray);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 500;
+    color: var(--dark);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid var(--gray-light);
+    border-radius: var(--border-radius-sm);
+    font-size: 1rem;
+    transition: var(--transition);
+    font-family: inherit;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.1);
+}
+
+.form-group small {
+    display: block;
+    margin-top: 5px;
+    color: var(--gray);
+    font-size: 0.8rem;
+}
+
+.form-row {
+    display: flex;
+    gap: 20px;
+}
+
+.form-group.half {
+    flex: 1;
+}
+
+
+/* Радио-карточки */
+
+.radio-group.route-type-group {
+    display: flex;
+    gap: 15px;
+}
+
+.radio-card {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+    border: 2px solid var(--gray-light);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.radio-card input {
+    display: none;
+}
+
+.radio-card:has(input:checked) {
+    border-color: var(--primary);
+    background: var(--light);
+}
+
+.radio-card-icon {
+    font-size: 2rem;
+    color: var(--primary);
+    margin-bottom: 8px;
+}
+
+.radio-card-title {
+    font-weight: 600;
+}
+
+
+/* Чекбоксы */
+
+.checkbox-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.checkbox-label input {
+    width: auto;
+    margin-top: 3px;
+}
+
+.highlight-checkbox {
+    background: var(--light);
+    padding: 16px;
+    border-radius: var(--border-radius);
+    border: 2px solid var(--gray-light);
+}
+
+.highlight-checkbox:has(input:checked) {
+    border-color: var(--primary);
+    background: linear-gradient(135deg, #E8F5E9 0%, var(--light) 100%);
+}
+
+.checkbox-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.checkbox-text strong {
+    font-size: 1rem;
+    margin-bottom: 4px;
+}
+
+.checkbox-text small {
+    color: var(--gray);
+}
+
+
+/* Экипировка */
+
+.equipment-list {
+    margin-bottom: 15px;
+}
+
+.equipment-item {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.equipment-item input {
+    flex: 1;
+}
+
+.btn-add-item {
+    background: var(--light);
+    border: 2px dashed var(--gray);
+    color: var(--primary);
+    padding: 8px 16px;
+    border-radius: var(--border-radius-sm);
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.btn-remove-item {
+    background: none;
+    border: none;
+    color: var(--danger);
+    cursor: pointer;
+    padding: 0 10px;
+    font-size: 1.2rem;
+}
+
+
+/* Загрузка фото */
+
+.photo-upload-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+}
+
+.photo-upload-item {
+    aspect-ratio: 4/3;
+    position: relative;
+}
+
+.photo-input {
+    display: none;
+}
+
+.photo-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    border: 2px dashed var(--gray);
+    border-radius: var(--border-radius-sm);
+    cursor: pointer;
+    background: var(--light);
+}
+
+.photo-label i {
+    font-size: 1.8rem;
+    color: var(--primary);
+    margin-bottom: 5px;
+}
+
+
+/* Кнопки формы */
+
+.form-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: flex-end;
+    margin-top: 30px;
+}
+
+.form-note {
+    margin-top: 20px;
+    padding: 15px;
+    background: #FFF3E0;
+    border-radius: var(--border-radius-sm);
+    border-left: 4px solid var(--warning);
+}
+
+
+/* Страница авторизации */
+
+.auth-page {
+    background: linear-gradient(135deg, var(--primary-dark) 0%, #0D1F12 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.auth-container {
+    background: var(--white);
+    border-radius: var(--border-radius-lg);
+    padding: 35px;
+    max-width: 480px;
+    width: 100%;
+    box-shadow: var(--shadow-lg);
+}
+
+.auth-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 25px;
+}
+
+.auth-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.auth-tab {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    background: var(--light);
+    border-radius: var(--border-radius);
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.auth-tab.active {
+    background: var(--primary);
+    color: var(--white);
+}
+
+.auth-form h2 {
+    margin-bottom: 20px;
+}
+
+.social-login {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.btn-social {
+    flex: 1;
+    padding: 12px;
+    border: 2px solid var(--gray-light);
+    border-radius: var(--border-radius);
+    background: var(--white);
+    cursor: pointer;
+}
+
+.auth-divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 20px 0;
+    color: var(--gray);
+}
+
+.auth-divider::before,
+.auth-divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid var(--gray-light);
+}
+
+.auth-divider span {
+    padding: 0 15px;
+}
+
+.author-note {
+    margin-top: 15px;
+    padding: 15px;
+    background: #E3F2FD;
+    border-radius: var(--border-radius-sm);
+    display: flex;
+    gap: 10px;
+    color: var(--info);
+}

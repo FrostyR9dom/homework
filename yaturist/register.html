@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Регистрация | yatyrist</title>
+
+    <!-- Стили -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/forms.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <!-- Иконки -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<!-- Класс auth-page добавляет градиентный фон для страницы авторизации -->
+
+<body class="auth-page">
+
+    <!-- КОНТЕЙНЕР ФОРМЫ АВТОРИЗАЦИИ -->
+    <div class="auth-container">
+
+        <!-- ЛОГОТИП С ССЫЛКОЙ НА ГЛАВНУЮ -->
+        <a href="index.html" class="auth-logo">
+            <i class="fas fa-mountain-sun"></i>
+            <span>yatyrist</span>
+        </a>
+
+        <!-- ВКЛАДКИ ПЕРЕКЛЮЧЕНИЯ ВХОД / РЕГИСТРАЦИЯ -->
+        <div class="auth-tabs">
+            <!-- data-tab используется в JS для переключения -->
+            <button class="auth-tab active" data-tab="login">
+                <i class="fas fa-sign-in-alt"></i> Вход
+            </button>
+            <button class="auth-tab" data-tab="register">
+                <i class="fas fa-user-plus"></i> Регистрация
+            </button>
+        </div>
+
+        <!-- ===== ФОРМА ВХОДА ===== -->
+        <!-- active означает, что форма видна по умолчанию -->
+        <div class="auth-form active" id="loginForm">
+            <h2>С возвращением!</h2>
+            <p class="auth-subtitle">Войдите, чтобы продолжить</p>
+
+            <!-- Форма входа, id="login" для JS -->
+            <form id="login">
+                <!-- ПОЛЕ EMAIL -->
+                <div class="form-group">
+                    <label for="loginEmail"><i class="fas fa-envelope"></i> Email</label>
+                    <input type="email" id="loginEmail" placeholder="your@email.com" required>
+                </div>
+
+                <!-- ПОЛЕ ПАРОЛЬ -->
+                <div class="form-group">
+                    <label for="loginPassword"><i class="fas fa-lock"></i> Пароль</label>
+                    <input type="password" id="loginPassword" placeholder="••••••••" required>
+                </div>
+
+                <!-- КНОПКА ОТПРАВКИ -->
+                <button type="submit" class="btn btn-primary btn-block">
+                    <i class="fas fa-sign-in-alt"></i> Войти
+                </button>
+            </form>
+
+            <!-- ССЫЛКА НА РЕГИСТРАЦИЮ -->
+            <p class="auth-footer">
+                Нет аккаунта? <a href="#" class="switch-to-register">Зарегистрируйтесь</a>
+            </p>
+        </div>
+
+        <!-- ===== ФОРМА РЕГИСТРАЦИИ ===== -->
+        <!-- По умолчанию скрыта -->
+        <div class="auth-form" id="registerForm">
+            <h2>Присоединяйтесь!</h2>
+            <p class="auth-subtitle">Создайте аккаунт и начните путешествовать</p>
+
+            <!-- Форма регистрации, id="register" для JS -->
+            <form id="register">
+                <!-- ДВА ПОЛЯ В ОДНОЙ СТРОКЕ: ИМЯ И ФАМИЛИЯ -->
+                <div class="form-row">
+                    <div class="form-group half">
+                        <label for="firstName">Имя *</label>
+                        <input type="text" id="firstName" placeholder="Иван" required>
+                    </div>
+                    <div class="form-group half">
+                        <label for="lastName">Фамилия *</label>
+                        <input type="text" id="lastName" placeholder="Иванов" required>
+                    </div>
+                </div>
+
+                <!-- EMAIL -->
+                <div class="form-group">
+                    <label for="regEmail">Email *</label>
+                    <input type="email" id="regEmail" placeholder="your@email.com" required>
+                </div>
+
+                <!-- ПАРОЛЬ -->
+                <div class="form-group">
+                    <label for="regPassword">Пароль *</label>
+                    <input type="password" id="regPassword" placeholder="Минимум 6 символов" required>
+                </div>
+
+                <!-- ГОРОД (НЕОБЯЗАТЕЛЬНО) -->
+                <div class="form-group">
+                    <label for="city">Город</label>
+                    <input type="text" id="city" placeholder="Краснодар, Сочи...">
+                </div>
+
+                <!-- ВАЖНЫЙ ЧЕКБОКС: ХОЧЕТ ЛИ ПОЛЬЗОВАТЕЛЬ СТАТЬ АВТОРОМ -->
+                <!-- От этого зависит, сможет ли он создавать маршруты -->
+                <div class="form-group highlight-checkbox">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="wantToBeAuthor">
+                        <span class="checkbox-text">
+                            <strong>Хочу создавать и продавать маршруты</strong>
+                            <small>Вы сможете публиковать свои маршруты и зарабатывать</small>
+                        </span>
+                    </label>
+                    <!-- Пояснение появляется при отметке чекбокса -->
+                    <div class="author-note" id="authorNote" style="display: none;">
+                        <i class="fas fa-info-circle"></i>
+                        <p>Как автор вы получаете доступ к конструктору маршрутов. Комиссия сервиса — 30%.</p>
+                    </div>
+                </div>
+
+                <!-- СОГЛАСИЕ С УСЛОВИЯМИ -->
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" required>
+                        <span class="checkbox-text">Я согласен с условиями использования</span>
+                    </label>
+                </div>
+
+                <!-- КНОПКА ОТПРАВКИ -->
+                <button type="submit" class="btn btn-primary btn-block btn-large">
+                    <i class="fas fa-user-plus"></i> Зарегистрироваться
+                </button>
+            </form>
+
+            <!-- ССЫЛКА НА ВХОД -->
+            <p class="auth-footer">
+                Уже есть аккаунт? <a href="#" class="switch-to-login">Войдите</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- ПОДКЛЮЧЕНИЕ JS -->
+    <!-- auth.js содержит функции регистрации и входа -->
+    <script src="js/auth.js"></script>
+    <!-- register.js обрабатывает формы на этой странице -->
+    <script src="js/register.js"></script>
+</body>
+
+</html>
