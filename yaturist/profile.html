@@ -18,7 +18,7 @@
 
 <body>
 
-    <!-- ===== ШАПКА ===== -->
+    <!-- ===== ШАПКА (ИСПРАВЛЕНА - ДИНАМИЧЕСКАЯ) ===== -->
     <header class="header">
         <div class="container header-inner">
             <a href="index.html" class="logo">
@@ -37,7 +37,7 @@
                 <div class="user-menu">
                     <span class="user-name" id="userNameDisplay">
                         <i class="fas fa-user-circle"></i> 
-                        <span id="profileUserName">Анна Сочинская</span>
+                        <span id="profileUserName">Загрузка...</span>
                     </span>
                     <button class="btn btn-outline btn-small" id="logoutBtn">
                         <i class="fas fa-sign-out-alt"></i> Выйти
@@ -50,30 +50,30 @@
     <main class="profile-page">
         <div class="container">
 
-            <!-- ===== ПРОФИЛЬ ПОЛЬЗОВАТЕЛЯ ===== -->
+            <!-- ===== ПРОФИЛЬ ПОЛЬЗОВАТЕЛЯ (ДИНАМИЧЕСКИЙ) ===== -->
             <div class="profile-header">
                 <div class="profile-cover">
-                    <img src="img/routes/agur-waterfalls.jpg" alt="Cover" id="coverImage">
+                    <div style="height: 150px; background: linear-gradient(135deg, #2E7D32, #1B5E20);"></div>
                 </div>
                 <div class="profile-info-wrapper">
                     <div class="profile-avatar-wrapper">
-                        <img src="img/avatars/anna-sochi.jpg" alt="Анна Сочинская" class="profile-avatar" id="profileAvatar">
+                        <img src="img/avatars/default-avatar.png" alt="Аватар" class="profile-avatar" id="profileAvatar">
                         <button class="btn-change-avatar" title="Сменить фото" id="changeAvatarBtn">
                             <i class="fas fa-camera"></i>
                         </button>
                         <input type="file" id="avatarInput" accept="image/*" style="display: none;">
                     </div>
                     <div class="profile-details">
-                        <h1 class="profile-name" id="profileName">Анна Сочинская</h1>
-                        <p class="profile-bio" id="profileBio">Местный гид, живу в Сочи 15 лет. Знаю все тайные тропы и лучшие видовые точки.</p>
+                        <h1 class="profile-name" id="profileName">Загрузка...</h1>
+                        <p class="profile-bio" id="profileBio"></p>
                         <div class="profile-meta">
-                            <span><i class="fas fa-map-pin"></i> <span id="profileLocation">Сочи, Краснодарский край</span></span>
-                            <span><i class="fas fa-calendar-alt"></i> На сайте с 2024</span>
-                            <span><i class="fas fa-check-circle"></i> Верифицированный автор</span>
+                            <span><i class="fas fa-map-pin"></i> <span id="profileLocation"></span></span>
+                            <span><i class="fas fa-calendar-alt"></i> <span id="profileSince"></span></span>
+                            <span><i class="fas fa-check-circle"></i> <span id="profileAuthorStatus"></span></span>
                         </div>
                     </div>
                     <div class="profile-actions">
-                        <a href="create-route.html" class="btn btn-primary">
+                        <a href="create-route.html" class="btn btn-primary" id="createRouteBtn">
                             <i class="fas fa-plus-circle"></i> Создать маршрут
                         </a>
                         <button class="btn btn-outline" id="editProfileBtn">
@@ -90,7 +90,7 @@
                         <i class="fas fa-route"></i>
                     </div>
                     <div class="stat-info">
-                        <span class="stat-value" id="routesCount">12</span>
+                        <span class="stat-value" id="routesCount">0</span>
                         <span class="stat-label-dash">Маршрутов создано</span>
                     </div>
                 </div>
@@ -99,7 +99,7 @@
                         <i class="fas fa-shopping-cart"></i>
                     </div>
                     <div class="stat-info">
-                        <span class="stat-value" id="salesCount">1,247</span>
+                        <span class="stat-value" id="salesCount">0</span>
                         <span class="stat-label-dash">Продаж</span>
                     </div>
                 </div>
@@ -108,7 +108,7 @@
                         <i class="fas fa-star"></i>
                     </div>
                     <div class="stat-info">
-                        <span class="stat-value" id="avgRating">4.9</span>
+                        <span class="stat-value" id="avgRating">0</span>
                         <span class="stat-label-dash">Средний рейтинг</span>
                     </div>
                 </div>
@@ -117,7 +117,7 @@
                         <i class="fas fa-ruble-sign"></i>
                     </div>
                     <div class="stat-info">
-                        <span class="stat-value" id="totalEarnings">348,203 ₽</span>
+                        <span class="stat-value" id="totalEarnings">0 ₽</span>
                         <span class="stat-label-dash">Заработано</span>
                     </div>
                 </div>
@@ -191,15 +191,15 @@
                 <div class="earnings-summary">
                     <div class="earning-card">
                         <h3>За всё время</h3>
-                        <span class="earning-amount" id="allTimeEarnings">348,203 ₽</span>
+                        <span class="earning-amount" id="allTimeEarnings">0 ₽</span>
                     </div>
                     <div class="earning-card">
                         <h3>В этом месяце</h3>
-                        <span class="earning-amount" id="monthEarnings">24,500 ₽</span>
+                        <span class="earning-amount" id="monthEarnings">0 ₽</span>
                     </div>
                     <div class="earning-card">
                         <h3>Доступно к выводу</h3>
-                        <span class="earning-amount" id="availableEarnings">312,400 ₽</span>
+                        <span class="earning-amount" id="availableEarnings">0 ₽</span>
                         <button class="btn btn-primary btn-small" id="withdrawBtn">Вывести</button>
                     </div>
                 </div>
@@ -227,23 +227,23 @@
                 <form class="settings-form" id="settingsForm">
                     <div class="form-group">
                         <label for="settingsFirstName">Имя</label>
-                        <input type="text" id="settingsFirstName" value="Анна" class="form-control">
+                        <input type="text" id="settingsFirstName" class="form-control">
                     </div>
                     <div class="form-group">
                         <label for="settingsLastName">Фамилия</label>
-                        <input type="text" id="settingsLastName" value="Сочинская" class="form-control">
+                        <input type="text" id="settingsLastName" class="form-control">
                     </div>
                     <div class="form-group">
                         <label for="settingsEmail">Email</label>
-                        <input type="email" id="settingsEmail" value="anna.sochi@yandex.ru" class="form-control">
+                        <input type="email" id="settingsEmail" class="form-control">
                     </div>
                     <div class="form-group">
                         <label for="settingsCity">Город</label>
-                        <input type="text" id="settingsCity" value="Сочи" class="form-control">
+                        <input type="text" id="settingsCity" class="form-control">
                     </div>
                     <div class="form-group">
                         <label for="settingsBio">О себе</label>
-                        <textarea id="settingsBio" rows="3">Местный гид, живу в Сочи 15 лет. Знаю все тайные тропы и лучшие видовые точки.</textarea>
+                        <textarea id="settingsBio" rows="3" class="form-control"></textarea>
                     </div>
                     <div class="form-group">
                         <label for="settingsPayment">Платёжные реквизиты</label>
@@ -263,7 +263,7 @@
             <div class="footer-content">
                 <div class="footer-col">
                     <h4>yatyrist Кубань</h4>
-                    <p>Авторские туристические маршруты по Краснодарскому краю и Адыгее.</p>
+                    <p>Уникальный маркетплейс маршрутов и туров по Югу России. Создавай, продавай, путешествуй!</p>
                 </div>
                 <div class="footer-col">
                     <h4>Разделы</h4>
@@ -282,12 +282,13 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>© 2026 yatyrist. Все маршруты проверены авторами.</p>
+                <p>© 2026 yatyrist. Комиссия сервиса — 30% с продажи маршрута. Маршруты сделаны с душой ❤️</p>
             </div>
         </div>
     </footer>
 
-    <!-- Подключаем JavaScript отдельными файлами -->
+    <!-- Подключаем JavaScript -->
+    <script src="js/auth.js"></script>
     <script src="js/profile.js"></script>
 </body>
 

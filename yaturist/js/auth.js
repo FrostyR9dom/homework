@@ -39,14 +39,15 @@ function registerUser(userData) {
 
     // Создаём нового пользователя
     var newUser = {
-        id: Date.now(), // Временный ID на основе времени
+        id: Date.now(),
         firstName: userData.firstName,
         lastName: userData.lastName,
         email: userData.email,
-        password: userData.password, // В реальном проекте - хеш пароля!
+        password: userData.password,
         city: userData.city || '',
-        isAuthor: userData.wantToBeAuthor || false, // Может ли создавать маршруты
-        avatar: 'img/avatars/default-avatar.png',
+        bio: userData.bio || '',
+        isAuthor: userData.wantToBeAuthor || false,
+        avatar: userData.avatar || 'img/avatars/default-avatar.png',
         createdAt: new Date().toISOString()
     };
 
@@ -54,15 +55,18 @@ function registerUser(userData) {
     users.push(newUser);
     localStorage.setItem('yatyrist_users', JSON.stringify(users));
 
-    // Создаём сессию (сохраняем в отдельный ключ)
+    // Создаём сессию
     var sessionUser = {
         id: newUser.id,
         firstName: newUser.firstName,
         lastName: newUser.lastName,
         email: newUser.email,
+        city: newUser.city,
+        bio: newUser.bio,
         avatar: newUser.avatar,
         isLoggedIn: true,
-        isAuthor: newUser.isAuthor
+        isAuthor: newUser.isAuthor,
+        createdAt: newUser.createdAt
     };
 
     localStorage.setItem('yatyrist_user', JSON.stringify(sessionUser));
@@ -91,9 +95,12 @@ function loginUser(email, password) {
                 firstName: user.firstName,
                 lastName: user.lastName,
                 email: user.email,
+                city: user.city || '',
+                bio: user.bio || '',
                 avatar: user.avatar || 'img/avatars/default-avatar.png',
                 isLoggedIn: true,
-                isAuthor: user.isAuthor || false
+                isAuthor: user.isAuthor || false,
+                createdAt: user.createdAt
             };
 
             localStorage.setItem('yatyrist_user', JSON.stringify(sessionUser));
@@ -131,13 +138,12 @@ function canCreateRoute() {
 
 /**
  * Обновляет интерфейс в зависимости от статуса авторизации
- * Показывает/скрывает элементы с классами guest-only и auth-only
  */
 function updateAuthUI() {
     var user = getCurrentUser();
     var loggedIn = user !== null;
 
-    // Элементы для гостей (неавторизованных)
+    // Элементы для гостей
     var guestElements = document.querySelectorAll('.guest-only');
     for (var i = 0; i < guestElements.length; i++) {
         guestElements[i].style.display = loggedIn ? 'none' : 'block';
@@ -149,7 +155,7 @@ function updateAuthUI() {
         authElements[i].style.display = loggedIn ? 'flex' : 'none';
     }
 
-    // Обновляем имя пользователя
+    // Обновляем имя и аватар пользователя
     if (loggedIn) {
         var nameDisplays = document.querySelectorAll('.user-name-display');
         var avatarDisplays = document.querySelectorAll('.user-avatar-display');
@@ -159,18 +165,60 @@ function updateAuthUI() {
         }
 
         for (var i = 0; i < avatarDisplays.length; i++) {
-            avatarDisplays[i].src = user.avatar;
+            if (user.avatar) {
+                avatarDisplays[i].src = user.avatar;
+            }
+        }
+
+        // Обновляем ссылку на профиль
+        var profileLinks = document.querySelectorAll('.user-profile-link');
+        for (var i = 0; i < profileLinks.length; i++) {
+            if (profileLinks[i].style) {
+                profileLinks[i].style.display = 'flex';
+            }
         }
     }
 }
 
-// ===== ИНИЦИАЛИЗАЦИЯ ПРИ ЗАГРУЗКЕ СТРАНИЦЫ =====
-document.addEventListener('DOMContentLoaded', function() {
+/**
+ * Сохраняет обновлённые данные пользователя
+ * @param {Object} updatedUser - Обновлённые данные
+ * @returns {boolean}
+ */
+function updateUserData(updatedUser) {
+    try {
+        // Обновляем сессию
+        localStorage.setItem('yatyrist_user', JSON.stringify(updatedUser));
 
-    // Обновляем интерфейс
+        // Обновляем в общем списке
+        var usersJson = localStorage.getItem('yatyrist_users');
+        var users = usersJson ? JSON.parse(usersJson) : [];
+
+        var userIndex = -1;
+        for (var i = 0; i < users.length; i++) {
+            if (users[i].id === updatedUser.id) {
+                userIndex = i;
+                break;
+            }
+        }
+
+        if (userIndex !== -1) {
+            users[userIndex] = {...users[userIndex], ...updatedUser };
+            localStorage.setItem('yatyrist_users', JSON.stringify(users));
+        }
+
+        return true;
+    } catch (e) {
+        console.error('Ошибка обновления пользователя:', e);
+        return false;
+    }
+}
+
+// Инициализация при загрузке
+document.addEventListener('DOMContentLoaded', function() {
     updateAuthUI();
 
-    // Вешаем обработчики на кнопки выхода
+    // Обработчики кнопок выхода
     var logoutBtns = document.querySelectorAll('.logout-btn');
     for (var i = 0; i < logoutBtns.length; i++) {
         logoutBtns[i].addEventListener('click', function(e) {
@@ -181,19 +229,15 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Проверяем доступ к созданию маршрута
+    // Проверка доступа к созданию маршрута
     var createLinks = document.querySelectorAll('.create-route-link');
     for (var i = 0; i < createLinks.length; i++) {
         createLinks[i].addEventListener('click', function(e) {
-            // Если не авторизован - на страницу регистрации
             if (!isLoggedIn()) {
                 e.preventDefault();
-                // Сохраняем URL для возврата после входа
                 localStorage.setItem('redirect_after_login', 'create-route.html');
                 window.location.href = 'register.html?mode=register&becomeAuthor=true';
-            }
-            // Если авторизован, но не автор - показываем сообщение
-            else if (!canCreateRoute()) {
+            } else if (!canCreateRoute()) {
                 e.preventDefault();
                 alert('⚠️ Чтобы создавать маршруты, нужно быть автором.\n\nОтметьте галочку "Хочу создавать маршруты" при регистрации или в настройках профиля.');
                 window.location.href = 'profile.html#settings';

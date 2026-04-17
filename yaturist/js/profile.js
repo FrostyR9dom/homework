@@ -1,12 +1,100 @@
 /**
  * profile.js
  * Логика для личного кабинета пользователя
- * Вкладки, загрузка данных, редактирование профиля
  */
+
+// Глобальные переменные
+var currentUser = null;
 
 document.addEventListener('DOMContentLoaded', function() {
 
-    // ===== 1. ПЕРЕКЛЮЧЕНИЕ ВКЛАДОК =====
+    // ===== 1. ЗАГРУЗКА ДАННЫХ ПОЛЬЗОВАТЕЛЯ =====
+    function loadUserProfile() {
+        currentUser = getCurrentUser();
+
+        if (!currentUser) {
+            // Если пользователь не авторизован - перенаправляем на вход
+            window.location.href = 'register.html';
+            return;
+        }
+
+        // Заполняем данные из localStorage
+        document.getElementById('profileName').textContent = currentUser.firstName + ' ' + currentUser.lastName;
+
+        var userNameSpans = document.querySelectorAll('#profileUserName');
+        for (var i = 0; i < userNameSpans.length; i++) {
+            userNameSpans[i].textContent = currentUser.firstName + ' ' + currentUser.lastName;
+        }
+
+        // Аватар
+        var avatarImg = document.getElementById('profileAvatar');
+        if (currentUser.avatar && currentUser.avatar !== 'undefined') {
+            avatarImg.src = currentUser.avatar;
+        } else {
+            avatarImg.src = 'img/avatars/default-avatar.png';
+        }
+
+        // Биография
+        var bioElement = document.getElementById('profileBio');
+        if (currentUser.bio && currentUser.bio.trim() !== '') {
+            bioElement.textContent = currentUser.bio;
+        } else {
+            bioElement.textContent = 'Путешественник. Люблю открывать новые места.';
+        }
+
+        // Город
+        var locationElement = document.getElementById('profileLocation');
+        if (currentUser.city && currentUser.city.trim() !== '') {
+            locationElement.textContent = currentUser.city + ', Краснодарский край';
+        } else {
+            locationElement.textContent = 'Краснодарский край';
+        }
+
+        // Дата регистрации
+        var sinceElement = document.getElementById('profileSince');
+        if (currentUser.createdAt) {
+            var date = new Date(currentUser.createdAt);
+            sinceElement.textContent = 'На сайте с ' + date.getFullYear();
+        } else {
+            sinceElement.textContent = 'На сайте с 2024';
+        }
+
+        // Статус автора
+        var authorStatusElement = document.getElementById('profileAuthorStatus');
+        if (currentUser.isAuthor) {
+            authorStatusElement.textContent = 'Верифицированный автор';
+            authorStatusElement.style.color = 'var(--success)';
+        } else {
+            authorStatusElement.textContent = 'Путешественник';
+            authorStatusElement.style.color = 'var(--gray)';
+        }
+
+        // Показываем/скрываем кнопку создания маршрута
+        var createRouteBtn = document.getElementById('createRouteBtn');
+        if (createRouteBtn) {
+            if (currentUser.isAuthor) {
+                createRouteBtn.style.display = 'inline-flex';
+            } else {
+                createRouteBtn.style.display = 'none';
+            }
+        }
+
+        // Обновляем форму настроек
+        document.getElementById('settingsFirstName').value = currentUser.firstName || '';
+        document.getElementById('settingsLastName').value = currentUser.lastName || '';
+        document.getElementById('settingsEmail').value = currentUser.email || '';
+        document.getElementById('settingsCity').value = currentUser.city || '';
+        document.getElementById('settingsBio').value = currentUser.bio || '';
+
+        // Статистика (имитация)
+        document.getElementById('routesCount').textContent = currentUser.isAuthor ? '3' : '0';
+        document.getElementById('salesCount').textContent = currentUser.isAuthor ? '1,247' : '0';
+        document.getElementById('avgRating').textContent = currentUser.isAuthor ? '4.9' : '0';
+        document.getElementById('totalEarnings').textContent = currentUser.isAuthor ? '348,203 ₽' : '0 ₽';
+        document.getElementById('allTimeEarnings').textContent = currentUser.isAuthor ? '348,203 ₽' : '0 ₽';
+    }
+
+    // ===== 2. ПЕРЕКЛЮЧЕНИЕ ВКЛАДОК =====
     var tabs = document.querySelectorAll('.profile-tab');
     var contents = document.querySelectorAll('.profile-tab-content');
 
@@ -35,6 +123,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Сохраняем в localStorage
         localStorage.setItem('activeProfileTab', tabId);
+
+        // Если переключились на вкладку настроек, обновляем форму
+        if (tabId === 'settings' && currentUser) {
+            document.getElementById('settingsFirstName').value = currentUser.firstName || '';
+            document.getElementById('settingsLastName').value = currentUser.lastName || '';
+            document.getElementById('settingsEmail').value = currentUser.email || '';
+            document.getElementById('settingsCity').value = currentUser.city || '';
+            document.getElementById('settingsBio').value = currentUser.bio || '';
+        }
     }
 
     // Вешаем обработчики на вкладки
@@ -47,55 +144,66 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Восстанавливаем последнюю активную вкладку
     var savedTab = localStorage.getItem('activeProfileTab');
-    if (savedTab) {
+    if (savedTab && document.getElementById(savedTab)) {
         switchTab(savedTab);
     }
 
-    // ===== 2. ЗАГРУЗКА МОИХ МАРШРУТОВ =====
+    // ===== 3. ЗАГРУЗКА МОИХ МАРШРУТОВ =====
     function loadMyRoutes() {
         var routesList = document.getElementById('myRoutesList');
         if (!routesList) return;
 
-        // Имитация данных (в реальном проекте - запрос к API)
-        var routes = [{
-                id: 1,
-                title: 'Агурские водопады и Орлиные скалы',
-                type: 'hike',
-                typeName: 'Пеший',
-                rating: 4.9,
-                sales: 1247,
-                views: 3892,
-                income: 348203,
-                image: 'img/routes/agur-waterfalls.jpg'
-            },
-            {
-                id: 2,
-                title: 'Восхождение на гору Фишт',
-                type: 'hike',
-                typeName: 'Пеший',
-                rating: 4.8,
-                sales: 156,
-                views: 2104,
-                income: 186444,
-                image: 'img/routes/fisht-hike.jpg'
-            }
-        ];
+        if (!currentUser || !currentUser.isAuthor) {
+            routesList.innerHTML = '<div class="empty-state"><i class="fas fa-info-circle"></i><br>Вы не являетесь автором. Чтобы создавать маршруты, отметьте галочку "Хочу создавать маршруты" в настройках.</div>';
+            return;
+        }
+
+        // Загружаем маршруты пользователя из localStorage
+        var allRoutes = JSON.parse(localStorage.getItem('yatyrist_routes') || '[]');
+        var myRoutes = allRoutes.filter(function(route) {
+            return route.author && route.author.id === currentUser.id;
+        });
+
+        // Если нет своих маршрутов, показываем примеры
+        if (myRoutes.length === 0) {
+            myRoutes = [{
+                    id: 1,
+                    title: 'Агурские водопады и Орлиные скалы',
+                    type: 'hike',
+                    typeName: 'Пеший',
+                    rating: 4.9,
+                    sales: 1247,
+                    views: 3892,
+                    income: 348203
+                },
+                {
+                    id: 2,
+                    title: 'Восхождение на гору Фишт',
+                    type: 'hike',
+                    typeName: 'Пеший',
+                    rating: 4.8,
+                    sales: 156,
+                    views: 2104,
+                    income: 186444
+                }
+            ];
+        }
 
         var html = '';
-        for (var i = 0; i < routes.length; i++) {
-            var route = routes[i];
+        for (var i = 0; i < myRoutes.length; i++) {
+            var route = myRoutes[i];
             html += '<div class="route-item" data-route-id="' + route.id + '">';
-            html += '<img src="' + route.image + '" alt="' + route.title + '" class="route-item-img">';
+            html += '<div class="route-item-img" style="background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); display: flex; align-items: center; justify-content: center; color: white;"><i class="fas fa-route"></i></div>';
             html += '<div class="route-item-info">';
             html += '<h3>' + route.title + '</h3>';
             html += '<div class="route-item-meta">';
-            html += '<span class="badge ' + route.type + '">' + route.typeName + '</span>';
-            html += '<span><i class="fas fa-star"></i> ' + route.rating + '</span>';
-            html += '<span><i class="fas fa-shopping-cart"></i> ' + route.sales + ' продаж</span>';
-            html += '<span><i class="fas fa-eye"></i> ' + route.views + ' просмотра</span>';
+            html += '<span class="badge ' + route.type + '">' + (route.typeName || route.type) + '</span>';
+            html += '<span><i class="fas fa-star"></i> ' + (route.rating || '4.5') + '</span>';
+            html += '<span><i class="fas fa-shopping-cart"></i> ' + (route.sales || '0') + ' продаж</span>';
+            html += '<span><i class="fas fa-eye"></i> ' + (route.views || '0') + ' просмотров</span>';
             html += '</div>';
             html += '<div class="route-item-stats">';
-            html += '<span>Доход: ' + route.income.toLocaleString() + ' ₽</span>';
+            html += '<span>Доход: ' + ((route.income || 0).toLocaleString()) + ' ₽</span>';
             html += '</div>';
             html += '</div>';
             html += '<div class="route-item-actions">';
@@ -112,32 +220,38 @@ document.addEventListener('DOMContentLoaded', function() {
         routesList.innerHTML = html;
     }
 
-    // ===== 3. ЗАГРУЗКА КУПЛЕННЫХ МАРШРУТОВ =====
+    // ===== 4. ЗАГРУЗКА КУПЛЕННЫХ МАРШРУТОВ =====
     function loadPurchasedRoutes() {
         var purchasedList = document.getElementById('purchasedList');
         if (!purchasedList) return;
 
-        var purchased = [{
-                id: 3,
-                title: 'Автопутешествие на плато Лаго-Наки',
-                author: 'Марат Горный',
-                purchaseDate: '15.04.2026',
-                image: 'img/routes/lago-naki.jpg'
-            },
-            {
-                id: 2,
-                title: 'Велопрогулка: Геленджик — Кабардинка',
-                author: 'Сергей Велопутешественник',
-                purchaseDate: '03.04.2026',
-                image: 'img/routes/gelendjik-bike.jpg'
-            }
-        ];
+        // Загружаем купленные маршруты
+        var purchased = JSON.parse(localStorage.getItem('yatyrist_purchased') || '[]');
+
+        // Если нет купленных, показываем пример
+        if (purchased.length === 0 && currentUser) {
+            purchased = [{
+                    id: 3,
+                    title: 'Автопутешествие на плато Лаго-Наки',
+                    author: 'Марат Горный',
+                    purchaseDate: new Date().toLocaleDateString(),
+                    price: 999
+                },
+                {
+                    id: 2,
+                    title: 'Велопрогулка: Геленджик — Кабардинка',
+                    author: 'Сергей Вело',
+                    purchaseDate: new Date(Date.now() - 86400000).toLocaleDateString(),
+                    price: 199
+                }
+            ];
+        }
 
         var html = '';
         for (var i = 0; i < purchased.length; i++) {
             var item = purchased[i];
             html += '<div class="purchased-item">';
-            html += '<img src="' + item.image + '" alt="' + item.title + '" class="purchased-img">';
+            html += '<div class="purchased-img" style="background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%); display: flex; align-items: center; justify-content: center; color: white;"><i class="fas fa-map"></i></div>';
             html += '<div class="purchased-info">';
             html += '<h3>' + item.title + '</h3>';
             html += '<span class="author">Автор: ' + item.author + '</span>';
@@ -155,16 +269,21 @@ document.addEventListener('DOMContentLoaded', function() {
         purchasedList.innerHTML = html;
     }
 
-    // ===== 4. ЗАГРУЗКА ТАБЛИЦЫ ФИНАНСОВ =====
+    // ===== 5. ЗАГРУЗКА ТАБЛИЦЫ ФИНАНСОВ =====
     function loadEarnings() {
         var tbody = document.getElementById('earningsTableBody');
         if (!tbody) return;
 
+        if (!currentUser || !currentUser.isAuthor) {
+            tbody.innerHTML = '<tr><td colspan="4" style="text-align: center;">Вы не являетесь автором. Создавайте маршруты и зарабатывайте!</td></tr>';
+            return;
+        }
+
         var transactions = [
-            { date: '15.04.2026', route: 'Агурские водопады', amount: '279 ₽', status: 'success' },
-            { date: '14.04.2026', route: 'Восхождение на Фишт', amount: '1,199 ₽', status: 'success' },
-            { date: '13.04.2026', route: 'Агурские водопады', amount: '279 ₽', status: 'pending' },
-            { date: '12.04.2026', route: 'Агурские водопады', amount: '279 ₽', status: 'success' }
+            { date: new Date().toLocaleDateString(), route: 'Агурские водопады', amount: '279 ₽', status: 'success' },
+            { date: new Date(Date.now() - 86400000).toLocaleDateString(), route: 'Восхождение на Фишт', amount: '1,199 ₽', status: 'success' },
+            { date: new Date(Date.now() - 172800000).toLocaleDateString(), route: 'Агурские водопады', amount: '279 ₽', status: 'pending' },
+            { date: new Date(Date.now() - 259200000).toLocaleDateString(), route: 'Агурские водопады', amount: '279 ₽', status: 'success' }
         ];
 
         var html = '';
@@ -184,34 +303,36 @@ document.addEventListener('DOMContentLoaded', function() {
         tbody.innerHTML = html;
     }
 
-    // ===== 5. РЕДАКТИРОВАНИЕ ПРОФИЛЯ =====
-    var editProfileBtn = document.getElementById('editProfileBtn');
-    if (editProfileBtn) {
-        editProfileBtn.addEventListener('click', function() {
-            switchTab('settings');
-        });
-    }
-
     // ===== 6. СОХРАНЕНИЕ НАСТРОЕК =====
     var settingsForm = document.getElementById('settingsForm');
     if (settingsForm) {
         settingsForm.addEventListener('submit', function(e) {
             e.preventDefault();
 
-            var firstName = document.getElementById('settingsFirstName').value;
-            var lastName = document.getElementById('settingsLastName').value;
-            var city = document.getElementById('settingsCity').value;
-            var bio = document.getElementById('settingsBio').value;
+            if (!currentUser) return;
 
-            // Обновляем отображаемые данные
-            document.getElementById('profileName').textContent = firstName + ' ' + lastName;
-            document.getElementById('profileBio').textContent = bio;
-            document.getElementById('profileLocation').textContent = city + ', Краснодарский край';
-            document.getElementById('profileUserName').textContent = firstName + ' ' + lastName;
+            // Получаем новые значения
+            var newFirstName = document.getElementById('settingsFirstName').value;
+            var newLastName = document.getElementById('settingsLastName').value;
+            var newEmail = document.getElementById('settingsEmail').value;
+            var newCity = document.getElementById('settingsCity').value;
+            var newBio = document.getElementById('settingsBio').value;
 
-            alert('✅ Настройки сохранены!');
+            // Обновляем объект пользователя
+            currentUser.firstName = newFirstName;
+            currentUser.lastName = newLastName;
+            currentUser.email = newEmail;
+            currentUser.city = newCity;
+            currentUser.bio = newBio;
 
-            // В реальном проекте - отправка на сервер
+            // Сохраняем
+            if (updateUserData(currentUser)) {
+                // Обновляем отображение
+                loadUserProfile();
+                alert('✅ Настройки сохранены!');
+            } else {
+                alert('❌ Ошибка при сохранении настроек');
+            }
         });
     }
 
@@ -225,12 +346,16 @@ document.addEventListener('DOMContentLoaded', function() {
             avatarInput.click();
         });
 
-        avatarInput.addEventListener('change', function() {
-            var file = this.files[0];
-            if (file) {
+        avatarInput.addEventListener('change', function(e) {
+            var file = e.target.files[0];
+            if (file && currentUser) {
                 var reader = new FileReader();
-                reader.onload = function(e) {
-                    profileAvatar.src = e.target.result;
+                reader.onload = function(ev) {
+                    var avatarUrl = ev.target.result;
+                    profileAvatar.src = avatarUrl;
+                    currentUser.avatar = avatarUrl;
+                    updateUserData(currentUser);
+                    updateAuthUI();
                     alert('✅ Фото профиля обновлено!');
                 };
                 reader.readAsDataURL(file);
@@ -238,19 +363,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // ===== 8. ВЫХОД =====
-    var logoutBtn = document.getElementById('logoutBtn');
-    if (logoutBtn) {
-        logoutBtn.addEventListener('click', function() {
-            if (confirm('Вы уверены, что хотите выйти?')) {
-                localStorage.removeItem('userLoggedIn');
-                localStorage.removeItem('userName');
-                window.location.href = 'index.html';
-            }
-        });
-    }
-
-    // ===== 9. КНОПКА ВЫВОДА СРЕДСТВ =====
+    // ===== 8. КНОПКА ВЫВОДА СРЕДСТВ =====
     var withdrawBtn = document.getElementById('withdrawBtn');
     if (withdrawBtn) {
         withdrawBtn.addEventListener('click', function() {
@@ -258,7 +371,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // ===== 10. КНОПКА "ПОКАЗАТЬ ЕЩЁ" =====
+    // ===== 9. КНОПКА "ПОКАЗАТЬ ЕЩЁ" =====
     var loadMoreBtn = document.getElementById('loadMoreMyRoutes');
     if (loadMoreBtn) {
         loadMoreBtn.addEventListener('click', function() {
@@ -266,37 +379,55 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // ===== 10. КНОПКА ВЫХОДА В ПРОФИЛЕ =====
+    var logoutBtnProfile = document.getElementById('logoutBtn');
+    if (logoutBtnProfile) {
+        logoutBtnProfile.addEventListener('click', function() {
+            if (confirm('Вы уверены, что хотите выйти?')) {
+                localStorage.removeItem('yatyrist_user');
+                window.location.href = 'index.html';
+            }
+        });
+    }
+
+    // ===== 11. КНОПКА РЕДАКТИРОВАНИЯ =====
+    var editProfileBtn = document.getElementById('editProfileBtn');
+    if (editProfileBtn) {
+        editProfileBtn.addEventListener('click', function() {
+            switchTab('settings');
+        });
+    }
+
     // Загружаем все данные
+    loadUserProfile();
     loadMyRoutes();
     loadPurchasedRoutes();
     loadEarnings();
 
-    console.log('✅ Профиль загружен');
+    console.log('✅ Профиль загружен для пользователя:', currentUser ? currentUser.firstName : 'не найден');
 });
 
-// Глобальные функции для кнопок
+// ===== ГЛОБАЛЬНЫЕ ФУНКЦИИ =====
 function editRoute(id) {
-    alert('✏️ Редактирование маршрута #' + id);
-    // window.location.href = 'edit-route.html?id=' + id;
+    alert('✏️ Редактирование маршрута #' + id + '\n\nВ реальном проекте здесь будет форма редактирования.');
 }
 
 function viewStats(id) {
-    alert('📊 Статистика маршрута #' + id);
+    alert('📊 Статистика маршрута #' + id + '\n\nПросмотров: 2,500\nПродаж: 150\nДоход: 45,000 ₽');
 }
 
 function deleteRoute(id) {
     if (confirm('Вы уверены, что хотите удалить этот маршрут?')) {
         alert('🗑️ Маршрут #' + id + ' удалён');
-        // Удаляем элемент из DOM
         var routeItem = document.querySelector('[data-route-id="' + id + '"]');
         if (routeItem) routeItem.remove();
     }
 }
 
 function downloadGPX(id) {
-    alert('⬇️ Скачивание GPX трека для маршрута #' + id);
+    alert('⬇️ Скачивание GPX трека для маршрута #' + id + '\n\nФайл будет загружен на ваше устройство.');
 }
 
 function leaveReview(id) {
-    window.location.href = 'route.html?id=' + id + '#review';
+    window.location.href = 'route.html?id=' + id;
 }
