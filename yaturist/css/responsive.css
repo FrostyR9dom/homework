@@ -90,13 +90,21 @@
         grid-template-columns: 1fr;
         text-align: center;
     }
-    /* Формы */
-    .form-row {
-        flex-direction: column;
-        gap: 0;
+    /* Иконки - улучшение отображения на мобильных */
+    .fas,
+    .far,
+    .fab {
+        font-display: swap;
     }
-    .form-section {
-        padding: 20px 16px;
+    .filter-btn i,
+    .region-btn i,
+    .radio-card-icon i {
+        font-size: 1.2em;
+        margin-right: 4px;
+    }
+    .card-badge,
+    .stat-icon i {
+        font-size: 1.1em;
     }
     .radio-group.route-type-group {
         flex-direction: column;
