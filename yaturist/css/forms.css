@@ -85,10 +85,13 @@
 .radio-group.route-type-group {
     display: flex;
     gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .radio-card {
-    flex: 1;
+    flex: 0 0 auto;
+    min-width: 120px;
     display: flex;
     flex-direction: column;
     align-items: center;
