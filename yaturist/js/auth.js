@@ -301,6 +301,15 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+
+    // Мобильное меню
+    var mobileToggle = document.querySelector('.mobile-menu-toggle');
+    var navElement = document.querySelector('.nav');
+    if (mobileToggle && navElement) {
+        mobileToggle.addEventListener('click', function() {
+            navElement.classList.toggle('active');
+        });
+    }
 });
 
 console.log('✅ Auth.js загружен');

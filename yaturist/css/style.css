@@ -187,6 +187,21 @@ body {
     font-size: 0.9rem;
 }
 
+.mobile-menu-toggle {
+    display: none;
+    background: transparent;
+    border: none;
+    color: var(--dark);
+    font-size: 1.25rem;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.mobile-menu-toggle:focus {
+    outline: 2px solid rgba(46, 125, 50, 0.4);
+    outline-offset: 2px;
+}
+
 .btn-primary {
     background: var(--primary);
     color: white;
