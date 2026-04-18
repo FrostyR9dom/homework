@@ -170,7 +170,7 @@ function renderRoutes() {
         html += '<p class="card-desc">' + escapeHtml((r.description || '').substring(0, 100)) + '</p>';
         html += '<div class="card-meta">';
         html += '<span><i class="fas fa-clock"></i> ' + (r.duration || '—') + '</span>';
-        html += '<span><i class="fas fa-route"></i> ' + (r.distance || '—') + '</span>';
+        html += '<span><i class="fas fa-map"></i> ' + (r.distance || '—') + '</span>';
         html += '</div>';
         html += '<div class="card-footer">';
         html += '<span class="card-price">' + r.price + ' ₽</span>';
