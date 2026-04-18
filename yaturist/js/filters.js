@@ -158,7 +158,7 @@ function renderRoutes() {
         html += '<div class="card-img">';
         html += getRouteImage(r);
         html += '<span class="card-badge">' + getTypeName(r.type) + '</span>';
-        html += '<span class="card-region"><i class="fas fa-map-pin"></i> ' + (r.regionName || r.region) + '</span>';
+        html += '<span class="card-region"><i class=\"fas fa-map-pin\"></i> ' + getRegionName(r.region) + '</span>';
         html += '</div>';
         html += '<div class="card-content">';
         html += '<div class="author-info">';

@@ -310,7 +310,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Получаем название региона
             let regionSelect = document.getElementById('region');
-            let regionName = regionSelect.options[regionSelect.selectedIndex] ? .text || region;
+            let selectedRegionOption = regionSelect.options[regionSelect.selectedIndex] || null;
+            let regionName = (selectedRegionOption && selectedRegionOption.text) ? selectedRegionOption.text : region;
 
             // Создаём или обновляем объект маршрута
             let routeData;
