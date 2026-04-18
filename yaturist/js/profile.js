@@ -554,8 +554,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // ЗАПУСКАЕМ ЗАГРУЗКУ
     loadUserProfile();
-    initGallery();
-    initForum();
     console.log('✅ profile.js завершил загрузку');
 });
 

@@ -31,6 +31,8 @@
                 <!-- Навигация -->
                 <nav class="nav">
                     <a href="index.html" class="nav-link active">Маршруты</a>
+                    <a href="#gallery" class="nav-link">Галерея</a>
+                    <a href="#forum" class="nav-link">Форум</a>
                     <a href="create-route.html" class="nav-link">Создать маршрут</a>
 
                     <!-- Блок для неавторизованных пользователей -->
@@ -176,6 +178,57 @@
                     <h3>Оставь отзыв</h3>
                     <p>Помоги другим с выбором</p>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== ГАЛЕРЕЯ ФОТОГРАФИЙ ========== -->
+    <section class="gallery-section" id="gallery">
+        <div class="container">
+            <h2 class="section-title">Галерея путешествий</h2>
+            <p class="section-subtitle">Фотографии от туристов со всего мира. Голосование за топ-10 лучших снимков!</p>
+
+            <div class="gallery-controls">
+                <button class="btn btn-primary" id="uploadPhotoBtn">
+                    <i class="fas fa-camera"></i> Загрузить фото
+                </button>
+                <div class="gallery-filter">
+                    <select id="gallerySort">
+                        <option value="rating">По рейтингу</option>
+                        <option value="newest">Сначала новые</option>
+                        <option value="oldest">Сначала старые</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="gallery-grid" id="galleryGrid">
+                <!-- Фото будут загружаться динамически -->
+            </div>
+
+            <div class="load-more-wrapper">
+                <button class="btn btn-outline" id="loadMorePhotos">Загрузить ещё</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== ФОРУМ ========== -->
+    <section class="forum-section" id="forum">
+        <div class="container">
+            <h2 class="section-title">Форум путешественников</h2>
+            <p class="section-subtitle">Общайтесь, делитесь опытом и планируйте совместные походы</p>
+
+            <div class="forum-controls">
+                <button class="btn btn-primary" id="createTopicBtn">
+                    <i class="fas fa-plus"></i> Создать тему
+                </button>
+            </div>
+
+            <div class="forum-threads" id="forumThreads">
+                <!-- Темы форума будут загружаться динамически -->
+            </div>
+
+            <div class="load-more-wrapper">
+                <button class="btn btn-outline" id="loadMoreTopics">Загрузить ещё темы</button>
             </div>
         </div>
     </section>
