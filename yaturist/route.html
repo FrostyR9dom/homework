@@ -578,9 +578,33 @@
             color: #FFC107;
         }
         
-        .load-more-wrapper {
+        .locked-content {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .locked-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(2px);
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            color: var(--primary);
+            font-weight: 600;
             text-align: center;
-            margin-top: 20px;
+            padding: 20px;
+        }
+        
+        .locked-content::before {
+            content: '🔒 Купите маршрут, чтобы увидеть полную информацию';
         }
         /* АДАПТИВНОСТЬ */
         
@@ -657,12 +681,12 @@
                         </div>
                     </div>
 
-                    <div class="info-block">
+                    <div class="info-block locked-content" id="descriptionBlock">
                         <h2><i class="fas fa-info-circle"></i> Описание</h2>
                         <p id="routeDescription">Загрузка...</p>
                     </div>
 
-                    <div class="info-block">
+                    <div class="info-block locked-content" id="paramsBlock">
                         <h2><i class="fas fa-chart-bar"></i> Параметры</h2>
                         <div class="params-grid">
                             <div class="param-item"><i class="fas fa-route"></i><span class="param-label">Протяжённость</span><span class="param-value" id="paramDistance">--</span></div>
@@ -672,7 +696,7 @@
                         </div>
                     </div>
 
-                    <div class="info-block">
+                    <div class="info-block locked-content" id="pointsBlock">
                         <h2><i class="fas fa-map-marked-alt"></i> Точки маршрута</h2>
                         <div class="point-item">
                             <div class="point-icon start"><i class="fas fa-flag-checkered"></i></div>
@@ -690,12 +714,12 @@
                         </div>
                     </div>
 
-                    <div class="info-block highlight">
+                    <div class="info-block highlight locked-content" id="bestTimeBlock">
                         <h2><i class="fas fa-clock"></i> Когда лучше выходить</h2>
                         <p id="bestStartTime">--</p>
                     </div>
 
-                    <div class="info-block">
+                    <div class="info-block locked-content" id="equipmentBlock">
                         <h2><i class="fas fa-hiking"></i> Экипировка</h2>
                         <div class="equipment-grid" id="equipmentGrid"></div>
                     </div>

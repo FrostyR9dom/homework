@@ -41,6 +41,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 addReviewBlock.style.display = 'block';
             }
 
+            // Разблокируем контент
+            unlockContent();
+
             // Меняем кнопку
             this.innerHTML = '<i class="fas fa-check"></i> Маршрут куплен';
             this.classList.add('success');
@@ -67,7 +70,16 @@ document.addEventListener('DOMContentLoaded', function() {
             if (addReviewBlock) {
                 addReviewBlock.style.display = 'block';
             }
+            unlockContent();
         }
+    }
+
+    // ===== ФУНКЦИЯ РАЗБЛОКИРОВКИ КОНТЕНТА =====
+    function unlockContent() {
+        var lockedBlocks = document.querySelectorAll('.locked-content');
+        lockedBlocks.forEach(function(block) {
+            block.classList.remove('locked-content');
+        });
     }
 
     // ===== 4. ПОЛУЧЕНИЕ ID МАРШРУТА ИЗ URL =====
