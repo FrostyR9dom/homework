@@ -126,21 +126,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // ===== РАСЧЁТ ДОХОДА =====
     let priceInput = document.getElementById('price');
-    let priceExample = document.getElementById('priceExample');
-    let incomeExample = document.getElementById('incomeExample');
+    let earningsAmount = document.getElementById('earningsAmount');
 
-    if (priceInput) {
+    if (priceInput && earningsAmount) {
+        function updateEarnings() {
+            let price = parseInt(priceInput.value) || 0;
+            let earnings = Math.round(price * 0.7);
+            earningsAmount.textContent = earnings + ' ₽';
+        }
+
         // Первоначальный расчёт
-        let initialPrice = parseInt(priceInput.value) || 299;
-        if (priceExample) priceExample.textContent = initialPrice;
-        if (incomeExample) incomeExample.textContent = Math.round(initialPrice * 0.7);
+        updateEarnings();
 
-        priceInput.addEventListener('input', function() {
-            let price = parseInt(this.value) || 299;
-            let income = Math.round(price * 0.7);
-            if (priceExample) priceExample.textContent = price;
-            if (incomeExample) incomeExample.textContent = income;
-        });
+        priceInput.addEventListener('input', updateEarnings);
     }
 
     // ===== ДОБАВЛЕНИЕ ЭКИПИРОВКИ =====
