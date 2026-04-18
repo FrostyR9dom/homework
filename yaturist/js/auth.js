@@ -124,28 +124,42 @@ function registerUser(userData) {
 function loginUser(email, password) {
     var usersJson = localStorage.getItem('yatyrist_users');
     var users = usersJson ? JSON.parse(usersJson) : [];
+    var hashedPassword = hashPassword(password);
 
     // Ищем пользователя
     for (var i = 0; i < users.length; i++) {
-        if (users[i].email === email && users[i].password === hashPassword(password)) {
+        if (users[i].email === email) {
             var user = users[i];
+            var passwordMatches = user.password === hashedPassword;
 
-            // Создаём сессию
-            var sessionUser = {
-                id: user.id,
-                firstName: user.firstName,
-                lastName: user.lastName,
-                email: user.email,
-                city: user.city || '',
-                bio: user.bio || '',
-                avatar: user.avatar || 'img/avatars/default-avatar.png',
-                isLoggedIn: true,
-                isAuthor: user.isAuthor || false,
-                createdAt: user.createdAt
-            };
+            // Поддержка старых аккаунтов: если в хранилище был plain-текст
+            if (!passwordMatches && user.password === password) {
+                passwordMatches = true;
+                user.password = hashedPassword;
+                users[i] = user;
+                localStorage.setItem('yatyrist_users', JSON.stringify(users));
+            }
 
-            localStorage.setItem('yatyrist_user', JSON.stringify(sessionUser));
-            return { success: true, user: sessionUser };
+            if (passwordMatches) {
+                // Создаём сессию
+                var sessionUser = {
+                    id: user.id,
+                    firstName: user.firstName,
+                    lastName: user.lastName,
+                    email: user.email,
+                    city: user.city || '',
+                    bio: user.bio || '',
+                    avatar: user.avatar || 'img/avatars/default-avatar.png',
+                    isLoggedIn: true,
+                    isAuthor: user.isAuthor || false,
+                    createdAt: user.createdAt
+                };
+
+                localStorage.setItem('yatyrist_user', JSON.stringify(sessionUser));
+                return { success: true, user: sessionUser };
+            }
+
+            break;
         }
     }
 
@@ -244,7 +258,7 @@ function updateUserData(updatedUser) {
         }
 
         if (userIndex !== -1) {
-            users[userIndex] = {...users[userIndex], ...updatedUser };
+            users[userIndex] = Object.assign({}, users[userIndex], updatedUser);
             localStorage.setItem('yatyrist_users', JSON.stringify(users));
         }
 
@@ -255,56 +269,40 @@ function updateUserData(updatedUser) {
     }
 }
 
-}
-}
+// Обновляем UI авторизации и добавляем обработчики
+document.addEventListener('DOMContentLoaded', function() {
+    updateAuthUI();
 
-// Демо-пользователи убраны - сайт для реального наполнения
-var existingUsers = localStorage.getItem('yatyrist_users');
-var users = existingUsers ? JSON.parse(existingUsers) : [];
+    // Обработчики кнопок выхода
+    var logoutBtns = document.querySelectorAll('.logout-btn');
+    for (var i = 0; i < logoutBtns.length; i++) {
+        logoutBtns[i].addEventListener('click', function(e) {
+            e.preventDefault();
+            if (confirm('Вы уверены, что хотите выйти?')) {
+                logout();
+            }
+        });
+    }
 
-// Добавляем демо только если меньше 4 пользователей
-if (users.length >= 4) {
-    return;
-}
+    // Проверка доступа к созданию маршрута
+    var createLinks = document.querySelectorAll('.create-route-link');
+    for (var i = 0; i < createLinks.length; i++) {
+        createLinks[i].addEventListener('click', function(e) {
+            if (!isLoggedIn()) {
+                e.preventDefault();
+                localStorage.setItem('redirect_after_login', 'create-route.html');
+                window.location.href = 'register.html?mode=register&becomeAuthor=true';
+            } else if (!canCreateRoute()) {
+                e.preventDefault();
+                alert('⚠️ Чтобы создавать маршруты, нужно быть автором.\n\nОтметьте галочку "Хочу создавать маршруты" при регистрации или в настройках профиля.');
+                window.location.href = 'profile.html#settings';
+            }
+        });
+    }
+});
 
-id: 1,
-    firstName: 'Анна',
-    lastName: 'Сочинская',
-    email: 'anna@example.com',
-    password: '123456',
-    city: 'Сочи',
-    bio: 'Люблю горы и водопады',
-    isAuthor: true,
-    avatar: 'img/avatars/default-avatar.png',
-    createdAt: '2024-01-15T10:00:00Z'
-}, {
-    id: 2,
-    firstName: 'Сергей',
-    lastName: 'Вело',
-    email: 'sergey@example.com',
-    password: '123456',
-    city: 'Геленджик',
-    bio: 'Велосипедист и путешественник',
-    isAuthor: true,
-    avatar: 'img/avatars/default-avatar.png',
-    createdAt: '2024-02-20T14:30:00Z'
-}, {
-    id: 3,
-    firstName: 'Марат',
-    lastName: 'Горный',
-    email: 'marat@example.com',
-    password: '123456',
-    city: 'Майкоп',
-    bio: 'Профессиональный гид по Кавказу',
-    isAuthor: true,
-    avatar: 'img/avatars/default-avatar.png',
-    createdAt: '2024-03-10T09:15:00Z'
-}, {
-    id: 4,
-    firstName: 'Руслан',
-    lastName: 'Мото',
-    email: 'ruslan@example.com',
-    password: '123456',
+console.log('✅ Auth.js загружен');
+password: '123456',
     city: 'Черкесск',
     bio: 'Мотоциклист и экстремал',
     isAuthor: true,
