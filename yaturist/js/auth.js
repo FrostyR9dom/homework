@@ -1,6 +1,6 @@
 /**
  * auth.js
- * Система авторизации для сайта yatyrist
+ * Система авторизации для сайта yaturist
  * Хранит данные в localStorage (в реальном проекте - на сервере)
  */
 
@@ -53,7 +53,7 @@ function validateUserData(userData) {
  * @returns {Object|null} Объект пользователя или null
  */
 function getCurrentUser() {
-    var userJson = localStorage.getItem('yatyrist_user');
+    var userJson = localStorage.getItem('yaturist_user');
     return safeParseJson(userJson, null);
 }
 
@@ -70,7 +70,7 @@ function registerUser(userData) {
     }
 
     // Получаем список всех пользователей
-    var usersJson = localStorage.getItem('yatyrist_users');
+    var usersJson = localStorage.getItem('yaturist_users');
     var users = safeParseJson(usersJson, []);
 
     // Проверяем, не занят ли email
@@ -96,7 +96,7 @@ function registerUser(userData) {
 
     // Сохраняем в общий список
     users.push(newUser);
-    localStorage.setItem('yatyrist_users', JSON.stringify(users));
+    localStorage.setItem('yaturist_users', JSON.stringify(users));
 
     // Создаём сессию
     var sessionUser = {
@@ -112,7 +112,7 @@ function registerUser(userData) {
         createdAt: newUser.createdAt
     };
 
-    localStorage.setItem('yatyrist_user', JSON.stringify(sessionUser));
+    localStorage.setItem('yaturist_user', JSON.stringify(sessionUser));
 
     return { success: true, user: sessionUser };
 }
@@ -124,7 +124,7 @@ function registerUser(userData) {
  * @returns {Object} Результат входа
  */
 function loginUser(email, password) {
-    var usersJson = localStorage.getItem('yatyrist_users');
+    var usersJson = localStorage.getItem('yaturist_users');
     var users = safeParseJson(usersJson, []);
     var hashedPassword = hashPassword(password);
 
@@ -139,7 +139,7 @@ function loginUser(email, password) {
                 passwordMatches = true;
                 user.password = hashedPassword;
                 users[i] = user;
-                localStorage.setItem('yatyrist_users', JSON.stringify(users));
+                localStorage.setItem('yaturist_users', JSON.stringify(users));
             }
 
             if (passwordMatches) {
@@ -157,7 +157,7 @@ function loginUser(email, password) {
                     createdAt: user.createdAt
                 };
 
-                localStorage.setItem('yatyrist_user', JSON.stringify(sessionUser));
+                localStorage.setItem('yaturist_user', JSON.stringify(sessionUser));
                 return { success: true, user: sessionUser };
             }
 
@@ -172,7 +172,7 @@ function loginUser(email, password) {
  * Выход из системы
  */
 function logout() {
-    localStorage.removeItem('yatyrist_user');
+    localStorage.removeItem('yaturist_user');
     window.location.href = 'index.html';
 }
 
@@ -245,10 +245,10 @@ function updateAuthUI() {
 function updateUserData(updatedUser) {
     try {
         // Обновляем сессию
-        localStorage.setItem('yatyrist_user', JSON.stringify(updatedUser));
+        localStorage.setItem('yaturist_user', JSON.stringify(updatedUser));
 
         // Обновляем в общем списке
-        var usersJson = localStorage.getItem('yatyrist_users');
+        var usersJson = localStorage.getItem('yaturist_users');
         var users = safeParseJson(usersJson, []);
 
         var userIndex = -1;
