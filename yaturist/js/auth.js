@@ -16,6 +16,15 @@ function hashPassword(password) {
     return hash.toString();
 }
 
+// Удобное безопасное чтение JSON из localStorage
+function safeParseJson(value, fallback) {
+    try {
+        return value ? JSON.parse(value) : fallback;
+    } catch (e) {
+        return fallback;
+    }
+}
+
 // Валидация данных пользователя
 function validateUserData(userData) {
     var errors = [];
@@ -45,14 +54,7 @@ function validateUserData(userData) {
  */
 function getCurrentUser() {
     var userJson = localStorage.getItem('yatyrist_user');
-    if (userJson) {
-        try {
-            return JSON.parse(userJson);
-        } catch (e) {
-            return null;
-        }
-    }
-    return null;
+    return safeParseJson(userJson, null);
 }
 
 /**
@@ -69,7 +71,7 @@ function registerUser(userData) {
 
     // Получаем список всех пользователей
     var usersJson = localStorage.getItem('yatyrist_users');
-    var users = usersJson ? JSON.parse(usersJson) : [];
+    var users = safeParseJson(usersJson, []);
 
     // Проверяем, не занят ли email
     for (var i = 0; i < users.length; i++) {
@@ -123,7 +125,7 @@ function registerUser(userData) {
  */
 function loginUser(email, password) {
     var usersJson = localStorage.getItem('yatyrist_users');
-    var users = usersJson ? JSON.parse(usersJson) : [];
+    var users = safeParseJson(usersJson, []);
     var hashedPassword = hashPassword(password);
 
     // Ищем пользователя
@@ -247,7 +249,7 @@ function updateUserData(updatedUser) {
 
         // Обновляем в общем списке
         var usersJson = localStorage.getItem('yatyrist_users');
-        var users = usersJson ? JSON.parse(usersJson) : [];
+        var users = safeParseJson(usersJson, []);
 
         var userIndex = -1;
         for (var i = 0; i < users.length; i++) {
