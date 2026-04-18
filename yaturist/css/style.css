@@ -40,6 +40,22 @@ body {
 }
 
 
+/* ===== FONTAWESOME ИКОНКИ ===== */
+
+.fas,
+.far,
+.fab {
+    display: inline-block;
+    font: var(--fa-font-solid);
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-display: swap;
+}
+
+
 /* ===== АНИМАЦИИ ===== */
 
 @keyframes fadeInUp {
