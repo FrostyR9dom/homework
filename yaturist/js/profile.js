@@ -2,6 +2,19 @@
  * profile.js - Логика личного кабинета
  */
 
+// Функция для экранирования HTML (защита от XSS)
+function escapeHtml(text) {
+    if (!text) return '';
+    var map = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#039;'
+    };
+    return text.replace(/[&<>"']/g, function(m) { return map[m]; });
+}
+
 // Ждём полной загрузки DOM
 document.addEventListener('DOMContentLoaded', function() {
 
@@ -105,7 +118,7 @@ document.addEventListener('DOMContentLoaded', function() {
             html += '<div class="route-item" data-route-id="' + route.id + '">' +
                 '<div class="route-item-img"><i class="fas fa-route"></i></div>' +
                 '<div class="route-item-info">' +
-                '<h3>' + route.title + '</h3>' +
+                '<h3>' + escapeHtml(route.title) + '</h3>' +
                 '<div class="route-item-meta">' +
                 '<span class="badge ' + route.type + '">' + typeName + '</span>' +
                 '<span><i class="fas fa-shopping-cart"></i> ' + sales + ' продаж</span>' +

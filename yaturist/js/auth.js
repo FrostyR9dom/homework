@@ -4,6 +4,41 @@
  * Хранит данные в localStorage (в реальном проекте - на сервере)
  */
 
+// Простое хэширование паролей (для демонстрации, в продакшене использовать bcrypt)
+function hashPassword(password) {
+    // Простой хэш для демонстрации (в реальности использовать crypto API или серверное хэширование)
+    var hash = 0;
+    for (var i = 0; i < password.length; i++) {
+        var char = password.charCodeAt(i);
+        hash = ((hash << 5) - hash) + char;
+        hash = hash & hash; // Преобразовать в 32-битное число
+    }
+    return hash.toString();
+}
+
+// Валидация данных пользователя
+function validateUserData(userData) {
+    var errors = [];
+
+    if (!userData.firstName || userData.firstName.trim().length < 2) {
+        errors.push('Имя должно содержать минимум 2 символа');
+    }
+
+    if (!userData.lastName || userData.lastName.trim().length < 2) {
+        errors.push('Фамилия должна содержать минимум 2 символа');
+    }
+
+    if (!userData.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(userData.email)) {
+        errors.push('Введите корректный email');
+    }
+
+    if (!userData.password || userData.password.length < 6) {
+        errors.push('Пароль должен содержать минимум 6 символов');
+    }
+
+    return errors;
+}
+
 /**
  * Получает текущего авторизованного пользователя из localStorage
  * @returns {Object|null} Объект пользователя или null
@@ -26,6 +61,12 @@ function getCurrentUser() {
  * @returns {Object} Результат с полями success и user или error
  */
 function registerUser(userData) {
+    // Валидация данных
+    var validationErrors = validateUserData(userData);
+    if (validationErrors.length > 0) {
+        return { success: false, error: validationErrors.join(', ') };
+    }
+
     // Получаем список всех пользователей
     var usersJson = localStorage.getItem('yatyrist_users');
     var users = usersJson ? JSON.parse(usersJson) : [];
@@ -43,7 +84,7 @@ function registerUser(userData) {
         firstName: userData.firstName,
         lastName: userData.lastName,
         email: userData.email,
-        password: userData.password,
+        password: hashPassword(userData.password),
         city: userData.city || '',
         bio: userData.bio || '',
         isAuthor: userData.wantToBeAuthor || false,
@@ -86,7 +127,7 @@ function loginUser(email, password) {
 
     // Ищем пользователя
     for (var i = 0; i < users.length; i++) {
-        if (users[i].email === email && users[i].password === password) {
+        if (users[i].email === email && users[i].password === hashPassword(password)) {
             var user = users[i];
 
             // Создаём сессию
@@ -212,6 +253,71 @@ function updateUserData(updatedUser) {
         console.error('Ошибка обновления пользователя:', e);
         return false;
     }
+}
+
+}
+}
+
+// Демо-пользователи убраны - сайт для реального наполнения
+var existingUsers = localStorage.getItem('yatyrist_users');
+var users = existingUsers ? JSON.parse(existingUsers) : [];
+
+// Добавляем демо только если меньше 4 пользователей
+if (users.length >= 4) {
+    return;
+}
+
+id: 1,
+    firstName: 'Анна',
+    lastName: 'Сочинская',
+    email: 'anna@example.com',
+    password: '123456',
+    city: 'Сочи',
+    bio: 'Люблю горы и водопады',
+    isAuthor: true,
+    avatar: 'img/avatars/default-avatar.png',
+    createdAt: '2024-01-15T10:00:00Z'
+}, {
+    id: 2,
+    firstName: 'Сергей',
+    lastName: 'Вело',
+    email: 'sergey@example.com',
+    password: '123456',
+    city: 'Геленджик',
+    bio: 'Велосипедист и путешественник',
+    isAuthor: true,
+    avatar: 'img/avatars/default-avatar.png',
+    createdAt: '2024-02-20T14:30:00Z'
+}, {
+    id: 3,
+    firstName: 'Марат',
+    lastName: 'Горный',
+    email: 'marat@example.com',
+    password: '123456',
+    city: 'Майкоп',
+    bio: 'Профессиональный гид по Кавказу',
+    isAuthor: true,
+    avatar: 'img/avatars/default-avatar.png',
+    createdAt: '2024-03-10T09:15:00Z'
+}, {
+    id: 4,
+    firstName: 'Руслан',
+    lastName: 'Мото',
+    email: 'ruslan@example.com',
+    password: '123456',
+    city: 'Черкесск',
+    bio: 'Мотоциклист и экстремал',
+    isAuthor: true,
+    avatar: 'img/avatars/default-avatar.png',
+    createdAt: '2024-04-05T16:45:00Z'
+}
+];
+
+// Добавляем демо-пользователей к существующим
+if (!exists) {}
+}
+
+localStorage.setItem('yatyrist_users', JSON.stringify(users));
 }
 
 // Инициализация при загрузке

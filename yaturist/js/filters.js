@@ -2,85 +2,40 @@
  * filters.js - Фильтрация и отображение маршрутов
  */
 
-// Демо-маршруты для первого запуска
-function initDemoRoutes() {
-    var existingRoutes = localStorage.getItem('yatyrist_routes');
-    if (existingRoutes && JSON.parse(existingRoutes).length > 0) {
-        return;
-    }
-
-    var demoRoutes = [{
-            id: 1,
-            title: 'Агурские водопады и Орлиные скалы',
-            type: 'hike',
-            region: 'krasnodar',
-            regionName: 'Краснодарский край',
-            location: 'Сочи',
-            price: 349,
-            duration: '4-5 часов',
-            distance: '6 км',
-            author: { id: 1, name: 'Анна Сочинская', rating: 4.9 },
-            description: 'Живописный маршрут по ущелью реки Агура. Три каскада водопадов.',
-            sales: 1247,
-            rating: 4.9,
-            photos: [] // Нет фото, будет заглушка
-        },
-        {
-            id: 2,
-            title: 'Велопрогулка: Геленджик — Кабардинка',
-            type: 'bike',
-            region: 'krasnodar',
-            regionName: 'Краснодарский край',
-            location: 'Геленджик',
-            price: 199,
-            duration: '3 часа',
-            distance: '20 км',
-            author: { id: 2, name: 'Сергей Вело', rating: 4.7 },
-            description: 'Лучший веломаршрут по побережью.',
-            sales: 856,
-            rating: 4.7,
-            photos: []
-        },
-        {
-            id: 3,
-            title: 'Автопутешествие на плато Лаго-Наки',
-            type: 'car',
-            region: 'adygea',
-            regionName: 'Адыгея',
-            location: 'Лаго-Наки',
-            price: 999,
-            duration: '2 дня',
-            distance: '180 км',
-            author: { id: 3, name: 'Марат Горный', rating: 5.0 },
-            description: 'Маршрут для внедорожников по Кавказскому заповеднику.',
-            sales: 234,
-            rating: 5.0,
-            photos: []
-        },
-        {
-            id: 4,
-            title: 'Мотопробег по горным серпантинам',
-            type: 'moto',
-            region: 'kch',
-            regionName: 'Карачаево-Черкесия',
-            location: 'Домбай',
-            price: 799,
-            duration: '1 день',
-            distance: '150 км',
-            author: { id: 4, name: 'Руслан Мото', rating: 4.9 },
-            description: 'Захватывающий маршрут для мотоциклистов.',
-            sales: 156,
-            rating: 4.9,
-            photos: []
-        }
-    ];
-
-    localStorage.setItem('yatyrist_routes', JSON.stringify(demoRoutes));
+// Функция для экранирования HTML (защита от XSS)
+function escapeHtml(text) {
+    if (!text) return '';
+    var map = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#039;'
+    };
+    return text.replace(/[&<>"']/g, function(m) { return map[m]; });
 }
+
+// Демо-маршруты убраны - сайт для реального наполнения
 
 function getAllRoutes() {
     var routesJson = localStorage.getItem('yatyrist_routes');
     return routesJson ? JSON.parse(routesJson) : [];
+}
+
+function cleanDemoRoutes() {
+    var allRoutes = getAllRoutes();
+    var demoAuthors = ['анна', 'сергей', 'марат', 'руслан'];
+    var filteredRoutes = allRoutes.filter(function(route) {
+        if (!route.author || !route.author.name) return true;
+        var authorName = route.author.name.toString().toLowerCase();
+        return !demoAuthors.some(function(demoName) {
+            return authorName.indexOf(demoName) !== -1;
+        });
+    });
+
+    if (filteredRoutes.length !== allRoutes.length) {
+        localStorage.setItem('yatyrist_routes', JSON.stringify(filteredRoutes));
+    }
 }
 
 function getTypeName(type) {
@@ -162,11 +117,11 @@ function renderRoutes() {
         html += '<div class="card-content">';
         html += '<div class="author-info">';
         html += '<div class="author-avatar" style="background: ' + avatarColor + '; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 1rem;">' + avatarLetter + '</div>';
-        html += '<span class="author-name">' + r.author.name + '</span>';
+        html += '<span class="author-name">' + escapeHtml(r.author.name) + '</span>';
         html += '<span class="author-rating"><i class="fas fa-star"></i> ' + (r.author.rating || '5.0') + '</span>';
         html += '</div>';
-        html += '<h3 class="card-title">' + r.title + '</h3>';
-        html += '<p class="card-desc">' + (r.description || '').substring(0, 100) + '</p>';
+        html += '<h3 class="card-title">' + escapeHtml(r.title) + '</h3>';
+        html += '<p class="card-desc">' + escapeHtml((r.description || '').substring(0, 100)) + '</p>';
         html += '<div class="card-meta">';
         html += '<span><i class="fas fa-clock"></i> ' + (r.duration || '—') + '</span>';
         html += '<span><i class="fas fa-route"></i> ' + (r.distance || '—') + '</span>';
@@ -183,10 +138,16 @@ function renderRoutes() {
 
     var totalRoutesElem = document.getElementById('totalRoutes');
     if (totalRoutesElem) totalRoutesElem.textContent = allRoutes.length;
+
+    // Обновляем количество пользователей
+    var usersJson = localStorage.getItem('yatyrist_users');
+    var users = usersJson ? JSON.parse(usersJson) : [];
+    var totalUsersElem = document.getElementById('totalUsers');
+    if (totalUsersElem) totalUsersElem.textContent = users.length;
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    initDemoRoutes();
+    cleanDemoRoutes();
     renderRoutes();
 
     var filterBtns = document.querySelectorAll('.filter-btn');
