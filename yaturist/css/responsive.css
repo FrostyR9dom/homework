@@ -148,6 +148,22 @@
     .region-btn {
         width: 100%;
     }
+    /* Иконки на телефонах */
+    .fas,
+    .far,
+    .fab {
+        font-display: swap;
+    }
+    .filter-btn i,
+    .region-btn i {
+        font-size: 1.1em;
+    }
+    .radio-card-icon i {
+        font-size: 1.5em;
+    }
+    .stat-icon i {
+        font-size: 1.3em;
+    }
     .card-img {
         height: 180px;
     }
