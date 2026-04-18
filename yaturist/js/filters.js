@@ -39,7 +39,18 @@ function cleanDemoRoutes() {
 }
 
 function getTypeName(type) {
-    var types = { 'car': 'Авто', 'bike': 'Вело', 'moto': 'Мото', 'hike': 'Пеший' };
+    var types = {
+        'car': 'Авто',
+        'bike': 'Вело',
+        'moto': 'Мото',
+        'hike': 'Пеший',
+        'sup': 'SUP доски',
+        'kayak': 'Каякинг',
+        'water': 'Водный туризм',
+        'horse': 'Конные маршруты',
+        'rock': 'Скалолазание',
+        'ski': 'Лыжи'
+    };
     return types[type] || type;
 }
 
@@ -51,9 +62,44 @@ function getTypeIcon(type) {
             return '🚲';
         case 'moto':
             return '🏍️';
+        case 'hike':
+            return '🥾';
+        case 'sup':
+            return '🏄';
+        case 'kayak':
+            return '🛶';
+        case 'water':
+            return '💧';
+        case 'horse':
+            return '🐴';
+        case 'rock':
+            return '🧗';
+        case 'ski':
+            return '⛷️';
         default:
             return '🥾';
     }
+}
+
+function getRegionName(region) {
+    var regions = {
+        'krasnodar': 'Краснодарский край',
+        'adygea': 'Адыгея',
+        'rostov': 'Ростовская область',
+        'kch': 'Карачаево-Черкесия',
+        'crimea': 'Крым',
+        'moscow': 'Московская область',
+        'spb': 'Ленинградская область',
+        'kareliya': 'Карелия',
+        'altai': 'Алтайский край',
+        'urals': 'Урал',
+        'siberia': 'Сибирь',
+        'baikal': 'Байкальский регион',
+        'volga': 'Поволжье',
+        'caucasus': 'Северный Кавказ',
+        'far-east': 'Дальний Восток'
+    };
+    return regions[region] || region;
 }
 
 function getAvatarLetter(name) {
