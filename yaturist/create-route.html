@@ -85,7 +85,7 @@
     <main class="create-route-page">
         <div class="container">
             <div class="page-header">
-                <h1><i class="fas fa-map-signs"></i> Создание нового маршрута</h1>
+                <h1 id="pageTitle"><i class="fas fa-map-signs"></i> Создание нового маршрута</h1>
                 <p>Комиссия сервиса — 30% с каждой продажи</p>
             </div>
 
@@ -257,9 +257,9 @@
                         <h2><i class="fas fa-map-marked-alt"></i> Файл маршрута</h2>
                     </div>
                     <div class="form-group">
-                        <label for="gpxFile">GPX трек *</label>
-                        <input type="file" id="gpxFile" accept=".gpx,.kml,.geojson" required>
-                        <small>Загрузите файл трека в формате GPX, KML или GeoJSON</small>
+                        <label for="gpxFile" id="gpxLabel">GPX трек *</label>
+                        <input type="file" id="gpxFile" accept=".gpx,.kml,.geojson">
+                        <small id="gpxNote">Загрузите файл трека в формате GPX, KML или GeoJSON</small>
                     </div>
                 </div>
 
@@ -286,7 +286,7 @@
 
                 <div class="form-actions">
                     <button type="submit" class="btn btn-primary btn-large" id="submitRouteBtn">
-                        <i class="fas fa-check-circle"></i> Опубликовать маршрут
+                        <i class="fas fa-check-circle"></i> <span id="submitBtnText">Опубликовать маршрут</span>
                     </button>
                 </div>
 

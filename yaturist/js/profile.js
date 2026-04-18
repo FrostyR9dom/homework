@@ -354,7 +354,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // ===== ГЛОБАЛЬНЫЕ ФУНКЦИИ =====
 function editRoute(id) {
-    alert('✏️ Редактирование маршрута #' + id);
+    window.location.href = 'create-route.html?edit=' + id;
 }
 
 function viewStats(id) {

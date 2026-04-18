@@ -92,6 +92,50 @@ body {
     color: var(--primary);
 }
 
+.nav-link:hover {
+    color: var(--primary);
+}
+
+
+/* ===== ПОЛЬЗОВАТЕЛЬСКОЕ МЕНЮ ===== */
+
+.user-menu {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.user-profile-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: var(--dark);
+    padding: 6px 12px;
+    border-radius: 25px;
+    transition: var(--transition);
+}
+
+.user-profile-link:hover {
+    background: var(--light);
+}
+
+.user-avatar-display {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--primary);
+}
+
+.user-name-display {
+    font-weight: 500;
+    max-width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 
 /* ===== КНОПКИ ===== */
 
@@ -558,4 +602,28 @@ body {
 .load-more-wrapper {
     text-align: center;
     margin-top: 40px;
+}
+
+
+/* ===== АВАТАР В ПРОФИЛЕ - ФИКС РАЗМЕРА ===== */
+
+.profile-avatar {
+    width: 120px !important;
+    height: 120px !important;
+    border-radius: 50% !important;
+    object-fit: cover;
+    border: 4px solid white;
+}
+
+
+/* Аватар в карточке - маленький */
+
+.author-avatar {
+    width: 36px !important;
+    height: 36px !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0;
 }
