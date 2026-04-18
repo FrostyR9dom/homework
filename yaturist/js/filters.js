@@ -19,7 +19,39 @@ function escapeHtml(text) {
 
 function getAllRoutes() {
     var routesJson = localStorage.getItem('yatyrist_routes');
-    return routesJson ? JSON.parse(routesJson) : [];
+    var routes = routesJson ? JSON.parse(routesJson) : [];
+
+    // Если маршрутов нет, добавляем демо для тестирования
+    if (routes.length === 0) {
+        routes = [{
+                id: 'demo1',
+                title: 'Поход к горе Эльбрус',
+                description: 'Классический маршрут к высшей точке Европы',
+                type: 'hike',
+                region: 'krasnodar',
+                price: 15000,
+                duration: '7 дней',
+                distance: '50 км',
+                author: { name: 'Алексей', rating: '4.8' },
+                photos: []
+            },
+            {
+                id: 'demo2',
+                title: 'Велопрогулка по Черноморскому побережью',
+                description: 'Легкий маршрут для любителей велосипеда',
+                type: 'bike',
+                region: 'crimea',
+                price: 5000,
+                duration: '3 дня',
+                distance: '100 км',
+                author: { name: 'Мария', rating: '4.9' },
+                photos: []
+            }
+        ];
+        localStorage.setItem('yatyrist_routes', JSON.stringify(routes));
+    }
+
+    return routes;
 }
 
 function cleanDemoRoutes() {
@@ -188,6 +220,17 @@ function renderRoutes() {
     // Обновляем количество пользователей
     var usersJson = localStorage.getItem('yatyrist_users');
     var users = usersJson ? JSON.parse(usersJson) : [];
+
+    // Если пользователей нет, добавляем демо для тестирования
+    if (users.length === 0) {
+        users = [
+            { id: 'demo1', firstName: 'Алексей', lastName: 'Иванов', email: 'alex@example.com' },
+            { id: 'demo2', firstName: 'Мария', lastName: 'Петрова', email: 'maria@example.com' },
+            { id: 'demo3', firstName: 'Дмитрий', lastName: 'Сидоров', email: 'dmitry@example.com' }
+        ];
+        localStorage.setItem('yatyrist_users', JSON.stringify(users));
+    }
+
     var totalUsersElem = document.getElementById('totalUsers');
     if (totalUsersElem) totalUsersElem.textContent = users.length;
 }
