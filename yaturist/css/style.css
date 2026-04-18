@@ -1,83 +1,6 @@
 /* ============================================================
    YATYRIST - ОСНОВНЫЕ СТИЛИ
-   Туристический маркетплейс авторских маршрутов
    ============================================================ */
-
-
-/* ===== ПОДКЛЮЧЕНИЕ ЛОКАЛЬНЫХ ШРИФТОВ INTER ===== */
-
-
-/* Вариативный шрифт - один файл для всех толщин (100-900) */
-
-@font-face {
-    font-family: 'Inter';
-    src: url('../fonts/Inter-VariableFont_opsz,wght.ttf') format('truetype-variations');
-    font-weight: 100 900;
-    /* Поддерживает все возможные толщины */
-    font-style: normal;
-    font-display: swap;
-    /* Текст показывается сразу системным шрифтом, потом заменяется */
-}
-
-
-/* Вариативный шрифт - курсивная версия */
-
-@font-face {
-    font-family: 'Inter';
-    src: url('../fonts/Inter-Italic-VariableFont_opsz,wght.ttf') format('truetype-variations');
-    font-weight: 100 900;
-    font-style: italic;
-    font-display: swap;
-}
-
-
-/* Запасные статические шрифты из папки static/ - для старых браузеров */
-
-@font-face {
-    font-family: 'Inter';
-    src: url('../fonts/static/Inter-Regular.ttf') format('truetype');
-    font-weight: 400;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Inter';
-    src: url('../fonts/static/Inter-Medium.ttf') format('truetype');
-    font-weight: 500;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Inter';
-    src: url('../fonts/static/Inter-SemiBold.ttf') format('truetype');
-    font-weight: 600;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Inter';
-    src: url('../fonts/static/Inter-Bold.ttf') format('truetype');
-    font-weight: 700;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Inter';
-    src: url('../fonts/static/Inter-ExtraBold.ttf') format('truetype');
-    font-weight: 800;
-    font-style: normal;
-    font-display: swap;
-}
-
-
-/* ===== СБРОС СТИЛЕЙ И CSS-ПЕРЕМЕННЫЕ ===== */
-
-
-/* Обнуляем все отступы и задаём box-sizing для удобства */
 
 * {
     margin: 0;
@@ -85,72 +8,36 @@
     box-sizing: border-box;
 }
 
-
-/* Корневые переменные - единая цветовая схема сайта */
-
 :root {
-    /* Основные зелёные цвета (туристическая тематика) */
     --primary: #2E7D32;
-    /* Глубокий лесной зелёный */
     --primary-dark: #1B5E20;
-    /* Тёмно-зелёный для ховеров */
     --primary-light: #66BB6A;
-    /* Светло-зелёный для акцентов */
-    --primary-soft: #A5D6A7;
-    /* Мягкий зелёный для фонов */
-    /* Акцентный цвет */
     --secondary: #FF8F00;
-    /* Оранжевый для кнопок и важных элементов */
-    /* Нейтральные цвета */
     --dark: #1B2A1F;
-    /* Тёмный с зелёным оттенком */
     --gray-dark: #4A5D4E;
-    /* Тёмно-серый для текста */
     --gray: #78909C;
-    /* Средний серый */
     --gray-light: #E8F5E9;
-    /* Светлый с зелёным оттенком */
     --light: #F1F8E9;
-    /* Очень светлый фон */
     --white: #FFFFFF;
-    /* Белый */
-    /* Функциональные цвета */
     --danger: #E53935;
-    /* Красный - ошибки */
     --success: #43A047;
-    /* Зелёный - успех */
     --warning: #FB8C00;
-    /* Оранжевый - предупреждения */
-    --info: #1E88E5;
-    /* Синий - информация */
-    /* Тени - создают глубину */
-    --shadow-sm: 0 2px 8px rgba(46, 125, 50, 0.08);
     --shadow: 0 8px 24px rgba(27, 42, 31, 0.12);
     --shadow-lg: 0 16px 40px rgba(46, 125, 50, 0.15);
-    /* Скругления - единый стиль */
-    --border-radius-sm: 12px;
     --border-radius: 20px;
-    --border-radius-lg: 28px;
-    /* Плавные переходы */
+    --border-radius-sm: 12px;
     --transition: all 0.3s ease;
 }
 
-
-/* Базовые стили body */
-
 body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
     line-height: 1.6;
     color: var(--dark);
-    background: linear-gradient(180deg, var(--light) 0%, #E8F5E9 100%);
+    background: var(--light);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    /* Для прижатия футера к низу */
 }
-
-
-/* Контейнер - ограничивает ширину и центрирует контент */
 
 .container {
     max-width: 1200px;
@@ -160,50 +47,33 @@ body {
 }
 
 
-/* ===== ШАПКА САЙТА ===== */
+/* ===== ШАПКА ===== */
 
 .header {
     background: rgba(255, 255, 255, 0.95);
-    /* Полупрозрачный фон */
     backdrop-filter: blur(10px);
-    /* Эффект размытия */
-    box-shadow: 0 4px 12px rgba(46, 125, 50, 0.2);
     position: sticky;
-    /* Прилипает при скролле */
     top: 0;
     z-index: 100;
-    /* Поверх всего */
     border-bottom: 3px solid var(--primary);
 }
 
 .header-inner {
     display: flex;
     justify-content: space-between;
-    /* Логотип слева, навигация справа */
     align-items: center;
     min-height: 70px;
 }
-
-
-/* Логотип */
 
 .logo {
     display: flex;
     align-items: center;
     gap: 10px;
-    font-size: 1.8rem;
-    font-weight: 700;
+    font-size: 1.5rem;
+    font-weight: bold;
     color: var(--primary);
     text-decoration: none;
 }
-
-.logo i {
-    color: var(--secondary);
-    /* Иконка оранжевая для контраста */
-}
-
-
-/* Навигация */
 
 .nav {
     display: flex;
@@ -213,56 +83,13 @@ body {
 
 .nav-link {
     color: var(--dark);
+    text-decoration: none;
     font-weight: 500;
     padding: 8px 0;
-    border-bottom: 2px solid transparent;
-    /* Место для подчёркивания */
-    text-decoration: none;
-    transition: var(--transition);
 }
 
-.nav-link:hover,
-.nav-link.active {
+.nav-link:hover {
     color: var(--primary);
-    border-bottom-color: var(--primary);
-    /* Зелёное подчёркивание при ховере */
-}
-
-
-/* Кнопка мобильного меню (гамбургер) - скрыта на десктопе */
-
-.mobile-menu-toggle {
-    display: none;
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    color: var(--primary);
-    cursor: pointer;
-}
-
-
-/* Меню авторизованного пользователя */
-
-.user-menu {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.user-profile-link {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    text-decoration: none;
-    color: var(--dark);
-}
-
-.user-avatar-display {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid var(--primary-light);
 }
 
 
@@ -271,36 +98,24 @@ body {
 .btn {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
-    gap: 10px;
-    padding: 12px 28px;
+    gap: 8px;
+    padding: 10px 24px;
     border-radius: 50px;
-    /* Круглые кнопки */
     font-weight: 600;
-    transition: var(--transition);
-    border: none;
     cursor: pointer;
-    font-size: 1rem;
     text-decoration: none;
+    border: none;
+    font-size: 0.9rem;
 }
 
-
-/* Основная зелёная кнопка */
-
 .btn-primary {
-    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-    color: var(--white);
-    box-shadow: 0 4px 12px rgba(46, 125, 50, 0.3);
+    background: var(--primary);
+    color: white;
 }
 
 .btn-primary:hover {
-    transform: translateY(-3px);
-    /* Приподнимается */
-    box-shadow: 0 8px 20px rgba(46, 125, 50, 0.4);
+    background: var(--primary-dark);
 }
-
-
-/* Контурная кнопка */
 
 .btn-outline {
     background: transparent;
@@ -310,67 +125,37 @@ body {
 
 .btn-outline:hover {
     background: var(--primary);
-    color: var(--white);
-}
-
-
-/* Размеры кнопок */
-
-.btn-large {
-    padding: 16px 36px;
-    font-size: 1.1rem;
+    color: white;
 }
 
 .btn-small {
-    padding: 8px 16px;
-    font-size: 0.9rem;
+    padding: 6px 16px;
+    font-size: 0.85rem;
 }
 
-.btn-block {
-    width: 100%;
+.btn-large {
+    padding: 14px 32px;
+    font-size: 1rem;
 }
 
 
-/* ===== ГЕРОЙ-БЛОК (УМЕНЬШЕННАЯ ВЕРСИЯ) ===== */
+/* ===== ГЕРОЙ БЛОК ===== */
 
-.hero-video {
+.hero {
     position: relative;
-    height: 420px;
-    /* УМЕНЬШЕНО с 560px */
+    height: 500px;
     overflow: hidden;
-    background: linear-gradient(135deg, var(--primary-dark) 0%, #0D1F12 100%);
 }
 
-
-/* Заглушка для видео */
-
-.video-placeholder {
+.hero-video-bg {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
+    object-fit: cover;
+    z-index: 0;
 }
-
-.video-mock {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-    color: var(--white);
-}
-
-.video-mock i {
-    font-size: 4rem;
-    margin-bottom: 12px;
-    opacity: 0.8;
-}
-
-
-/* Тёмный оверлей для читаемости текста */
 
 .hero-overlay {
     position: absolute;
@@ -378,88 +163,70 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, rgba(27, 42, 31, 0.6) 0%, rgba(46, 125, 50, 0.3) 100%);
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.5) 100%);
+    z-index: 1;
 }
-
-
-/* Контент поверх видео */
 
 .hero-content {
     position: relative;
-    z-index: 10;
+    z-index: 2;
     text-align: center;
-    color: var(--white);
-    padding: 50px 20px;
-    /* УМЕНЬШЕНО с 80px */
+    color: white;
+    padding: 80px 20px;
 }
 
 .hero-title {
-    font-size: 2.8rem;
-    /* УМЕНЬШЕНО с 3.5rem */
-    font-weight: 800;
-    margin-bottom: 12px;
-    /* УМЕНЬШЕНО с 20px */
-    text-shadow: 2px 4px 12px rgba(0, 0, 0, 0.3);
+    font-size: 3rem;
+    margin-bottom: 20px;
+    text-shadow: 3px 3px 12px rgba(0, 0, 0, 0.6);
 }
 
-.hero-title-small {
+.hero-title span {
     display: block;
-    font-size: 1rem;
-    /* УМЕНЬШЕНО с 1.3rem */
-    font-weight: 400;
-    opacity: 0.95;
-    margin-bottom: 6px;
-    /* УМЕНЬШЕНО с 8px */
+    font-size: 1.2rem;
+    font-weight: normal;
+    color: var(--secondary);
 }
 
 .hero-subtitle {
-    font-size: 1rem;
-    /* УМЕНЬШЕНО с 1.3rem */
-    margin-bottom: 24px;
-    /* УМЕНЬШЕНО с 40px */
-    opacity: 0.95;
+    font-size: 1.15rem;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-
-/* Статистика в герое */
+.hero-subtitle strong {
+    color: var(--secondary);
+}
 
 .hero-stats {
     display: flex;
-    gap: 35px;
-    /* УМЕНЬШЕНО с 50px */
+    gap: 40px;
     justify-content: center;
-    margin-bottom: 24px;
-    /* УМЕНЬШЕНО с 40px */
-}
-
-.stat-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    margin-bottom: 30px;
 }
 
 .stat-number {
-    font-size: 2rem;
-    /* УМЕНЬШЕНО с 2.8rem */
-    font-weight: 800;
+    font-size: 2.5rem;
+    font-weight: bold;
     color: var(--secondary);
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
 }
 
 .stat-label {
     font-size: 0.85rem;
-    /* УМЕНЬШЕНО с 1rem */
-    opacity: 0.9;
     text-transform: uppercase;
-    letter-spacing: 1px;
 }
 
 
 /* ===== ФИЛЬТРЫ ===== */
 
-.filter-section {
-    padding: 30px 0 15px;
-    background: var(--white);
-    border-bottom: 1px solid var(--gray-light);
+.filters {
+    background: white;
+    padding: 20px 0;
+    border-bottom: 1px solid #eee;
 }
 
 .filter-header {
@@ -469,84 +236,41 @@ body {
 
 .filter-header h2 {
     font-size: 1.8rem;
-    color: var(--dark);
-    margin-bottom: 6px;
+    margin-bottom: 5px;
 }
 
-
-/* Кнопки фильтров по типу */
-
-.filter-buttons {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-bottom: 16px;
-}
-
-.filter-btn {
-    padding: 10px 24px;
-    border: none;
-    background: var(--light);
-    border-radius: 40px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: var(--transition);
-    border: 2px solid transparent;
-}
-
-.filter-btn i {
-    margin-right: 8px;
-}
-
-.filter-btn.active {
-    background: var(--primary);
-    color: var(--white);
-}
-
-
-/* Кнопки фильтров по региону */
-
+.filter-buttons,
 .region-filters {
     display: flex;
     gap: 10px;
     justify-content: center;
     flex-wrap: wrap;
+    margin-bottom: 15px;
 }
 
+.filter-btn,
 .region-btn {
-    padding: 8px 18px;
+    padding: 8px 20px;
     border: none;
     background: var(--light);
-    border-radius: 40px;
-    font-weight: 500;
+    border-radius: 30px;
     cursor: pointer;
+    font-weight: 500;
     transition: var(--transition);
 }
 
-.region-btn i {
-    margin-right: 8px;
-    color: var(--primary);
-}
-
+.filter-btn.active,
 .region-btn.active {
     background: var(--primary);
-    color: var(--white);
-}
-
-.region-btn.active i {
-    color: var(--white);
+    color: white;
 }
 
 
 /* ===== КАТАЛОГ МАРШРУТОВ ===== */
 
 .catalog {
-    padding: 40px 0 60px;
+    padding: 40px 0;
 }
-
-
-/* Сетка карточек - адаптивный CSS Grid */
 
 .routes-grid {
     display: grid;
@@ -554,175 +278,172 @@ body {
     gap: 25px;
 }
 
-
-/* Карточка маршрута */
-
 .route-card {
-    background: var(--white);
-    border-radius: var(--border-radius);
+    background: white;
+    border-radius: 20px;
     overflow: hidden;
-    box-shadow: var(--shadow);
-    transition: var(--transition);
-    border: 1px solid rgba(46, 125, 50, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
 }
 
 .route-card:hover {
-    transform: translateY(-8px);
-    /* Приподнимается при наведении */
-    box-shadow: var(--shadow-lg);
-    border-color: var(--primary-light);
+    transform: translateY(-5px);
 }
-
-
-/* Изображение карточки */
 
 .card-img {
+    height: 180px;
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
     position: relative;
-    height: 200px;
-    overflow: hidden;
-    background: linear-gradient(135deg, var(--primary-soft) 0%, var(--primary-light) 100%);
 }
-
-.card-img img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.5s;
-}
-
-.route-card:hover .card-img img {
-    transform: scale(1.08);
-    /* Лёгкое увеличение */
-}
-
-
-/* Бейдж типа маршрута */
 
 .card-badge {
     position: absolute;
-    top: 16px;
-    left: 16px;
-    padding: 6px 16px;
-    border-radius: 30px;
+    top: 15px;
+    left: 15px;
+    padding: 4px 12px;
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 20px;
     font-size: 0.8rem;
-    font-weight: 700;
-    color: var(--white);
-    background: rgba(46, 125, 50, 0.85);
-    backdrop-filter: blur(4px);
-    text-transform: uppercase;
 }
-
-.card-badge.car {
-    background: var(--warning);
-}
-
-.card-badge.bike {
-    background: var(--info);
-}
-
-.card-badge.hike {
-    background: var(--success);
-}
-
-
-/* Бейдж региона */
 
 .card-region {
     position: absolute;
-    top: 16px;
-    right: 16px;
-    padding: 6px 14px;
-    border-radius: 30px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    background: rgba(255, 255, 255, 0.95);
-    color: var(--primary-dark);
-    backdrop-filter: blur(4px);
+    top: 15px;
+    right: 15px;
+    padding: 4px 12px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 20px;
+    font-size: 0.8rem;
+    color: var(--primary);
 }
-
-
-/* Контент карточки */
 
 .card-content {
     padding: 20px;
-    background: linear-gradient(180deg, var(--white) 0%, var(--light) 100%);
 }
 
 
-/* Информация об авторе */
+/* АВАТОР В КАРТОЧКЕ - ТОЛЬКО 36px! */
 
 .author-info {
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-bottom: 14px;
-    padding-bottom: 12px;
-    border-bottom: 1px solid rgba(46, 125, 50, 0.1);
+    margin-bottom: 12px;
 }
 
 .author-avatar {
     width: 36px;
     height: 36px;
     border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+    background: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.author-avatar img {
+    width: 100%;
+    height: 100%;
     object-fit: cover;
-    border: 2px solid var(--primary-light);
 }
 
 .author-name {
     font-weight: 600;
-    color: var(--dark);
+    font-size: 0.9rem;
 }
 
 .author-rating {
     margin-left: auto;
     color: var(--secondary);
-    font-weight: 700;
+    font-size: 0.8rem;
 }
 
 .card-title {
     font-size: 1.2rem;
-    font-weight: 700;
     margin-bottom: 10px;
-    color: var(--dark);
 }
 
 .card-desc {
-    color: var(--gray-dark);
+    color: #666;
     font-size: 0.9rem;
-    margin-bottom: 16px;
+    margin-bottom: 12px;
+    line-height: 1.4;
 }
-
-
-/* Мета-информация */
 
 .card-meta {
     display: flex;
-    gap: 14px;
-    margin-bottom: 16px;
-    font-size: 0.85rem;
-    color: var(--primary-dark);
+    gap: 15px;
+    font-size: 0.8rem;
+    color: #888;
+    margin-bottom: 15px;
 }
-
-.card-meta i {
-    color: var(--primary);
-    margin-right: 4px;
-}
-
-
-/* Нижняя часть с ценой и кнопкой */
 
 .card-footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-top: 16px;
-    border-top: 1px solid rgba(46, 125, 50, 0.15);
+    border-top: 1px solid #eee;
+    padding-top: 15px;
 }
 
 .card-price {
     font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--primary-dark);
+    font-weight: bold;
+    color: var(--primary);
+}
+
+
+/* ===== ПОДВАЛ ===== */
+
+.footer {
+    background: var(--dark);
+    color: white;
+    padding: 40px 0 20px;
+    margin-top: auto;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.footer-col h4 {
+    margin-bottom: 15px;
+    color: var(--primary-light);
+}
+
+.footer-col ul {
+    list-style: none;
+}
+
+.footer-col li {
+    margin-bottom: 8px;
+    opacity: 0.8;
+}
+
+.footer-col a {
+    color: white;
+    text-decoration: none;
+}
+
+.footer-col a:hover {
+    color: var(--primary-light);
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 0.85rem;
+    opacity: 0.7;
 }
 
 
@@ -730,14 +451,13 @@ body {
 
 .how-it-works {
     padding: 50px 0;
-    background: var(--white);
+    background: white;
 }
 
 .section-title {
     text-align: center;
     font-size: 2rem;
     margin-bottom: 40px;
-    color: var(--dark);
 }
 
 .steps-grid {
@@ -762,114 +482,80 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--white);
+    color: white;
     font-size: 1.8rem;
 }
 
 
-/* ===== ПОДВАЛ ===== */
+/* ===== АВАТАР В ПРОФИЛЕ - 120px ===== */
 
-.footer {
-    background: var(--dark);
-    color: var(--white);
-    padding: 40px 0 20px;
-    margin-top: auto;
-    /* Прижимает футер к низу */
+.profile-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid white;
+    box-shadow: var(--shadow);
 }
 
-.footer-content {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
-    gap: 30px;
-    margin-bottom: 30px;
+
+/* ===== ПУСТОЕ СОСТОЯНИЕ ===== */
+
+.empty-state {
+    text-align: center;
+    padding: 60px;
+    color: var(--gray);
 }
 
-.footer-col h4 {
+.empty-state i {
+    font-size: 3rem;
     margin-bottom: 15px;
-    color: var(--primary-light);
-}
-
-.footer-col ul {
-    list-style: none;
-}
-
-.footer-col li {
-    margin-bottom: 8px;
-    opacity: 0.8;
-}
-
-.footer-col a {
-    color: var(--white);
-    text-decoration: none;
-}
-
-.footer-col a:hover {
-    color: var(--primary-light);
-}
-
-.footer-bottom {
-    text-align: center;
-    padding-top: 20px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    font-size: 0.85rem;
-    opacity: 0.7;
+    opacity: 0.3;
 }
 
 
-/* Кнопка "Показать ещё" */
-
-.load-more-wrapper {
-    text-align: center;
-    margin-top: 40px;
-}
-
-
-/* ===== АДАПТИВНОСТЬ ДЛЯ МОБИЛЬНЫХ ===== */
+/* ===== АДАПТИВНОСТЬ ===== */
 
 @media (max-width: 768px) {
-    /* Показываем гамбургер */
-    .mobile-menu-toggle {
-        display: block;
-    }
-    /* Навигация становится выпадающей */
-    .nav {
-        position: fixed;
-        top: 70px;
-        left: 0;
-        right: 0;
-        background: var(--white);
-        flex-direction: column;
-        padding: 20px;
-        box-shadow: var(--shadow);
-        display: none;
-    }
-    .nav.active {
-        display: flex;
-    }
-    /* Уменьшаем герой ещё сильнее */
-    .hero-video {
-        height: 360px;
+    .hero {
+        height: 450px;
     }
     .hero-title {
         font-size: 2rem;
     }
-    .hero-stats {
-        gap: 20px;
+    .hero-subtitle {
+        font-size: 0.95rem;
     }
-    .stat-number {
-        font-size: 1.5rem;
-    }
-    /* Одна колонка для карточек */
     .routes-grid {
         grid-template-columns: 1fr;
     }
-    /* Одна колонка для шагов */
     .steps-grid {
         grid-template-columns: 1fr;
     }
-    /* Подвал в одну колонку */
     .footer-content {
         grid-template-columns: 1fr;
         text-align: center;
     }
+}
+
+@media (max-width: 480px) {
+    .hero {
+        height: 480px;
+    }
+    .hero-title {
+        font-size: 1.6rem;
+    }
+    .filter-btn,
+    .region-btn {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+    }
+}
+
+
+/* ===== КНОПКА "ПОКАЗАТЬ ЕЩЁ" ===== */
+
+.load-more-wrapper {
+    text-align: center;
+    margin-top: 40px;
 }
