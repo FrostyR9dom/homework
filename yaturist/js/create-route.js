@@ -270,7 +270,16 @@ document.addEventListener('DOMContentLoaded', function() {
             let bestStartTime = document.getElementById('bestStartTime').value;
             let difficulty = document.querySelector('input[name="difficulty"]:checked');
             let recommendations = document.getElementById('recommendations').value;
+            let additionalTips = document.getElementById('additionalTips').value;
+            let minAge = document.getElementById('minAge').value;
+            let maxParticipants = document.getElementById('maxParticipants').value;
             let price = parseInt(document.getElementById('price').value);
+
+            // Сбор сезонов
+            let seasons = [];
+            document.querySelectorAll('input[name="season"]:checked').forEach(input => {
+                seasons.push(input.value);
+            });
 
             // Сбор экипировки
             let equipment = [];
@@ -341,6 +350,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 routeData.difficulty = difficulty.value;
                 routeData.equipment = equipment;
                 routeData.recommendations = recommendations;
+                routeData.additionalTips = additionalTips;
+                routeData.seasons = seasons;
+                routeData.minAge = minAge ? parseInt(minAge) : null;
+                routeData.maxParticipants = maxParticipants ? parseInt(maxParticipants) : null;
                 routeData.photos = selectedPhotos;
                 if (gpxFile) {
                     routeData.gpxFileName = gpxFile.name;
@@ -373,6 +386,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     difficulty: difficulty.value,
                     equipment: equipment,
                     recommendations: recommendations,
+                    additionalTips: additionalTips,
+                    seasons: seasons,
+                    minAge: minAge ? parseInt(minAge) : null,
+                    maxParticipants: maxParticipants ? parseInt(maxParticipants) : null,
                     photos: selectedPhotos,
                     gpxFileName: gpxFile.name,
                     createdAt: new Date().toISOString(),
