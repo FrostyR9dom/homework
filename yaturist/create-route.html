@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="css/responsive.css">
 
     <!-- FontAwesome 6.5.2 -->
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" as="style">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-wnRMnqvzuqt28+1c5R505dJcoF7pceWR+nLsVlcst0AWFkMZ4t+qnDG2VTqySwLmKt8W3V5duxNvtEq72SGLsw==" crossorigin="anonymous" referrerpolicy="no-referrer">
 
     <style>
@@ -89,7 +90,6 @@
         <div class="container">
             <div class="page-header">
                 <h1 id="pageTitle"><i class="fas fa-map-signs"></i> Создание нового маршрута</h1>
-                <p>Комиссия сервиса — 30% с каждой продажи</p>
             </div>
 
             <form id="createRouteForm" class="route-form">
@@ -319,7 +319,7 @@
                     <div class="section-header">
                         <h2><i class="fas fa-images"></i> Фотографии</h2>
                     </div>
-                    <p>Минимум 3 фотографии (можно выбрать несколько файлов сразу)</p>
+                    <p>Минимум 3 фотографии</p>
 
                     <!-- Улучшенная загрузка фото -->
                     <div class="form-group">
@@ -354,14 +354,6 @@
                         <div class="form-group half">
                             <label for="price">Цена (₽) *</label>
                             <input type="number" id="price" min="99" max="9999" required>
-                        </div>
-                        <div class="form-group half">
-                            <div class="commission-info">
-                                <i class="fas fa-info-circle"></i>
-                                <span>Комиссия сервиса — 30%</span>
-                                <br>
-                                <small>С цены <span id="priceExample">299</span>₽ вы получите <span id="incomeExample">209</span>₽</small>
-                            </div>
                         </div>
                     </div>
                 </div>

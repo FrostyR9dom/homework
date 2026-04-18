@@ -360,8 +360,202 @@ document.addEventListener('DOMContentLoaded', function() {
         switchTab(savedTab);
     }
 
+    // ===== ГАЛЕРЕЯ ФОТО =====
+    function initGallery() {
+        let uploadBtn = document.getElementById('uploadGalleryPhotoBtn');
+        let photoInput = document.getElementById('galleryPhotoInput');
+
+        if (uploadBtn && photoInput) {
+            uploadBtn.addEventListener('click', function() {
+                let file = photoInput.files[0];
+                if (!file) {
+                    alert('Выбери фотографию');
+                    return;
+                }
+
+                let reader = new FileReader();
+                reader.onload = function(e) {
+                    let gallery = JSON.parse(localStorage.getItem('yaturist_gallery') || '[]');
+                    let currentUser = getCurrentUser();
+
+                    gallery.push({
+                        id: Date.now(),
+                        photoData: e.target.result,
+                        author: currentUser.firstName + ' ' + currentUser.lastName,
+                        uploadedAt: new Date().toISOString(),
+                        rating: 0,
+                        votes: 0
+                    });
+
+                    localStorage.setItem('yaturist_gallery', JSON.stringify(gallery));
+                    photoInput.value = '';
+                    renderGallery();
+                    alert('✅ Фото загружено!');
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        renderGallery();
+    }
+
+    function renderGallery() {
+        let gallery = JSON.parse(localStorage.getItem('yaturist_gallery') || '[]');
+        let container = document.getElementById('galleryGrid');
+        if (!container) return;
+
+        // Сортируем по рейтингу (топ 10)
+        gallery.sort((a, b) => (b.rating / Math.max(b.votes, 1)) - (a.rating / Math.max(a.votes, 1)));
+        gallery = gallery.slice(0, 10);
+
+        if (gallery.length === 0) {
+            container.innerHTML = '<p class="empty-state">Фотографий ещё нет. Загрузи первой!</p>';
+            return;
+        }
+
+        container.innerHTML = gallery.map((photo, idx) => {
+            let avgRating = photo.votes > 0 ? (photo.rating / photo.votes).toFixed(1) : 0;
+            return `
+                <div style="border: 1px solid #ddd; border-radius: 12px; overflow: hidden; background: white; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                    <img src="${photo.photoData}" style="width: 100%; height: 200px; object-fit: cover;">
+                    <div style="padding: 12px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                            <span style="font-size: 12px; color: #666;">${idx + 1}. ${photo.author}</span>
+                            <span style="font-weight: bold; color: #2E7D32;">⭐ ${avgRating}</span>
+                        </div>
+                        <div style="display: flex; gap: 8px;">
+                            <input type="range" min="1" max="100" style="flex: 1;" id="rating-${photo.id}" data-photo-id="${photo.id}">
+                            <button class="btn btn-primary btn-small" onclick="votePhoto(${photo.id})">Оценить</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }).join('');
+    }
+
+    window.votePhoto = function(photoId) {
+        let ratingInput = document.getElementById('rating-' + photoId);
+        if (!ratingInput) return;
+
+        let rating = parseInt(ratingInput.value);
+        let gallery = JSON.parse(localStorage.getItem('yaturist_gallery') || '[]');
+        let photo = gallery.find(p => p.id === photoId);
+
+        if (photo) {
+            photo.rating += rating;
+            photo.votes += 1;
+            localStorage.setItem('yaturist_gallery', JSON.stringify(gallery));
+            renderGallery();
+            alert(`✅ Ты оценил на ${rating} баллов!`);
+        }
+    };
+
+    // ===== ФОРУМ ТУРИСТОВ =====
+    function initForum() {
+        let createBtn = document.getElementById('createForumTopicBtn');
+        let titleInput = document.getElementById('forumTopicTitle');
+        let messageInput = document.getElementById('forumTopicMessage');
+
+        if (createBtn) {
+            createBtn.addEventListener('click', function() {
+                let title = titleInput.value.trim();
+                let message = messageInput.value.trim();
+
+                if (!title || !message) {
+                    alert('Заполни название и сообщение');
+                    return;
+                }
+
+                let threads = JSON.parse(localStorage.getItem('yaturist_forum') || '[]');
+                let currentUser = getCurrentUser();
+
+                let newThread = {
+                    id: Date.now(),
+                    title: title,
+                    author: currentUser.firstName + ' ' + currentUser.lastName,
+                    createdAt: new Date().toISOString(),
+                    comments: [{
+                        id: Date.now() + 1,
+                        author: currentUser.firstName + ' ' + currentUser.lastName,
+                        message: message,
+                        createdAt: new Date().toISOString()
+                    }]
+                };
+
+                threads.push(newThread);
+                localStorage.setItem('yaturist_forum', JSON.stringify(threads));
+                titleInput.value = '';
+                messageInput.value = '';
+                renderForum();
+                alert('✅ Тема создана!');
+            });
+        }
+
+        renderForum();
+    }
+
+    function renderForum() {
+        let threads = JSON.parse(localStorage.getItem('yaturist_forum') || '[]');
+        let container = document.getElementById('forumThreads');
+        if (!container) return;
+
+        // Сортируем по времени создания (новые первыми)
+        threads.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+        if (threads.length === 0) {
+            container.innerHTML = '<p class="empty-state">Тем ещё нет. Будь первым!</p>';
+            return;
+        }
+
+        container.innerHTML = threads.map(thread => {
+            let createdDate = new Date(thread.createdAt).toLocaleDateString('ru-RU');
+            return `
+                <div style="border: 1px solid #ddd; border-radius: 12px; padding: 16px; background: white; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 12px;">
+                        <div>
+                            <h4 style="margin: 0 0 4px; color: #333;">${escapeHtml(thread.title)}</h4>
+                            <span style="font-size: 12px; color: #999;">${thread.author} • ${createdDate}</span>
+                        </div>
+                        <span style="background: #2E7D32; color: white; padding: 4px 8px; border-radius: 6px; font-size: 12px;">
+                            ${thread.comments.length} ${thread.comments.length === 1 ? 'ответ' : 'ответов'}
+                        </span>
+                    </div>
+                    <div style="background: #f9f9f9; padding: 12px; border-radius: 8px; margin-bottom: 12px; font-size: 14px; max-height: 100px; overflow-y: auto;">
+                        ${escapeHtml(thread.comments[thread.comments.length - 1].message)}
+                    </div>
+                    <button class="btn btn-small btn-outline" onclick="openThreadDetail(${thread.id})">
+                        <i class="fas fa-reply"></i> Ответить
+                    </button>
+                </div>
+            `;
+        }).join('');
+    }
+
+    window.openThreadDetail = function(threadId) {
+        let threads = JSON.parse(localStorage.getItem('yaturist_forum') || '[]');
+        let thread = threads.find(t => t.id === threadId);
+        if (!thread) return;
+
+        let currentUser = getCurrentUser();
+        let response = prompt('Твой ответ:');
+        if (!response || !response.trim()) return;
+
+        thread.comments.push({
+            id: Date.now(),
+            author: currentUser.firstName + ' ' + currentUser.lastName,
+            message: response.trim(),
+            createdAt: new Date().toISOString()
+        });
+
+        localStorage.setItem('yaturist_forum', JSON.stringify(threads));
+        renderForum();
+        alert('✅ Ответ добавлен!');
+    };
+
     // ЗАПУСКАЕМ ЗАГРУЗКУ
     loadUserProfile();
+    initGallery();
+    initForum();
     console.log('✅ profile.js завершил загрузку');
 });
 

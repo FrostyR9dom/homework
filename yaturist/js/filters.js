@@ -228,7 +228,7 @@ function renderRoutes() {
             { id: 'demo2', firstName: 'Мария', lastName: 'Петрова', email: 'maria@example.com' },
             { id: 'demo3', firstName: 'Дмитрий', lastName: 'Сидоров', email: 'dmitry@example.com' }
         ];
-        localStorage.setItem('yatyrist_users', JSON.stringify(users));
+        localStorage.setItem('yaturist_users', JSON.stringify(users));
     }
 
     var totalUsersElem = document.getElementById('totalUsers');
