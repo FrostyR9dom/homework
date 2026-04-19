@@ -164,148 +164,176 @@
                 </button>
             </div>
 
-            <!-- Фильтр по региону -->
+            <!-- Фильтр по региону (ПОЛНЫЙ СПИСОК) -->
             <div class="region-filters">
                 <button class="region-btn active" data-region="all">
-                    <i class="fas fa-map"></i> Все регионы
-                </button>
+        <i class="fas fa-globe"></i> Все регионы
+    </button>
                 <button class="region-btn" data-region="krasnodar">
-                    <i class="fas fa-tree"></i> Краснодарский край
-                </button>
+        <i class="fas fa-tree"></i> Краснодарский край
+    </button>
                 <button class="region-btn" data-region="adygea">
-                    <i class="fas fa-mountain"></i> Адыгея
-                </button>
+        <i class="fas fa-mountain"></i> Адыгея
+    </button>
+                <button class="region-btn" data-region="rostov">
+        <i class="fas fa-city"></i> Ростовская область
+    </button>
+                <button class="region-btn" data-region="kch">
+        <i class="fas fa-mountain"></i> Карачаево-Черкесия
+    </button>
                 <button class="region-btn" data-region="crimea">
-                    <i class="fas fa-umbrella-beach"></i> Крым
-                </button>
+        <i class="fas fa-umbrella-beach"></i> Крым
+    </button>
+                <button class="region-btn" data-region="moscow">
+        <i class="fas fa-building"></i> Московская область
+    </button>
+                <button class="region-btn" data-region="spb">
+        <i class="fas fa-tint"></i> Ленинградская область
+    </button>
+                <button class="region-btn" data-region="kareliya">
+        <i class="fas fa-tree"></i> Карелия
+    </button>
                 <button class="region-btn" data-region="altai">
-                    <i class="fas fa-mountain"></i> Алтай
-                </button>
+        <i class="fas fa-mountain"></i> Алтайский край
+    </button>
+                <button class="region-btn" data-region="urals">
+        <i class="fas fa-mountain"></i> Урал
+    </button>
+                <button class="region-btn" data-region="siberia">
+        <i class="fas fa-tree"></i> Сибирь
+    </button>
                 <button class="region-btn" data-region="baikal">
-                    <i class="fas fa-water"></i> Байкал
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- ============================================================ -->
-    <!-- КАТАЛОГ МАРШРУТОВ -->
-    <!-- ============================================================ -->
-    <section class="catalog">
-        <div class="container">
-            <div class="routes-grid" id="routesGrid">
-                <!-- Маршруты загружаются динамически через filters.js -->
+        <i class="fas fa-water"></i> Байкальский регион
+    </button>
+                <button class="region-btn" data-region="volga">
+        <i class="fas fa-ship"></i> Поволжье
+    </button>
+                <button class="region-btn" data-region="caucasus">
+        <i class="fas fa-mountain"></i> Северный Кавказ
+    </button>
+                <button class="region-btn" data-region="far-east">
+        <i class="fas fa-tree"></i> Дальний Восток
+    </button>
             </div>
 
-            <div class="load-more-wrapper">
-                <button class="btn btn-outline btn-large" id="loadMoreBtn">
+            <!-- ============================================================ -->
+            <!-- КАТАЛОГ МАРШРУТОВ -->
+            <!-- ============================================================ -->
+            <section class="catalog">
+                <div class="container">
+                    <div class="routes-grid" id="routesGrid">
+                        <!-- Маршруты загружаются динамически через filters.js -->
+                    </div>
+
+                    <div class="load-more-wrapper">
+                        <button class="btn btn-outline btn-large" id="loadMoreBtn">
                     <i class="fas fa-plus"></i> Показать ещё маршруты
                 </button>
-            </div>
-        </div>
-    </section>
+                    </div>
+                </div>
+            </section>
 
-    <!-- ============================================================ -->
-    <!-- КАК ЭТО РАБОТАЕТ -->
-    <!-- ============================================================ -->
-    <section class="how-it-works">
-        <div class="container">
-            <h2 class="section-title">Как это работает</h2>
-            <div class="steps-grid">
-                <div class="step-card">
-                    <div class="step-icon"><i class="fas fa-search"></i></div>
-                    <h3>Найди маршрут</h3>
-                    <p>Выбери подходящий по типу и региону</p>
+            <!-- ============================================================ -->
+            <!-- КАК ЭТО РАБОТАЕТ -->
+            <!-- ============================================================ -->
+            <section class="how-it-works">
+                <div class="container">
+                    <h2 class="section-title">Как это работает</h2>
+                    <div class="steps-grid">
+                        <div class="step-card">
+                            <div class="step-icon"><i class="fas fa-search"></i></div>
+                            <h3>Найди маршрут</h3>
+                            <p>Выбери подходящий по типу и региону</p>
+                        </div>
+                        <div class="step-card">
+                            <div class="step-icon"><i class="fas fa-credit-card"></i></div>
+                            <h3>Оплати</h3>
+                            <p>Безопасная оплата онлайн</p>
+                        </div>
+                        <div class="step-card">
+                            <div class="step-icon"><i class="fas fa-download"></i></div>
+                            <h3>Скачай GPX</h3>
+                            <p>Загрузи трек в навигатор</p>
+                        </div>
+                        <div class="step-card">
+                            <div class="step-icon"><i class="fas fa-star"></i></div>
+                            <h3>Оставь отзыв</h3>
+                            <p>Помоги другим с выбором</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="step-card">
-                    <div class="step-icon"><i class="fas fa-credit-card"></i></div>
-                    <h3>Оплати</h3>
-                    <p>Безопасная оплата онлайн</p>
-                </div>
-                <div class="step-card">
-                    <div class="step-icon"><i class="fas fa-download"></i></div>
-                    <h3>Скачай GPX</h3>
-                    <p>Загрузи трек в навигатор</p>
-                </div>
-                <div class="step-card">
-                    <div class="step-icon"><i class="fas fa-star"></i></div>
-                    <h3>Оставь отзыв</h3>
-                    <p>Помоги другим с выбором</p>
-                </div>
-            </div>
-        </div>
-    </section>
+            </section>
 
-    <!-- ============================================================ -->
-    <!-- ГАЛЕРЕЯ (ТОЛЬКО ТОП-10 ФОТО) -->
-    <!-- ============================================================ -->
-    <section class="gallery-section" id="gallery">
-        <div class="container">
-            <div class="gallery-header">
-                <h2 class="section-title">
-                    <i class="fas fa-camera"></i> Галерея путешествий
-                </h2>
-                <p class="section-subtitle">
-                    Лучшие фотографии от наших путешественников.
-                    <a href="register.html" class="guest-only">Войдите</a>
-                    <span class="auth-only" style="display: none;">Загружайте свои фото</span>, чтобы участвовать в рейтинге!
-                </p>
-            </div>
+            <!-- ============================================================ -->
+            <!-- ГАЛЕРЕЯ (ТОЛЬКО ТОП-10 ФОТО) -->
+            <!-- ============================================================ -->
+            <section class="gallery-section" id="gallery">
+                <div class="container">
+                    <div class="gallery-header">
+                        <h2 class="section-title">
+                            <i class="fas fa-camera"></i> Галерея путешествий
+                        </h2>
+                        <p class="section-subtitle">
+                            Лучшие фотографии от наших путешественников.
+                            <a href="register.html" class="guest-only">Войдите</a>
+                            <span class="auth-only" style="display: none;">Загружайте свои фото</span>, чтобы участвовать в рейтинге!
+                        </p>
+                    </div>
 
-            <!-- Сетка с топ-10 фото -->
-            <div class="gallery-grid" id="homeGalleryGrid">
-                <!-- Фото загружаются через gallery.js -->
-            </div>
+                    <!-- Сетка с топ-10 фото -->
+                    <div class="gallery-grid" id="homeGalleryGrid">
+                        <!-- Фото загружаются через gallery.js -->
+                    </div>
 
-            <!-- Кнопка перехода в полную галерею -->
-            <div class="load-more-wrapper">
-                <a href="gallery.html" class="btn btn-primary btn-large">
-                    <i class="fas fa-images"></i> Смотреть всю галерею
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================================ -->
-    <!-- ПОДВАЛ -->
-    <!-- ============================================================ -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-col">
-                    <h4><i class="fas fa-mountain"></i> yaturist</h4>
-                    <p>Уникальный маркетплейс маршрутов и туров по России. Создавай, продавай, путешествуй!</p>
+                    <!-- Кнопка перехода в полную галерею -->
+                    <div class="load-more-wrapper">
+                        <a href="gallery.html" class="btn btn-primary btn-large">
+                            <i class="fas fa-images"></i> Смотреть всю галерею
+                        </a>
+                    </div>
                 </div>
-                <div class="footer-col">
-                    <h4>Разделы</h4>
-                    <ul>
-                        <li><a href="index.html"><i class="fas fa-compass"></i> Маршруты</a></li>
-                        <li><a href="gallery.html"><i class="fas fa-images"></i> Галерея</a></li>
-                        <li><a href="forum.html"><i class="fas fa-comments"></i> Форум</a></li>
-                        <li><a href="profile.html"><i class="fas fa-user"></i> Профиль</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h4>Контакты</h4>
-                    <ul>
-                        <li><i class="fas fa-envelope"></i> hello@yaturist.ru</li>
-                        <li><i class="fab fa-telegram"></i> @yaturist</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>© 2026 yaturist. Маршруты сделаны с душой ❤️</p>
-            </div>
-        </div>
-    </footer>
+            </section>
 
-    <!-- ============================================================ -->
-    <!-- JAVASCRIPT -->
-    <!-- ============================================================ -->
-    <script src="js/auth.js"></script>
-    <script src="js/main.js"></script>
-    <script src="js/filters.js"></script>
-    <script src="js/gallery.js"></script>
+            <!-- ============================================================ -->
+            <!-- ПОДВАЛ -->
+            <!-- ============================================================ -->
+            <footer class="footer">
+                <div class="container">
+                    <div class="footer-content">
+                        <div class="footer-col">
+                            <h4><i class="fas fa-mountain"></i> yaturist</h4>
+                            <p>Уникальный маркетплейс маршрутов и туров по России. Создавай, продавай, путешествуй!</p>
+                        </div>
+                        <div class="footer-col">
+                            <h4>Разделы</h4>
+                            <ul>
+                                <li><a href="index.html"><i class="fas fa-compass"></i> Маршруты</a></li>
+                                <li><a href="gallery.html"><i class="fas fa-images"></i> Галерея</a></li>
+                                <li><a href="forum.html"><i class="fas fa-comments"></i> Форум</a></li>
+                                <li><a href="profile.html"><i class="fas fa-user"></i> Профиль</a></li>
+                            </ul>
+                        </div>
+                        <div class="footer-col">
+                            <h4>Контакты</h4>
+                            <ul>
+                                <li><i class="fas fa-envelope"></i> hello@yaturist.ru</li>
+                                <li><i class="fab fa-telegram"></i> @yaturist</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="footer-bottom">
+                        <p>© 2026 yaturist. Маршруты сделаны с душой ❤️</p>
+                    </div>
+                </div>
+            </footer>
+
+            <!-- ============================================================ -->
+            <!-- JAVASCRIPT -->
+            <!-- ============================================================ -->
+            <script src="js/auth.js"></script>
+            <script src="js/main.js"></script>
+            <script src="js/filters.js"></script>
+            <script src="js/gallery.js"></script>
 </body>
 
 </html>
