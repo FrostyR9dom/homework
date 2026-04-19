@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Форум | yaturist</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/forms.css">
+    <link rel="stylesheet" href="css/forum.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <!-- FontAwesome 6.5.2 -->
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-wnRMnqvzuqt28+1c5R505dJcoF7pceWR+nLsVlcst0AWFkMZ4t+qnDG2VTqySwLmKt8W3V5duxNvtEq72SGLsw==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"></noscript>
+</head>
+
+<body>
+    <!-- ШАПКА -->
+    <header class="header">
+        <div class="container header-inner">
+            <a href="index.html" class="logo">
+                <i class="fas fa-mountain"></i>
+                <span>yaturist</span>
+            </a>
+            <button class="mobile-menu-toggle" aria-label="Меню"><i class="fas fa-bars"></i></button>
+            <nav class="nav">
+                <a href="index.html" class="nav-link">Маршруты</a>
+                <a href="gallery.html" class="nav-link">Галерея</a>
+                <a href="forum.html" class="nav-link active">Форум</a>
+                <a href="create-route.html" class="nav-link">Создать маршрут</a>
+                <div class="guest-only">
+                    <a href="register.html" class="btn btn-outline">Войти</a>
+                </div>
+                <div class="auth-only" style="display: none;">
+                    <div class="user-menu">
+                        <a href="profile.html" class="user-profile-link">
+                            <img src="img/avatars/default-avatar.png" class="user-avatar-display" alt="Аватар">
+                            <span class="user-name-display"></span>
+                        </a>
+                        <button class="btn btn-outline btn-small logout-btn">Выйти</button>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ОСНОВНОЙ КОНТЕНТ -->
+    <main class="forum-page">
+        <div class="container">
+            <!-- Хлебные крошки -->
+            <div class="breadcrumbs" id="breadcrumbs">
+                <a href="index.html">Главная</a> <i class="fas fa-chevron-right"></i>
+                <span>Форум</span>
+            </div>
+
+            <!-- Заголовок форума -->
+            <div class="forum-header">
+                <h1><i class="fas fa-comments"></i> Форум путешественников</h1>
+                <p>Общайтесь, делитесь опытом, находите попутчиков и планируйте совместные походы</p>
+                <button class="btn btn-primary" id="createTopicBtn">
+                    <i class="fas fa-plus"></i> Создать новую тему
+                </button>
+            </div>
+
+            <!-- Статистика форума -->
+            <div class="forum-stats">
+                <div class="stat-item">
+                    <i class="fas fa-folder-open"></i>
+                    <span class="stat-value" id="totalSections">5</span>
+                    <span class="stat-label">разделов</span>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-comments"></i>
+                    <span class="stat-value" id="totalTopics">0</span>
+                    <span class="stat-label">тем</span>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-reply-all"></i>
+                    <span class="stat-value" id="totalPosts">0</span>
+                    <span class="stat-label">сообщений</span>
+                </div>
+            </div>
+
+            <!-- Контейнер для разделов/тем -->
+            <div id="forumContent">
+                <!-- Список разделов -->
+                <div id="sectionsView">
+                    <div class="forum-sections">
+                        <!-- Раздел 1: Общие темы -->
+                        <div class="forum-section-card">
+                            <div class="section-header" onclick="toggleSection(this)">
+                                <div class="section-icon">
+                                    <i class="fas fa-globe"></i>
+                                </div>
+                                <div class="section-info">
+                                    <h3>Общие темы</h3>
+                                    <p>Обсуждение всего, что связано с путешествиями</p>
+                                </div>
+                                <div class="section-stats">
+                                    <span><i class="fas fa-comments"></i> <span class="topics-count">0</span> тем</span>
+                                    <span><i class="fas fa-reply"></i> <span class="posts-count">0</span> сообщений</span>
+                                </div>
+                                <i class="fas fa-chevron-down section-toggle"></i>
+                            </div>
+                            <div class="section-topics" id="section-general">
+                                <!-- Темы будут загружены через JS -->
+                            </div>
+                        </div>
+
+                        <!-- Раздел 2: Поиск попутчиков -->
+                        <div class="forum-section-card">
+                            <div class="section-header" onclick="toggleSection(this)">
+                                <div class="section-icon">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <div class="section-info">
+                                    <h3>Поиск попутчиков</h3>
+                                    <p>Найдите компанию для совместных путешествий</p>
+                                </div>
+                                <div class="section-stats">
+                                    <span><i class="fas fa-comments"></i> <span class="topics-count">0</span> тем</span>
+                                    <span><i class="fas fa-reply"></i> <span class="posts-count">0</span> сообщений</span>
+                                </div>
+                                <i class="fas fa-chevron-down section-toggle"></i>
+                            </div>
+                            <div class="section-topics" id="section-companions">
+                                <!-- Темы будут загружены через JS -->
+                            </div>
+                        </div>
+
+                        <!-- Раздел 3: Снаряжение -->
+                        <div class="forum-section-card">
+                            <div class="section-header" onclick="toggleSection(this)">
+                                <div class="section-icon">
+                                    <i class="fas fa-hiking"></i>
+                                </div>
+                                <div class="section-info">
+                                    <h3>Снаряжение</h3>
+                                    <p>Обсуждаем экипировку, отзывы, выбор</p>
+                                </div>
+                                <div class="section-stats">
+                                    <span><i class="fas fa-comments"></i> <span class="topics-count">0</span> тем</span>
+                                    <span><i class="fas fa-reply"></i> <span class="posts-count">0</span> сообщений</span>
+                                </div>
+                                <i class="fas fa-chevron-down section-toggle"></i>
+                            </div>
+                            <div class="section-topics" id="section-equipment">
+                                <!-- Темы будут загружены через JS -->
+                            </div>
+                        </div>
+
+                        <!-- Раздел 4: Отчёты о походах -->
+                        <div class="forum-section-card">
+                            <div class="section-header" onclick="toggleSection(this)">
+                                <div class="section-icon">
+                                    <i class="fas fa-map-signs"></i>
+                                </div>
+                                <div class="section-info">
+                                    <h3>Отчёты о походах</h3>
+                                    <p>Делитесь впечатлениями и фотографиями</p>
+                                </div>
+                                <div class="section-stats">
+                                    <span><i class="fas fa-comments"></i> <span class="topics-count">0</span> тем</span>
+                                    <span><i class="fas fa-reply"></i> <span class="posts-count">0</span> сообщений</span>
+                                </div>
+                                <i class="fas fa-chevron-down section-toggle"></i>
+                            </div>
+                            <div class="section-topics" id="section-reports">
+                                <!-- Темы будут загружены через JS -->
+                            </div>
+                        </div>
+
+                        <!-- Раздел 5: Вопросы новичков -->
+                        <div class="forum-section-card">
+                            <div class="section-header" onclick="toggleSection(this)">
+                                <div class="section-icon">
+                                    <i class="fas fa-question-circle"></i>
+                                </div>
+                                <div class="section-info">
+                                    <h3>Вопросы новичков</h3>
+                                    <p>Поможем с первыми шагами в туризме</p>
+                                </div>
+                                <div class="section-stats">
+                                    <span><i class="fas fa-comments"></i> <span class="topics-count">0</span> тем</span>
+                                    <span><i class="fas fa-reply"></i> <span class="posts-count">0</span> сообщений</span>
+                                </div>
+                                <i class="fas fa-chevron-down section-toggle"></i>
+                            </div>
+                            <div class="section-topics" id="section-beginners">
+                                <!-- Темы будут загружены через JS -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Просмотр темы -->
+                <div id="topicView" style="display: none;">
+                    <button class="btn btn-outline back-to-forum">
+                        <i class="fas fa-arrow-left"></i> Назад к разделам
+                    </button>
+                    <div id="topicContent">
+                        <!-- Контент темы будет загружен через JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Модальное окно создания темы -->
+            <div class="modal" id="createTopicModal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2><i class="fas fa-plus-circle"></i> Создать новую тему</h2>
+                        <button class="modal-close">&times;</button>
+                    </div>
+                    <form id="createTopicForm">
+                        <div class="form-group">
+                            <label for="topicSection">Раздел *</label>
+                            <select id="topicSection" required>
+                                <option value="general">Общие темы</option>
+                                <option value="companions">Поиск попутчиков</option>
+                                <option value="equipment">Снаряжение</option>
+                                <option value="reports">Отчёты о походах</option>
+                                <option value="beginners">Вопросы новичков</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="topicTitle">Название темы *</label>
+                            <input type="text" id="topicTitle" placeholder="Введите название темы" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="topicMessage">Сообщение *</label>
+                            <textarea id="topicMessage" rows="6" placeholder="Опишите вашу тему..." required></textarea>
+                        </div>
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-outline modal-close">Отмена</button>
+                            <button type="submit" class="btn btn-primary">Создать тему</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- ПОДВАЛ -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h4>yaturist</h4>
+                    <p>Уникальный маркетплейс маршрутов и туров по России.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul>
+                        <li><a href="index.html">Маршруты</a></li>
+                        <li><a href="gallery.html">Галерея</a></li>
+                        <li><a href="forum.html">Форум</a></li>
+                        <li><a href="profile.html">Профиль</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Контакты</h4>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> hello@yaturist.ru</li>
+                        <li><i class="fab fa-telegram"></i> @yaturist</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 yaturist. Маршруты сделаны с душой ❤️</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/auth.js"></script>
+    <script src="js/forum.js"></script>
+</body>
+
+</html>

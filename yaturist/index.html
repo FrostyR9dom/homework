@@ -29,27 +29,29 @@
                 <button class="mobile-menu-toggle" aria-label="Меню"><i class="fas fa-bars"></i></button>
 
                 <!-- Навигация -->
+                <!-- В навигации обновляем ссылки -->
                 <nav class="nav">
                     <a href="#catalog" class="btn btn-primary btn-small nav-find-route">Найти маршрут</a>
-                    <a href="#gallery" class="nav-link">Галерея</a>
-                    <a href="#forum" class="nav-link">Форум</a>
+                    <a href="gallery.html" class="nav-link">Галерея</a>
+                    <a href="forum.html" class="nav-link">Форум</a>
                     <a href="create-route.html" class="nav-link">Создать маршрут</a>
+                    <!-- ... -->
+                </nav>
+                <!-- Блок для неавторизованных пользователей -->
+                <div class="guest-only">
+                    <a href="register.html" class="btn btn-outline">Войти</a>
+                </div>
 
-                    <!-- Блок для неавторизованных пользователей -->
-                    <div class="guest-only">
-                        <a href="register.html" class="btn btn-outline">Войти</a>
+                <!-- Блок для авторизованных пользователей -->
+                <div class="auth-only" style="display: none;">
+                    <div class="user-menu">
+                        <a href="profile.html" class="user-profile-link">
+                            <img src="img/avatars/default-avatar.png" class="user-avatar-display" alt="Аватар">
+                            <span class="user-name-display"></span>
+                        </a>
+                        <button class="btn btn-outline btn-small logout-btn">Выйти</button>
                     </div>
-
-                    <!-- Блок для авторизованных пользователей -->
-                    <div class="auth-only" style="display: none;">
-                        <div class="user-menu">
-                            <a href="profile.html" class="user-profile-link">
-                                <img src="img/avatars/default-avatar.png" class="user-avatar-display" alt="Аватар">
-                                <span class="user-name-display"></span>
-                            </a>
-                            <button class="btn btn-outline btn-small logout-btn">Выйти</button>
-                        </div>
-                    </div>
+                </div>
                 </nav>
             </div>
         </div>
@@ -181,34 +183,45 @@
     </section>
 
     <!-- ========== ГАЛЕРЕЯ ФОТОГРАФИЙ ========== -->
+    <!-- ГАЛЕРЕЯ - ТОЛЬКО ТОП-10 ФОТО -->
     <section class="gallery-section" id="gallery">
         <div class="container">
-            <h2 class="section-title">Галерея путешествий</h2>
-            <p class="section-subtitle">Фотографии от туристов со всего мира. Голосование за топ-10 лучших снимков!</p>
-
-            <div class="gallery-controls">
-                <button class="btn btn-primary" id="uploadPhotoBtn">
-                    <i class="fas fa-camera"></i> Загрузить фото
-                </button>
-                <div class="gallery-filter">
-                    <select id="gallerySort">
-                        <option value="rating">По рейтингу</option>
-                        <option value="newest">Сначала новые</option>
-                        <option value="oldest">Сначала старые</option>
-                    </select>
-                </div>
+            <div class="gallery-header">
+                <h2 class="section-title">Галерея путешествий</h2>
+                <p class="section-subtitle">Лучшие фотографии от наших путешественников</p>
             </div>
 
-            <div class="gallery-grid" id="galleryGrid">
-                <!-- Фото будут загружаться динамически -->
+            <div class="gallery-grid" id="homeGalleryGrid">
+                <!-- Топ-10 фото загружаются через JS -->
             </div>
 
             <div class="load-more-wrapper">
-                <button class="btn btn-outline" id="loadMorePhotos">Загрузить ещё</button>
+                <a href="gallery.html" class="btn btn-primary btn-large">
+                    <i class="fas fa-images"></i> Смотреть всю галерею
+                </a>
             </div>
         </div>
     </section>
 
+    <!-- ФОРУМ - ТОЛЬКО ПОСЛЕДНИЕ ТЕМЫ -->
+    <section class="forum-section" id="forum">
+        <div class="container">
+            <div class="forum-header">
+                <h2 class="section-title">Форум путешественников</h2>
+                <p class="section-subtitle">Общайтесь, делитесь опытом и находите попутчиков</p>
+            </div>
+
+            <div class="forum-preview" id="forumPreview">
+                <!-- Последние темы загружаются через JS -->
+            </div>
+
+            <div class="load-more-wrapper">
+                <a href="forum.html" class="btn btn-primary btn-large">
+                    <i class="fas fa-comments"></i> Перейти на форум
+                </a>
+            </div>
+        </div>
+    </section>
     <!-- ========== ФОРУМ ========== -->
     <section class="forum-section" id="forum">
         <div class="container">
