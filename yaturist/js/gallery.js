@@ -1,5 +1,6 @@
 /**
- * gallery.js - Логика галереи
+ * gallery.js - Логика галереи с проверкой авторизации
+ * Только авторизованные пользователи могут загружать фото и голосовать
  */
 
 let galleryPhotos = [];
@@ -7,13 +8,48 @@ let currentPage = 1;
 const PHOTOS_PER_PAGE = 12;
 let currentPhotoId = null;
 
-// Загрузка галереи
+// ============================================================
+// ПРОВЕРКА АВТОРИЗАЦИИ
+// ============================================================
+
+/**
+ * Проверяет, авторизован ли пользователь
+ * @param {string} action - Действие, для которого требуется авторизация
+ * @returns {boolean} - true если авторизован
+ */
+function requireAuth(action) {
+    // Проверяем, что функция getCurrentUser существует (из auth.js)
+    if (typeof getCurrentUser !== 'function') {
+        console.error('auth.js не загружен!');
+        alert('Ошибка: система авторизации не загружена');
+        return false;
+    }
+
+    const user = getCurrentUser();
+    if (!user) {
+        alert(`❌ Чтобы ${action}, необходимо войти в аккаунт!`);
+        // Сохраняем текущую страницу для редиректа после входа
+        localStorage.setItem('redirect_after_login', window.location.href);
+        window.location.href = 'register.html';
+        return false;
+    }
+    return true;
+}
+
+// ============================================================
+// ЗАГРУЗКА И СОХРАНЕНИЕ ДАННЫХ
+// ============================================================
+
+/**
+ * Загружает фотографии из localStorage
+ */
 function loadGallery() {
     const saved = localStorage.getItem('yaturist_gallery');
     if (saved) {
         try {
             galleryPhotos = JSON.parse(saved);
         } catch (e) {
+            console.error('Ошибка загрузки галереи:', e);
             galleryPhotos = [];
         }
     }
@@ -24,26 +60,72 @@ function loadGallery() {
     }
 }
 
+/**
+ * Добавляет демонстрационные фотографии
+ */
 function addDemoPhotos() {
-    const demoPhotos = [
-        { id: 1, author: 'Анна', rating: 95, votes: 24, date: Date.now() - 7 * 24 * 60 * 60 * 1000 },
-        { id: 2, author: 'Сергей', rating: 88, votes: 18, date: Date.now() - 5 * 24 * 60 * 60 * 1000 },
-        { id: 3, author: 'Мария', rating: 92, votes: 21, date: Date.now() - 3 * 24 * 60 * 60 * 1000 }
+    const demoPhotos = [{
+            id: 1,
+            author: 'Анна',
+            rating: 95,
+            votes: 24,
+            date: Date.now() - 7 * 24 * 60 * 60 * 1000,
+            photoData: 'https://picsum.photos/400/300?random=1'
+        },
+        {
+            id: 2,
+            author: 'Сергей',
+            rating: 88,
+            votes: 18,
+            date: Date.now() - 5 * 24 * 60 * 60 * 1000,
+            photoData: 'https://picsum.photos/400/300?random=2'
+        },
+        {
+            id: 3,
+            author: 'Мария',
+            rating: 92,
+            votes: 21,
+            date: Date.now() - 3 * 24 * 60 * 60 * 1000,
+            photoData: 'https://picsum.photos/400/300?random=3'
+        },
+        {
+            id: 4,
+            author: 'Дмитрий',
+            rating: 78,
+            votes: 15,
+            date: Date.now() - 10 * 24 * 60 * 60 * 1000,
+            photoData: 'https://picsum.photos/400/300?random=4'
+        },
+        {
+            id: 5,
+            author: 'Елена',
+            rating: 98,
+            votes: 30,
+            date: Date.now() - 2 * 24 * 60 * 60 * 1000,
+            photoData: 'https://picsum.photos/400/300?random=5'
+        }
     ];
-
-    demoPhotos.forEach(photo => {
-        photo.photoData = `https://picsum.photos/400/300?random=${photo.id}`;
-    });
 
     galleryPhotos = demoPhotos;
     saveGallery();
 }
 
+/**
+ * Сохраняет фотографии в localStorage
+ */
 function saveGallery() {
     localStorage.setItem('yaturist_gallery', JSON.stringify(galleryPhotos));
 }
 
-// Рендеринг галереи
+// ============================================================
+// РЕНДЕРИНГ ГАЛЕРЕИ
+// ============================================================
+
+/**
+ * Отображает фотографии в галерее
+ * @param {string} sortBy - Критерий сортировки ('rating', 'newest', 'oldest')
+ * @param {number} page - Номер страницы для пагинации
+ */
 function renderGallery(sortBy = 'rating', page = 1) {
     const container = document.getElementById('fullGalleryGrid');
     if (!container) return;
@@ -66,7 +148,7 @@ function renderGallery(sortBy = 'rating', page = 1) {
     if (pagePhotos.length === 0) {
         if (page === 1) {
             container.innerHTML = `
-                <div class="empty-gallery">
+                <div class="empty-state">
                     <i class="fas fa-images"></i>
                     <h3>Галерея пуста</h3>
                     <p>Будьте первым, кто загрузит фотографию!</p>
@@ -81,7 +163,7 @@ function renderGallery(sortBy = 'rating', page = 1) {
     pagePhotos.forEach(photo => {
         const avgRating = photo.votes > 0 ? (photo.rating / photo.votes).toFixed(1) : '0.0';
         const date = new Date(photo.date).toLocaleDateString('ru-RU');
-        const avatarLetter = photo.author.charAt(0).toUpperCase();
+        const avatarLetter = photo.author ? photo.author.charAt(0).toUpperCase() : '?';
 
         html += `
             <div class="gallery-item" onclick="openPhotoModal(${photo.id})">
@@ -94,7 +176,7 @@ function renderGallery(sortBy = 'rating', page = 1) {
                     <div class="gallery-rating">
                         <i class="fas fa-star"></i>
                         <span>${avgRating}</span>
-                        <span style="color: var(--gray);">(${photo.votes} голосов)</span>
+                        <span style="color: var(--gray); font-size: 0.8rem;">(${photo.votes})</span>
                     </div>
                     <div class="gallery-date">
                         <i class="far fa-calendar"></i> ${date}
@@ -112,21 +194,28 @@ function renderGallery(sortBy = 'rating', page = 1) {
 
     // Показываем/скрываем кнопку "Загрузить ещё"
     const loadMoreBtn = document.getElementById('loadMorePhotos');
-    if (endIndex >= sortedPhotos.length) {
-        loadMoreBtn.style.display = 'none';
-    } else {
-        loadMoreBtn.style.display = 'block';
+    if (loadMoreBtn) {
+        if (endIndex >= sortedPhotos.length) {
+            loadMoreBtn.style.display = 'none';
+        } else {
+            loadMoreBtn.style.display = 'block';
+        }
     }
 }
 
-// Загрузка фото
+// ============================================================
+// ЗАГРУЗКА ФОТО (ТОЛЬКО ДЛЯ АВТОРИЗОВАННЫХ)
+// ============================================================
+
+/**
+ * Загружает новое фото в галерею
+ * @param {File} file - Файл изображения
+ */
 function uploadPhoto(file) {
+    // ПРОВЕРКА АВТОРИЗАЦИИ
+    if (!requireAuth('загрузить фото')) return;
+
     const user = getCurrentUser();
-    if (!user) {
-        alert('❌ Чтобы загрузить фото, необходимо войти в аккаунт!');
-        window.location.href = 'register.html';
-        return;
-    }
 
     const reader = new FileReader();
     reader.onload = function(e) {
@@ -144,13 +233,21 @@ function uploadPhoto(file) {
         saveGallery();
 
         currentPage = 1;
-        renderGallery(document.getElementById('gallerySort').value, currentPage);
+        const sortSelect = document.getElementById('gallerySort');
+        renderGallery(sortSelect ? sortSelect.value : 'rating', currentPage);
         alert('✅ Фото успешно загружено!');
     };
     reader.readAsDataURL(file);
 }
 
-// Модальное окно просмотра фото
+// ============================================================
+// МОДАЛЬНОЕ ОКНО ПРОСМОТРА ФОТО
+// ============================================================
+
+/**
+ * Открывает модальное окно с фотографией
+ * @param {number} photoId - ID фотографии
+ */
 function openPhotoModal(photoId) {
     const photo = galleryPhotos.find(p => p.id === photoId);
     if (!photo) return;
@@ -162,6 +259,8 @@ function openPhotoModal(photoId) {
     const modalAuthor = document.getElementById('modalAuthor');
     const modalRating = document.getElementById('modalRating');
 
+    if (!modal || !modalPhoto || !modalAuthor || !modalRating) return;
+
     modalPhoto.src = photo.photoData;
     modalAuthor.textContent = `${photo.author} • ${new Date(photo.date).toLocaleDateString('ru-RU')}`;
 
@@ -171,17 +270,34 @@ function openPhotoModal(photoId) {
     modal.classList.add('active');
 }
 
-// Голосование за фото
+/**
+ * Закрывает модальное окно
+ */
+function closeModal() {
+    const modal = document.getElementById('photoModal');
+    if (modal) {
+        modal.classList.remove('active');
+    }
+    currentPhotoId = null;
+}
+
+// ============================================================
+// ГОЛОСОВАНИЕ ЗА ФОТО (ТОЛЬКО ДЛЯ АВТОРИЗОВАННЫХ)
+// ============================================================
+
+/**
+ * Голосование за фотографию
+ * @param {number} rating - Оценка от 1 до 100
+ */
 function voteForPhoto(rating) {
+    // ПРОВЕРКА АВТОРИЗАЦИИ
+    if (!requireAuth('голосовать за фото')) return;
+
     if (!currentPhotoId) return;
 
     const user = getCurrentUser();
-    if (!user) {
-        alert('❌ Чтобы голосовать, необходимо войти в аккаунт!');
-        return;
-    }
-
     const photo = galleryPhotos.find(p => p.id === currentPhotoId);
+
     if (photo) {
         // Проверяем, голосовал ли уже пользователь
         const voteKey = `vote_${currentPhotoId}_${user.id}`;
@@ -196,17 +312,19 @@ function voteForPhoto(rating) {
         saveGallery();
 
         closeModal();
-        renderGallery(document.getElementById('gallerySort').value, currentPage);
+        const sortSelect = document.getElementById('gallerySort');
+        renderGallery(sortSelect ? sortSelect.value : 'rating', currentPage);
         alert(`✅ Вы оценили фото на ${rating} баллов!`);
     }
 }
 
-function closeModal() {
-    document.getElementById('photoModal').classList.remove('active');
-    currentPhotoId = null;
-}
+// ============================================================
+// ТОП-10 ДЛЯ ГЛАВНОЙ СТРАНИЦЫ
+// ============================================================
 
-// Топ-10 для главной страницы
+/**
+ * Отображает топ-10 фотографий на главной странице
+ */
 function renderHomeGallery() {
     const container = document.getElementById('homeGalleryGrid');
     if (!container) return;
@@ -219,14 +337,14 @@ function renderHomeGallery() {
         .slice(0, 10);
 
     if (topPhotos.length === 0) {
-        container.innerHTML = '<p class="empty-state">Фотографий пока нет</p>';
+        container.innerHTML = '<p class="empty-state"><i class="fas fa-images"></i><br>Фотографий пока нет</p>';
         return;
     }
 
     let html = '';
     topPhotos.forEach(photo => {
         const avgRating = photo.votes > 0 ? (photo.rating / photo.votes).toFixed(1) : '0.0';
-        const avatarLetter = photo.author.charAt(0).toUpperCase();
+        const avatarLetter = photo.author ? photo.author.charAt(0).toUpperCase() : '?';
 
         html += `
             <div class="gallery-item">
@@ -248,117 +366,13 @@ function renderHomeGallery() {
     container.innerHTML = html;
 }
 
-// Превью форума для главной
-function renderForumPreview() {
-    const container = document.getElementById('forumPreview');
-    if (!container) return;
+// ============================================================
+// ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ
+// ============================================================
 
-    const saved = localStorage.getItem('yaturist_forum_data');
-    if (!saved) {
-        container.innerHTML = '<p class="empty-state">Тем пока нет</p>';
-        return;
-    }
-
-    try {
-        const forumData = JSON.parse(saved);
-        let allTopics = [];
-
-        for (let section in forumData.sections) {
-            allTopics = allTopics.concat(forumData.sections[section].topics);
-        }
-
-        // Последние 5 тем
-        const recentTopics = allTopics
-            .sort((a, b) => new Date(b.lastPostDate) - new Date(a.lastPostDate))
-            .slice(0, 5);
-
-        if (recentTopics.length === 0) {
-            container.innerHTML = '<p class="empty-state">Тем пока нет</p>';
-            return;
-        }
-
-        let html = '<div class="forum-preview-list">';
-        recentTopics.forEach(topic => {
-            html += `
-                <div class="forum-preview-item">
-                    <i class="fas fa-comment"></i>
-                    <div class="preview-content">
-                        <h4>${escapeHtml(topic.title)}</h4>
-                        <span>${escapeHtml(topic.author)} • ${topic.posts.length} ответов</span>
-                    </div>
-                </div>
-            `;
-        });
-        html += '</div>';
-
-        container.innerHTML = html;
-    } catch (e) {
-        container.innerHTML = '<p class="empty-state">Ошибка загрузки форума</p>';
-    }
-}
-
-// Инициализация
-document.addEventListener('DOMContentLoaded', function() {
-    // Для страницы галереи
-    if (document.getElementById('fullGalleryGrid')) {
-        loadGallery();
-        renderGallery('rating', 1);
-
-        // Загрузка фото
-        document.getElementById('uploadPhotoBtn').addEventListener('click', function() {
-            document.getElementById('photoFileInput').click();
-        });
-
-        document.getElementById('photoFileInput').addEventListener('change', function(e) {
-            if (this.files && this.files[0]) {
-                uploadPhoto(this.files[0]);
-                this.value = '';
-            }
-        });
-
-        // Сортировка
-        document.getElementById('gallerySort').addEventListener('change', function() {
-            currentPage = 1;
-            renderGallery(this.value, currentPage);
-        });
-
-        // Загрузить ещё
-        document.getElementById('loadMorePhotos').addEventListener('click', function() {
-            currentPage++;
-            renderGallery(document.getElementById('gallerySort').value, currentPage);
-        });
-
-        // Голосование
-        document.getElementById('submitRating').addEventListener('click', function() {
-            const rating = parseInt(document.getElementById('ratingSlider').value);
-            voteForPhoto(rating);
-        });
-
-        // Закрытие модального окна
-        document.querySelectorAll('.modal-close').forEach(btn => {
-            btn.addEventListener('click', closeModal);
-        });
-
-        document.getElementById('photoModal').addEventListener('click', function(e) {
-            if (e.target === this) closeModal();
-        });
-    }
-
-    // Для главной страницы
-    if (document.getElementById('homeGalleryGrid')) {
-        renderHomeGallery();
-    }
-
-    if (document.getElementById('forumPreview')) {
-        renderForumPreview();
-    }
-
-    // Обновление UI
-    if (typeof updateAuthUI === 'function') {
-        updateAuthUI();
-    }
-});
-
+/**
+ * Экранирует HTML для защиты от XSS
+ */
 function escapeHtml(text) {
     if (!text) return '';
     const map = {
@@ -368,5 +382,88 @@ function escapeHtml(text) {
         '"': '&quot;',
         "'": '&#039;'
     };
-    return text.replace(/[&<>"']/g, m => map[m]);
+    return String(text).replace(/[&<>"']/g, m => map[m]);
 }
+
+// ============================================================
+// ИНИЦИАЛИЗАЦИЯ ПРИ ЗАГРУЗКЕ СТРАНИЦЫ
+// ============================================================
+
+document.addEventListener('DOMContentLoaded', function() {
+
+    // Для страницы галереи (gallery.html)
+    if (document.getElementById('fullGalleryGrid')) {
+        loadGallery();
+        renderGallery('rating', 1);
+
+        // Кнопка загрузки фото
+        const uploadBtn = document.getElementById('uploadPhotoBtn');
+        const fileInput = document.getElementById('photoFileInput');
+
+        if (uploadBtn && fileInput) {
+            uploadBtn.addEventListener('click', function() {
+                fileInput.click();
+            });
+
+            fileInput.addEventListener('change', function(e) {
+                if (this.files && this.files[0]) {
+                    uploadPhoto(this.files[0]);
+                    this.value = ''; // Очищаем input
+                }
+            });
+        }
+
+        // Сортировка
+        const sortSelect = document.getElementById('gallerySort');
+        if (sortSelect) {
+            sortSelect.addEventListener('change', function() {
+                currentPage = 1;
+                renderGallery(this.value, currentPage);
+            });
+        }
+
+        // Кнопка "Загрузить ещё"
+        const loadMoreBtn = document.getElementById('loadMorePhotos');
+        if (loadMoreBtn) {
+            loadMoreBtn.addEventListener('click', function() {
+                currentPage++;
+                renderGallery(sortSelect ? sortSelect.value : 'rating', currentPage);
+            });
+        }
+
+        // Кнопка голосования
+        const submitRatingBtn = document.getElementById('submitRating');
+        if (submitRatingBtn) {
+            submitRatingBtn.addEventListener('click', function() {
+                const slider = document.getElementById('ratingSlider');
+                if (slider) {
+                    voteForPhoto(parseInt(slider.value));
+                }
+            });
+        }
+
+        // Закрытие модального окна
+        document.querySelectorAll('.modal-close').forEach(btn => {
+            btn.addEventListener('click', closeModal);
+        });
+
+        const modal = document.getElementById('photoModal');
+        if (modal) {
+            modal.addEventListener('click', function(e) {
+                if (e.target === this) closeModal();
+            });
+        }
+    }
+
+    // Для главной страницы (index.html)
+    if (document.getElementById('homeGalleryGrid')) {
+        renderHomeGallery();
+    }
+
+    // Обновление UI авторизации
+    if (typeof updateAuthUI === 'function') {
+        updateAuthUI();
+    }
+
+    console.log('✅ gallery.js загружен');
+});

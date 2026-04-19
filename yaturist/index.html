@@ -3,21 +3,25 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>yaturist — Маршруты по Югу России</title>
+
+    <!-- Стили -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/forms.css">
     <link rel="stylesheet" href="css/responsive.css">
 
     <!-- FontAwesome 6.5.2 -->
     <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-wnRMnqvzuqt28+1c5R505dJcoF7pceWR+nLsVlcst0AWFkMZ4t+qnDG2VTqySwLmKt8W3V5duxNvtEq72SGLsw==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"></noscript>
 </head>
 
 <body>
 
-    <!-- ========== ШАПКА САЙТА ========== -->
+    <!-- ============================================================ -->
+    <!-- ШАПКА САЙТА -->
+    <!-- ============================================================ -->
     <header class="header">
         <div class="container">
             <div class="header-inner">
@@ -26,55 +30,75 @@
                     <i class="fas fa-mountain"></i>
                     <span>yaturist</span>
                 </a>
-                <button class="mobile-menu-toggle" aria-label="Меню"><i class="fas fa-bars"></i></button>
+
+                <!-- Кнопка мобильного меню (бургер) -->
+                <button class="mobile-menu-toggle" aria-label="Меню">
+                    <i class="fas fa-bars"></i>
+                </button>
 
                 <!-- Навигация -->
-                <!-- В навигации обновляем ссылки -->
                 <nav class="nav">
-                    <a href="#catalog" class="btn btn-primary btn-small nav-find-route">Найти маршрут</a>
-                    <a href="gallery.html" class="nav-link">Галерея</a>
-                    <a href="forum.html" class="nav-link">Форум</a>
-                    <a href="create-route.html" class="nav-link">Создать маршрут</a>
-                    <!-- ... -->
-                </nav>
-                <!-- Блок для неавторизованных пользователей -->
-                <div class="guest-only">
-                    <a href="register.html" class="btn btn-outline">Войти</a>
-                </div>
+                    <a href="#catalog" class="btn btn-primary btn-small nav-find-route">
+                        <i class="fas fa-search"></i> Найти маршрут
+                    </a>
+                    <a href="gallery.html" class="nav-link">
+                        <i class="fas fa-images"></i> Галерея
+                    </a>
+                    <a href="forum.html" class="nav-link">
+                        <i class="fas fa-comments"></i> Форум
+                    </a>
+                    <a href="create-route.html" class="nav-link">
+                        <i class="fas fa-plus-circle"></i> Создать маршрут
+                    </a>
 
-                <!-- Блок для авторизованных пользователей -->
-                <div class="auth-only" style="display: none;">
-                    <div class="user-menu">
-                        <a href="profile.html" class="user-profile-link">
-                            <img src="img/avatars/default-avatar.png" class="user-avatar-display" alt="Аватар">
-                            <span class="user-name-display"></span>
+                    <!-- Блок для НЕавторизованных пользователей -->
+                    <div class="guest-only">
+                        <a href="register.html" class="btn btn-outline">
+                            <i class="fas fa-sign-in-alt"></i> Войти
                         </a>
-                        <button class="btn btn-outline btn-small logout-btn">Выйти</button>
                     </div>
-                </div>
+
+                    <!-- Блок для авторизованных пользователей -->
+                    <div class="auth-only" style="display: none;">
+                        <div class="user-menu">
+                            <a href="profile.html" class="user-profile-link">
+                                <img src="img/avatars/default-avatar.png" class="user-avatar-display" alt="Аватар">
+                                <span class="user-name-display"></span>
+                            </a>
+                            <button class="btn btn-outline btn-small logout-btn">
+                                <i class="fas fa-sign-out-alt"></i> Выйти
+                            </button>
+                        </div>
+                    </div>
                 </nav>
             </div>
         </div>
     </header>
 
-    <!-- ========== ГЕРОЙ-БЛОК С ВИДЕО (ТЕПЕРЬ ТЕКСТ ХОРОШО ЧИТАЕТСЯ) ========== -->
+    <!-- ============================================================ -->
+    <!-- ГЕРОЙ-БЛОК С ВИДЕО (ИСПРАВЛЕН ДЛЯ МОБИЛЬНЫХ) -->
+    <!-- ============================================================ -->
     <section class="hero">
         <!-- Видео-фон -->
         <video autoplay muted loop playsinline class="hero-video-bg">
-        <source src="video/krasnodar-nature.mp4" type="video/mp4">
-        Ваш браузер не поддерживает видео
-    </video>
+            <source src="video/krasnodar-nature.mp4" type="video/mp4">
+            Ваш браузер не поддерживает видео
+        </video>
 
-        <!-- Затемнение (усилено для читаемости) -->
+        <!-- Затемнение для читаемости текста -->
         <div class="hero-overlay"></div>
 
         <!-- Контент поверх видео -->
         <div class="container hero-content">
-            <h1 class="hero-title">Открой для себя <span>уникальный опыт</span> путешествий</h1>
+            <h1 class="hero-title">
+                Открой для себя
+                <span>уникальный опыт</span> путешествий
+            </h1>
 
             <p class="hero-subtitle">
-                На маркетплейсе маршрутов и туров, созданный туристами для туристов.<br>
-                <strong>Сделай качественный маршрут и получи благодарность от туристов!</strong> и <strong>положительные эмоции как путешественник</strong>
+                Маркетплейс маршрутов, созданный туристами для туристов.<br>
+                <strong>Создавай маршруты и зарабатывай</strong> или
+                <strong>путешествуй по проверенным трекам</strong>
             </p>
 
             <!-- Статистика -->
@@ -90,70 +114,100 @@
                     <span class="stat-label">путешественников</span>
                 </div>
             </div>
-
         </div>
     </section>
 
-    <!-- ========== ФИЛЬТРЫ ========== -->
+    <!-- ============================================================ -->
+    <!-- ФИЛЬТРЫ МАРШРУТОВ -->
+    <!-- ============================================================ -->
     <div class="filters" id="catalog">
         <div class="container">
             <div class="filter-header">
-                <h2>Выбери свой маршрут</h2>
+                <h2><i class="fas fa-compass"></i> Выбери свой маршрут</h2>
                 <p>Фильтруй по типу и региону</p>
             </div>
 
-            <!-- Фильтр по типу (добавлен мотоцикл) -->
+            <!-- Фильтр по типу маршрута -->
             <div class="filter-buttons">
-                <button class="filter-btn active" data-filter="all"><i class="fas fa-compass"></i> Все</button>
-                <button class="filter-btn" data-filter="car"><i class="fas fa-car"></i> Авто</button>
-                <button class="filter-btn" data-filter="bike"><i class="fas fa-bicycle"></i> Вело</button>
-                <button class="filter-btn" data-filter="moto"><i class="fas fa-motorcycle"></i> Мото</button>
-                <button class="filter-btn" data-filter="hike"><i class="fas fa-hiking"></i> Пешие</button>
-                <button class="filter-btn" data-filter="kayak"><i class="fas fa-tint"></i> Каякинг</button>
-                <button class="filter-btn" data-filter="sup"><i class="fas fa-swimmer"></i> SUP</button>
-                <button class="filter-btn" data-filter="water"><i class="fas fa-tint"></i> Водный</button>
-                <button class="filter-btn" data-filter="horse"><i class="fas fa-horse"></i> Конные</button>
-                <button class="filter-btn" data-filter="rock"><i class="fas fa-hiking"></i> Скалолазание</button>
-                <button class="filter-btn" data-filter="ski"><i class="fas fa-snowflake"></i> Лыжи</button>
+                <button class="filter-btn active" data-filter="all">
+                    <i class="fas fa-globe"></i> Все
+                </button>
+                <button class="filter-btn" data-filter="car">
+                    <i class="fas fa-car"></i> Авто
+                </button>
+                <button class="filter-btn" data-filter="bike">
+                    <i class="fas fa-bicycle"></i> Вело
+                </button>
+                <button class="filter-btn" data-filter="moto">
+                    <i class="fas fa-motorcycle"></i> Мото
+                </button>
+                <button class="filter-btn" data-filter="hike">
+                    <i class="fas fa-hiking"></i> Пешие
+                </button>
+                <button class="filter-btn" data-filter="kayak">
+                    <i class="fas fa-water"></i> Каякинг
+                </button>
+                <button class="filter-btn" data-filter="sup">
+                    <i class="fas fa-swimmer"></i> SUP
+                </button>
+                <button class="filter-btn" data-filter="water">
+                    <i class="fas fa-tint"></i> Водный
+                </button>
+                <button class="filter-btn" data-filter="horse">
+                    <i class="fas fa-horse"></i> Конные
+                </button>
+                <button class="filter-btn" data-filter="rock">
+                    <i class="fas fa-mountain"></i> Скалолазание
+                </button>
+                <button class="filter-btn" data-filter="ski">
+                    <i class="fas fa-skiing"></i> Лыжи
+                </button>
             </div>
 
             <!-- Фильтр по региону -->
             <div class="region-filters">
-                <button class="region-btn active" data-region="all"><i class="fas fa-globe"></i> Все регионы</button>
-                <button class="region-btn" data-region="krasnodar"><i class="fas fa-mountain"></i> Краснодарский край</button>
-                <button class="region-btn" data-region="adygea"><i class="fas fa-tree"></i> Адыгея</button>
-                <button class="region-btn" data-region="rostov"><i class="fas fa-city"></i> Ростовская область</button>
-                <button class="region-btn" data-region="kch"><i class="fas fa-mountain"></i> Карачаево-Черкесия</button>
-                <button class="region-btn" data-region="crimea"><i class="fas fa-umbrella-beach"></i> Крым</button>
-                <button class="region-btn" data-region="moscow"><i class="fas fa-building"></i> Московская область</button>
-                <button class="region-btn" data-region="spb"><i class="fas fa-tint"></i> Ленинградская область</button>
-                <button class="region-btn" data-region="kareliya"><i class="fas fa-tree"></i> Карелия</button>
-                <button class="region-btn" data-region="altai"><i class="fas fa-mountain"></i> Алтайский край</button>
-                <button class="region-btn" data-region="urals"><i class="fas fa-mountain"></i> Урал</button>
-                <button class="region-btn" data-region="siberia"><i class="fas fa-tree"></i> Сибирь</button>
-                <button class="region-btn" data-region="baikal"><i class="fas fa-tint"></i> Байкальский регион</button>
-                <button class="region-btn" data-region="volga"><i class="fas fa-tint"></i> Поволжье</button>
-                <button class="region-btn" data-region="caucasus"><i class="fas fa-mountain"></i> Северный Кавказ</button>
-                <button class="region-btn" data-region="far-east"><i class="fas fa-tree"></i> Дальний Восток</button>
+                <button class="region-btn active" data-region="all">
+                    <i class="fas fa-map"></i> Все регионы
+                </button>
+                <button class="region-btn" data-region="krasnodar">
+                    <i class="fas fa-tree"></i> Краснодарский край
+                </button>
+                <button class="region-btn" data-region="adygea">
+                    <i class="fas fa-mountain"></i> Адыгея
+                </button>
+                <button class="region-btn" data-region="crimea">
+                    <i class="fas fa-umbrella-beach"></i> Крым
+                </button>
+                <button class="region-btn" data-region="altai">
+                    <i class="fas fa-mountain"></i> Алтай
+                </button>
+                <button class="region-btn" data-region="baikal">
+                    <i class="fas fa-water"></i> Байкал
+                </button>
             </div>
         </div>
     </div>
 
-    <!-- ========== КАТАЛОГ МАРШРУТОВ ========== -->
+    <!-- ============================================================ -->
+    <!-- КАТАЛОГ МАРШРУТОВ -->
+    <!-- ============================================================ -->
     <section class="catalog">
         <div class="container">
             <div class="routes-grid" id="routesGrid">
-                <!-- Маршруты загружаются из filters.js -->
+                <!-- Маршруты загружаются динамически через filters.js -->
             </div>
+
             <div class="load-more-wrapper">
                 <button class="btn btn-outline btn-large" id="loadMoreBtn">
-                <i class="fas fa-plus"></i> Показать ещё маршруты
-            </button>
+                    <i class="fas fa-plus"></i> Показать ещё маршруты
+                </button>
             </div>
         </div>
     </section>
 
-    <!-- ========== БЛОК "КАК ЭТО РАБОТАЕТ" ========== -->
+    <!-- ============================================================ -->
+    <!-- КАК ЭТО РАБОТАЕТ -->
+    <!-- ============================================================ -->
     <section class="how-it-works">
         <div class="container">
             <h2 class="section-title">Как это работает</h2>
@@ -166,7 +220,7 @@
                 <div class="step-card">
                     <div class="step-icon"><i class="fas fa-credit-card"></i></div>
                     <h3>Оплати</h3>
-                    <p>Безопасная оплата</p>
+                    <p>Безопасная оплата онлайн</p>
                 </div>
                 <div class="step-card">
                     <div class="step-icon"><i class="fas fa-download"></i></div>
@@ -182,19 +236,28 @@
         </div>
     </section>
 
-    <!-- ========== ГАЛЕРЕЯ ФОТОГРАФИЙ ========== -->
-    <!-- ГАЛЕРЕЯ - ТОЛЬКО ТОП-10 ФОТО -->
+    <!-- ============================================================ -->
+    <!-- ГАЛЕРЕЯ (ТОЛЬКО ТОП-10 ФОТО) -->
+    <!-- ============================================================ -->
     <section class="gallery-section" id="gallery">
         <div class="container">
             <div class="gallery-header">
-                <h2 class="section-title">Галерея путешествий</h2>
-                <p class="section-subtitle">Лучшие фотографии от наших путешественников</p>
+                <h2 class="section-title">
+                    <i class="fas fa-camera"></i> Галерея путешествий
+                </h2>
+                <p class="section-subtitle">
+                    Лучшие фотографии от наших путешественников.
+                    <a href="register.html" class="guest-only">Войдите</a>
+                    <span class="auth-only" style="display: none;">Загружайте свои фото</span>, чтобы участвовать в рейтинге!
+                </p>
             </div>
 
+            <!-- Сетка с топ-10 фото -->
             <div class="gallery-grid" id="homeGalleryGrid">
-                <!-- Топ-10 фото загружаются через JS -->
+                <!-- Фото загружаются через gallery.js -->
             </div>
 
+            <!-- Кнопка перехода в полную галерею -->
             <div class="load-more-wrapper">
                 <a href="gallery.html" class="btn btn-primary btn-large">
                     <i class="fas fa-images"></i> Смотреть всю галерею
@@ -203,61 +266,23 @@
         </div>
     </section>
 
-    <!-- ФОРУМ - ТОЛЬКО ПОСЛЕДНИЕ ТЕМЫ -->
-    <section class="forum-section" id="forum">
-        <div class="container">
-            <div class="forum-header">
-                <h2 class="section-title">Форум путешественников</h2>
-                <p class="section-subtitle">Общайтесь, делитесь опытом и находите попутчиков</p>
-            </div>
-
-            <div class="forum-preview" id="forumPreview">
-                <!-- Последние темы загружаются через JS -->
-            </div>
-
-            <div class="load-more-wrapper">
-                <a href="forum.html" class="btn btn-primary btn-large">
-                    <i class="fas fa-comments"></i> Перейти на форум
-                </a>
-            </div>
-        </div>
-    </section>
-    <!-- ========== ФОРУМ ========== -->
-    <section class="forum-section" id="forum">
-        <div class="container">
-            <h2 class="section-title">Форум путешественников</h2>
-            <p class="section-subtitle">Общайтесь, делитесь опытом и планируйте совместные походы</p>
-
-            <div class="forum-controls">
-                <button class="btn btn-primary" id="createTopicBtn">
-                    <i class="fas fa-plus"></i> Создать тему
-                </button>
-            </div>
-
-            <div class="forum-threads" id="forumThreads">
-                <!-- Темы форума будут загружаться динамически -->
-            </div>
-
-            <div class="load-more-wrapper">
-                <button class="btn btn-outline" id="loadMoreTopics">Загрузить ещё темы</button>
-            </div>
-        </div>
-    </section>
-
-    <!-- ========== ПОДВАЛ ========== -->
+    <!-- ============================================================ -->
+    <!-- ПОДВАЛ -->
+    <!-- ============================================================ -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-col">
-                    <h4>yaturist</h4>
-                    <p>Уникальный маркетплейс маршрутов и туров по России.</p>
+                    <h4><i class="fas fa-mountain"></i> yaturist</h4>
+                    <p>Уникальный маркетплейс маршрутов и туров по России. Создавай, продавай, путешествуй!</p>
                 </div>
                 <div class="footer-col">
                     <h4>Разделы</h4>
                     <ul>
-                        <li><a href="index.html">Маршруты</a></li>
-                        <li><a href="create-route.html">Стать автором</a></li>
-                        <li><a href="profile.html">Профиль</a></li>
+                        <li><a href="index.html"><i class="fas fa-compass"></i> Маршруты</a></li>
+                        <li><a href="gallery.html"><i class="fas fa-images"></i> Галерея</a></li>
+                        <li><a href="forum.html"><i class="fas fa-comments"></i> Форум</a></li>
+                        <li><a href="profile.html"><i class="fas fa-user"></i> Профиль</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
@@ -274,9 +299,13 @@
         </div>
     </footer>
 
+    <!-- ============================================================ -->
+    <!-- JAVASCRIPT -->
+    <!-- ============================================================ -->
     <script src="js/auth.js"></script>
     <script src="js/main.js"></script>
     <script src="js/filters.js"></script>
+    <script src="js/gallery.js"></script>
 </body>
 
 </html>
