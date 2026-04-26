@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Вход | СвояТропа</title>
+
+    <!-- Стили -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/forms.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- Дополнительные стили для страницы входа -->
+    <style>
+        .auth-page {
+            background: linear-gradient(135deg, #1B5E20 0%, #0D1F12 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .auth-container {
+            background: white;
+            border-radius: 24px;
+            padding: 40px 30px;
+            max-width: 420px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+        
+        .auth-logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #2E7D32;
+            text-decoration: none;
+            margin-bottom: 8px;
+        }
+        
+        .auth-logo i {
+            font-size: 2rem;
+        }
+        
+        .auth-subtitle {
+            color: #78909C;
+            margin-bottom: 30px;
+            font-size: 0.95rem;
+        }
+        
+        .phone-input-group {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        
+        .phone-input-group input {
+            width: 100%;
+            padding: 16px 20px;
+            padding-left: 60px;
+            border: 2px solid #E8F5E9;
+            border-radius: 16px;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+        }
+        
+        .phone-input-group input:focus {
+            outline: none;
+            border-color: #2E7D32;
+            box-shadow: 0 0 0 4px rgba(46, 125, 50, 0.1);
+        }
+        
+        .phone-prefix {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.1rem;
+            color: #2E7D32;
+            font-weight: 600;
+            pointer-events: none;
+        }
+        
+        .code-input-group input {
+            width: 100%;
+            padding: 16px;
+            border: 2px solid #E8F5E9;
+            border-radius: 12px;
+            font-size: 1.4rem;
+            text-align: center;
+            letter-spacing: 8px;
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+        }
+        
+        .code-input-group input:focus {
+            outline: none;
+            border-color: #2E7D32;
+            box-shadow: 0 0 0 4px rgba(46, 125, 50, 0.1);
+        }
+        
+        .btn-block {
+            width: 100%;
+            padding: 16px;
+            font-size: 1.1rem;
+            justify-content: center;
+        }
+        
+        .timer-text {
+            color: #78909C;
+            font-size: 0.85rem;
+            margin-top: 15px;
+        }
+        
+        .timer-text button {
+            background: none;
+            border: none;
+            color: #2E7D32;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: underline;
+        }
+        
+        .timer-text button:disabled {
+            color: #B0BEC5;
+            cursor: not-allowed;
+            text-decoration: none;
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+        
+        .error-message {
+            background: #FFEBEE;
+            color: #C62828;
+            padding: 12px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            display: none;
+        }
+        
+        .error-message.show {
+            display: block;
+        }
+        
+        .success-message {
+            background: #E8F5E9;
+            color: #2E7D32;
+            padding: 12px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            display: none;
+        }
+        
+        .success-message.show {
+            display: block;
+        }
+    </style>
+</head>
+
+<body class="auth-page">
+
+    <!-- КАРТОЧКА ВХОДА -->
+    <div class="auth-container">
+
+        <!-- Логотип "СвояТропа" -->
+        <a href="index.html" class="auth-logo">
+            <i class="fas fa-hiking"></i>
+            <span>СвояТропа</span>
+        </a>
+
+        <p class="auth-subtitle">
+            Войдите или зарегистрируйтесь<br>по номеру телефона
+        </p>
+
+        <!-- Сообщение об ошибке -->
+        <div class="error-message" id="errorMessage"></div>
+
+        <!-- Сообщение об успехе -->
+        <div class="success-message" id="successMessage"></div>
+
+        <!-- ШАГ 1: Ввод телефона -->
+        <div id="stepPhone">
+            <div class="phone-input-group">
+                <span class="phone-prefix">🇷🇺 +7</span>
+                <input type="tel" id="phoneInput" placeholder="(900) 123-45-67" maxlength="17" autocomplete="tel">
+            </div>
+            <button class="btn btn-primary btn-block btn-large" id="sendCodeBtn">
+                <i class="fas fa-paper-plane"></i> Получить код в SMS
+            </button>
+            <p class="timer-text" style="margin-top: 15px;">
+                <i class="fas fa-shield-alt"></i> Нажимая кнопку, вы соглашаетесь<br>с условиями использования
+            </p>
+        </div>
+
+        <!-- ШАГ 2: Ввод кода -->
+        <div id="stepCode" class="hidden">
+            <p style="margin-bottom: 20px; color: #555;">
+                Мы отправили код на номер<br>
+                <strong id="displayPhone">+7 (___) ___-__-__</strong>
+            </p>
+            <div class="code-input-group">
+                <input type="text" id="codeInput" placeholder="0000" maxlength="4" inputmode="numeric" autocomplete="one-time-code">
+            </div>
+            <button class="btn btn-primary btn-block btn-large" id="verifyCodeBtn">
+                <i class="fas fa-check-circle"></i> Подтвердить
+            </button>
+            <p class="timer-text">
+                <span id="timerText">Отправить код повторно через 0:59</span><br>
+                <button id="resendBtn" disabled>Отправить код ещё раз</button>
+            </p>
+            <p class="timer-text" style="margin-top: 20px;">
+                <button id="changePhoneBtn" style="color: #78909C; text-decoration: none;">
+                    <i class="fas fa-arrow-left"></i> Изменить номер
+                </button>
+            </p>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/auth.js"></script>
+    <script src="js/register.js"></script>
+</body>
+
+</html>

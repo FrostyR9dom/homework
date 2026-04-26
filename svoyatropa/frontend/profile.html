@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профиль | СвояТропа</title>
+
+    <!-- Подключаем ВСЕ стили отдельными файлами -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/forms.css">
+    <link rel="stylesheet" href="css/profile.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <!-- FontAwesome 6.5.2 -->
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-wnRMnqvzuqt28+1c5R505dJcoF7pceWR+nLsVlcst0AWFkMZ4t+qnDG2VTqySwLmKt8W3V5duxNvtEq72SGLsw==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"></noscript>
+</head>
+
+<body>
+
+    <!-- ===== ШАПКА (ДИНАМИЧЕСКАЯ) ===== -->
+    <header class="header">
+        <div class="container header-inner">
+            <a href="index.html" class="logo">
+                <i class="fas fa-mountain"></i>
+                <span>СвояТропа</span>
+                <!-- <span class="logo-region">Кубань</span> -->
+            </a>
+            <button class="mobile-menu-toggle" aria-label="Меню"><i class="fas fa-bars"></i></button>
+
+            <nav class="nav">
+                <a href="index.html" class="nav-link">
+                    <i class="fas fa-compass"></i> Маршруты
+                </a>
+                <a href="create-route.html" class="nav-link">
+                    <i class="fas fa-plus-circle"></i> Создать маршрут
+                </a>
+                <div class="user-menu">
+                    <span class="user-name" id="userNameDisplay">
+                        <i class="fas fa-user-circle"></i> 
+                        <span id="profileUserName">Загрузка...</span>
+                    </span>
+                    <button class="btn btn-outline btn-small" id="logoutBtn">
+                        <i class="fas fa-sign-out-alt"></i> Выйти
+                    </button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="profile-page">
+        <div class="container">
+
+            <!-- ===== ПРОФИЛЬ ПОЛЬЗОВАТЕЛЯ (ДИНАМИЧЕСКИЙ) ===== -->
+            <div class="profile-header">
+                <div class="profile-cover">
+                    <div style="height: 150px; background: linear-gradient(135deg, #2E7D32, #1B5E20);"></div>
+                </div>
+                <div class="profile-info-wrapper">
+                    <div class="profile-avatar-wrapper">
+                        <img src="img/avatars/default-avatar.png" alt="Аватар" class="profile-avatar" id="profileAvatar">
+                        <button class="btn-change-avatar" title="Сменить фото" id="changeAvatarBtn">
+                            <i class="fas fa-camera"></i>
+                        </button>
+                        <input type="file" id="avatarInput" accept="image/*" style="display: none;">
+                    </div>
+                    <div class="profile-details">
+                        <h1 class="profile-name" id="profileName">Загрузка...</h1>
+                        <p class="profile-bio" id="profileBio"></p>
+                        <div class="profile-meta">
+                            <span><i class="fas fa-map-pin"></i> <span id="profileLocation"></span></span>
+                            <span><i class="fas fa-calendar-alt"></i> <span id="profileSince"></span></span>
+                            <span><i class="fas fa-check-circle"></i> <span id="profileAuthorStatus"></span></span>
+                        </div>
+                    </div>
+                    <div class="profile-actions">
+                        <a href="create-route.html" class="btn btn-primary" id="createRouteBtn">
+                            <i class="fas fa-plus-circle"></i> Создать маршрут
+                        </a>
+                        <button class="btn btn-outline" id="editProfileBtn">
+                            <i class="fas fa-edit"></i> Редактировать
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== СТАТИСТИКА (ДИНАМИЧЕСКАЯ) ===== -->
+            <div class="stats-dashboard">
+                <div class="stat-card-dash">
+                    <div class="stat-icon">
+                        <i class="fas fa-route"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-value" id="routesCount">0</span>
+                        <span class="stat-label-dash">Маршрутов создано</span>
+                    </div>
+                </div>
+                <div class="stat-card-dash">
+                    <div class="stat-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-value" id="salesCount">0</span>
+                        <span class="stat-label-dash">Продаж</span>
+                    </div>
+                </div>
+                <div class="stat-card-dash">
+                    <div class="stat-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-value" id="avgRating">0</span>
+                        <span class="stat-label-dash">Средний рейтинг</span>
+                    </div>
+                </div>
+                <div class="stat-card-dash">
+                    <div class="stat-icon">
+                        <i class="fas fa-ruble-sign"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-value" id="totalEarnings">0 ₽</span>
+                        <span class="stat-label-dash">Заработано</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== ВКЛАДКИ ===== -->
+            <div class="profile-tabs">
+                <button class="profile-tab active" data-tab="my-routes">
+                    <i class="fas fa-map-signs"></i> Мои маршруты
+                </button>
+                <button class="profile-tab" data-tab="purchased">
+                    <i class="fas fa-shopping-bag"></i> Купленные
+                </button>
+                <button class="profile-tab" data-tab="favorites">
+                    <i class="fas fa-heart"></i> Избранное
+                </button>
+                <button class="profile-tab" data-tab="earnings">
+                    <i class="fas fa-chart-line"></i> Финансы
+                </button>
+                <button class="profile-tab" data-tab="settings">
+                    <i class="fas fa-cog"></i> Настройки
+                </button>
+            </div>
+
+            <!-- ===== КОНТЕНТ ВКЛАДОК ===== -->
+
+            <!-- Мои маршруты -->
+            <div class="profile-tab-content active" id="my-routes">
+                <div class="section-header-action">
+                    <h2>Мои опубликованные маршруты</h2>
+                </div>
+                <div class="my-routes-list" id="myRoutesList">
+                    <!-- Маршруты загружаются через JS -->
+                </div>
+                <div class="load-more-wrapper">
+                    <button class="btn btn-outline" id="loadMoreMyRoutes">
+                        <i class="fas fa-plus"></i> Показать ещё
+                    </button>
+                </div>
+            </div>
+
+            <!-- Купленные маршруты -->
+            <div class="profile-tab-content" id="purchased">
+                <h2>Купленные маршруты</h2>
+                <div class="purchased-list" id="purchasedList">
+                    <!-- Купленные маршруты загружаются через JS -->
+                </div>
+            </div>
+
+            <!-- Избранное -->
+            <div class="profile-tab-content" id="favorites">
+                <h2>Избранные маршруты</h2>
+                <div id="favoritesList">
+                    <p class="empty-state">
+                        <i class="fas fa-heart" style="font-size: 3rem; opacity: 0.3;"></i>
+                        <br> У вас пока нет избранных маршрутов
+                    </p>
+                </div>
+            </div>
+
+            <!-- Финансы -->
+            <div class="profile-tab-content" id="earnings">
+                <h2>Финансовая статистика</h2>
+                <div class="earnings-summary">
+                    <div class="earning-card">
+                        <h3>За всё время</h3>
+                        <span class="earning-amount" id="allTimeEarnings">0 ₽</span>
+                    </div>
+                    <div class="earning-card">
+                        <h3>В этом месяце</h3>
+                        <span class="earning-amount" id="monthEarnings">0 ₽</span>
+                    </div>
+                    <div class="earning-card">
+                        <h3>Доступно к выводу</h3>
+                        <span class="earning-amount" id="availableEarnings">0 ₽</span>
+                        <button class="btn btn-primary btn-small" id="withdrawBtn">Вывести</button>
+                    </div>
+                </div>
+                <h3>История операций</h3>
+                <table class="earnings-table">
+                    <thead>
+                        <tr>
+                            <th>Дата</th>
+                            <th>Маршрут</th>
+                            <th>Сумма</th>
+                            <th>Статус</th>
+                        </tr>
+                    </thead>
+                    <tbody id="earningsTableBody">
+                        <!-- Данные загружаются через JS -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- ===== НАСТРОЙКИ (С ЧЕКБОКСОМ "СТАТЬ АВТОРОМ") ===== -->
+            <div class="profile-tab-content" id="settings">
+                <h2>Настройки профиля</h2>
+
+                <form class="settings-form" id="settingsForm">
+                    <!-- Основная информация -->
+                    <div class="form-group">
+                        <label for="settingsFirstName">Имя</label>
+                        <input type="text" id="settingsFirstName" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="settingsLastName">Фамилия</label>
+                        <input type="text" id="settingsLastName" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="settingsEmail">Email</label>
+                        <input type="email" id="settingsEmail" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="settingsCity">Город</label>
+                        <input type="text" id="settingsCity" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="settingsBio">О себе</label>
+                        <textarea id="settingsBio" rows="3" class="form-control"></textarea>
+                    </div>
+
+                    <!-- ===== ЧЕКБОКС "СТАТЬ АВТОРОМ" (ДОБАВЛЕН) ===== -->
+                    <div class="form-group highlight-checkbox">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="settingsIsAuthor">
+                            <span class="checkbox-text">
+                                <strong><i class="fas fa-star"></i> Хочу быть автором</strong>
+                                <small>Создавайте и продавайте свои маршруты.</small>
+                            </span>
+                        </label>
+                    </div>
+
+                    <!-- Платёжные реквизиты (только для авторов) -->
+                    <div class="form-group" id="paymentDetailsGroup" style="display: none;">
+                        <label for="settingsPayment">Платёжные реквизиты</label>
+                        <input type="text" id="settingsPayment" placeholder="Номер карты или телефона" class="form-control">
+                        <small>Для получения выплат за продажи маршрутов</small>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Сохранить изменения
+                    </button>
+                </form>
+
+                <!-- Информация для авторов -->
+                <div class="author-info-box" id="authorInfoBox" style="margin-top: 20px; padding: 15px; background: #E8F5E9; border-radius: 12px; display: none;">
+                    <i class="fas fa-info-circle" style="color: #2E7D32;"></i>
+                    <strong style="color: #2E7D32;">Преимущества статуса автора:</strong>
+                    <ul style="margin-top: 10px; margin-left: 20px; color: #555;">
+                        <li>💰 Зарабатывайте 70% с каждой продажи маршрута</li>
+                        <li>📈 Просматривайте статистику продаж</li>
+                        <li>⭐ Получайте отзывы от путешественников</li>
+                        <li>🏆 Попадайте в топ авторов</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- ===== ПОДВАЛ ===== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h4>СвояТропа</h4>
+                    <p>Уникальный маркетплейс маршрутов и туров по России. Создавай, продавай, путешествуй!</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul>
+                        <li><a href="index.html">Маршруты</a></li>
+                        <li><a href="create-route.html">Стать автором</a></li>
+                        <li><a href="profile.html">Профиль</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Контакты</h4>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> hello@svoyatropa.ru</li>
+                        <li><i class="fab fa-telegram"></i> @svoyatropa_bot</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 СвояТропа. Маршруты сделаны с душой ❤️</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Подключаем JavaScript -->
+    <script src="js/auth.js"></script>
+    <script src="js/profile.js"></script>
+
+    <!-- Дополнительный скрипт для показа/скрытия полей в настройках -->
+    <script>
+        // Показываем/скрываем платёжные реквизиты и инфо-блок при изменении чекбокса
+        document.addEventListener('DOMContentLoaded', function() {
+            var authorCheckbox = document.getElementById('settingsIsAuthor');
+            var paymentGroup = document.getElementById('paymentDetailsGroup');
+            var authorInfoBox = document.getElementById('authorInfoBox');
+
+            if (authorCheckbox) {
+                function toggleAuthorFields() {
+                    if (authorCheckbox.checked) {
+                        if (paymentGroup) paymentGroup.style.display = 'block';
+                        if (authorInfoBox) authorInfoBox.style.display = 'block';
+                    } else {
+                        if (paymentGroup) paymentGroup.style.display = 'none';
+                        if (authorInfoBox) authorInfoBox.style.display = 'none';
+                    }
+                }
+
+                authorCheckbox.addEventListener('change', toggleAuthorFields);
+                toggleAuthorFields();
+            }
+        });
+    </script>
+</body>
+
+</html>

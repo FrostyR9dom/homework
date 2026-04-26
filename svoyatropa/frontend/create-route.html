@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Создание маршрута | СвояТропа</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/forms.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <!-- FontAwesome 6.5.2 -->
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-wnRMnqvzuqt28+1c5R505dJcoF7pceWR+nLsVlcst0AWFkMZ4t+qnDG2VTqySwLmKt8W3V5duxNvtEq72SGLsw==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"></noscript>
+
+    <style>
+        /* Дополнительные стили для фото */
+        
+        .photo-preview {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+        
+        .photo-upload-item.has-photo .photo-label {
+            display: none;
+        }
+        
+        .photo-upload-item {
+            position: relative;
+        }
+        
+        .photo-remove {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .photo-preview-container {
+            width: 100%;
+            height: 100%;
+            display: none;
+        }
+        
+        .photo-upload-item.has-photo .photo-preview-container {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="header">
+        <div class="container header-inner">
+            <a href="index.html" class="logo">
+                <i class="fas fa-mountain"></i>
+                <span>СвояТропа</span>
+            </a>
+            <button class="mobile-menu-toggle" aria-label="Меню"><i class="fas fa-bars"></i></button>
+            <nav class="nav">
+                <a href="index.html" class="nav-link">Маршруты</a>
+                <a href="profile.html" class="nav-link">Профиль</a>
+                <div class="guest-only">
+                    <a href="register.html" class="btn btn-outline">Войти</a>
+                </div>
+                <div class="auth-only" style="display: none;">
+                    <div class="user-menu">
+                        <span class="user-name-display"></span>
+                        <button class="btn btn-outline btn-small logout-btn">Выйти</button>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="create-route-page">
+        <div class="container">
+            <div class="page-header">
+                <h1 id="pageTitle"><i class="fas fa-map-signs"></i> Создание нового маршрута</h1>
+            </div>
+
+            <form id="createRouteForm" class="route-form">
+
+                <!-- Основная информация -->
+                <div class="form-section">
+                    <div class="section-header">
+                        <h2><i class="fas fa-info-circle"></i> Основная информация</h2>
+                        <span class="required-note">* Обязательные поля</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="routeTitle">Название маршрута *</label>
+                        <input type="text" id="routeTitle" placeholder="Например: Агурские водопады" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Тип маршрута *</label>
+                        <div class="radio-group route-type-group">
+                            <label class="radio-card">
+                                <input type="radio" name="routeType" value="car" required>
+                                <span class="radio-card-icon"><i class="fas fa-car"></i></span>
+                                <span class="radio-card-title">Автомобильный</span>
+                            </label>
+                            <label class="radio-card">
+                                <input type="radio" name="routeType" value="bike" required>
+                                <span class="radio-card-icon"><i class="fas fa-bicycle"></i></span>
+                                <span class="radio-card-title">Велосипедный</span>
+                            </label>
+                            <label class="radio-card">
+                                <input type="radio" name="routeType" value="moto" required>
+                                <span class="radio-card-icon"><i class="fas fa-motorcycle"></i></span>
+                                <span class="radio-card-title">Мотоцикл</span>
+                            </label>
+                            <label class="radio-card">
+                                <input type="radio" name="routeType" value="hike" required>
+                                <span class="radio-card-icon"><i class="fas fa-hiking"></i></span>
+                                <span class="radio-card-title">Пеший поход</span>
+                            </label>
+                            <label class="radio-card">
+                                <input type="radio" name="routeType" value="kayak" required>
+                                <span class="radio-card-icon"><i class="fas fa-tint"></i></span>
+                                <span class="radio-card-title">Каякинг</span>
+                            </label>
+                            <label class="radio-card">
+                                <input type="radio" name="routeType" value="sup" required>
+                                <span class="radio-card-icon"><i class="fas fa-swimmer"></i></span>
+                                <span class="radio-card-title">SUP доски</span>
+                            </label>
+                            <label class="radio-card">
+                                <input type="radio" name="routeType" value="water" required>
+                                <span class="radio-card-icon"><i class="fas fa-tint"></i></span>
+                                <span class="radio-card-title">Водный туризм</span>
+                            </label>
+                            <label class="radio-card">
+                                <input type="radio" name="routeType" value="horse" required>
+                                <span class="radio-card-icon"><i class="fas fa-horse"></i></span>
+                                <span class="radio-card-title">Конные маршруты</span>
+                            </label>
+                            <label class="radio-card">
+                                <input type="radio" name="routeType" value="rock" required>
+                                <span class="radio-card-icon"><i class="fas fa-hiking"></i></span>
+                                <span class="radio-card-title">Скалолазание</span>
+                            </label>
+                            <label class="radio-card">
+                                <input type="radio" name="routeType" value="ski" required>
+                                <span class="radio-card-icon"><i class="fas fa-snowflake"></i></span>
+                                <span class="radio-card-title">Лыжи</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group half">
+                            <label for="region">Регион *</label>
+                            <select id="region" required>
+                                <option value="">Выберите регион</option>
+                                <option value="krasnodar">Краснодарский край</option>
+                                <option value="adygea">Адыгея</option>
+                                <option value="rostov">Ростовская область</option>
+                                <option value="kch">Карачаево-Черкесия</option>
+                                <option value="crimea">Крым</option>
+                                <option value="moscow">Московская область</option>
+                                <option value="spb">Ленинградская область</option>
+                                <option value="kareliya">Карелия</option>
+                                <option value="altai">Алтайский край</option>
+                                <option value="urals">Урал</option>
+                                <option value="siberia">Сибирь</option>
+                                <option value="baikal">Байкальский регион</option>
+                                <option value="volga">Поволжье</option>
+                                <option value="caucasus">Северный Кавказ</option>
+                                <option value="far-east">Дальний Восток</option>
+                            </select>
+                        </div>
+                        <div class="form-group half">
+                            <label for="location">Ближайший город *</label>
+                            <input type="text" id="location" placeholder="Сочи, Красная Поляна..." required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="shortDesc">Краткое описание *</label>
+                        <input type="text" id="shortDesc" maxlength="150" placeholder="1-2 предложения" required>
+                        <small><span id="shortDescCount">0</span>/150</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fullDesc">Полное описание *</label>
+                        <textarea id="fullDesc" rows="5" placeholder="Подробное описание маршрута..." required></textarea>
+                    </div>
+                </div>
+
+                <!-- Параметры маршрута -->
+                <div class="form-section">
+                    <div class="section-header">
+                        <h2><i class="fas fa-route"></i> Параметры маршрута</h2>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group half">
+                            <label for="startPoint"><i class="fas fa-flag-checkered"></i> Точка старта *</label>
+                            <input type="text" id="startPoint" placeholder="Адрес или координаты" required>
+                        </div>
+                        <div class="form-group half">
+                            <label for="endPoint"><i class="fas fa-flag"></i> Точка финиша *</label>
+                            <input type="text" id="endPoint" placeholder="Адрес или координаты" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group half">
+                            <label for="distance">Протяженность (км) *</label>
+                            <input type="number" id="distance" step="0.1" min="0.1" required>
+                        </div>
+                        <div class="form-group half">
+                            <label for="elevation">Набор высоты (м)</label>
+                            <input type="number" id="elevation" step="10" min="0">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group half">
+                            <label for="duration">Время на маршрут *</label>
+                            <input type="text" id="duration" placeholder="Например: 4-5 часов / 2 дня" required>
+                        </div>
+                        <div class="form-group half">
+                            <label for="bestStartTime">Лучшее время выхода *</label>
+                            <input type="text" id="bestStartTime" placeholder="Например: 7:00 утра / май-сентябрь" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Уровень сложности *</label>
+                        <div class="radio-group">
+                            <label class="radio-label"><input type="radio" name="difficulty" value="easy" required> Лёгкий</label>
+                            <label class="radio-label"><input type="radio" name="difficulty" value="medium" required> Средний</label>
+                            <label class="radio-label"><input type="radio" name="difficulty" value="hard" required> Сложный</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Экипировка -->
+                <div class="form-section">
+                    <div class="section-header">
+                        <h2><i class="fas fa-hiking"></i> Минимальная экипировка</h2>
+                        <button type="button" class="btn-add-item" id="addEquipmentBtn">
+                            <i class="fas fa-plus"></i> Добавить
+                        </button>
+                    </div>
+
+                    <div id="equipmentList" class="equipment-list">
+                        <div class="equipment-item">
+                            <input type="text" name="equipment[]" placeholder="Например: Треккинговые ботинки">
+                            <button type="button" class="btn-remove-item"><i class="fas fa-times"></i></button>
+                        </div>
+                        <div class="equipment-item">
+                            <input type="text" name="equipment[]" placeholder="Например: Дождевик">
+                            <button type="button" class="btn-remove-item"><i class="fas fa-times"></i></button>
+                        </div>
+                        <div class="equipment-item">
+                            <input type="text" name="equipment[]" placeholder="Например: Аптечка">
+                            <button type="button" class="btn-remove-item"><i class="fas fa-times"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="recommendations">Другие рекомендации</label>
+                        <textarea id="recommendations" rows="3" placeholder="Что ещё полезно знать?"></textarea>
+                    </div>
+                </div>
+
+                <!-- Дополнительные параметры -->
+                <div class="form-section">
+                    <div class="section-header">
+                        <h2><i class="fas fa-cogs"></i> Дополнительные параметры</h2>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Лучшее время года</label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-label"><input type="checkbox" name="season" value="spring"> Весна</label>
+                            <label class="checkbox-label"><input type="checkbox" name="season" value="summer"> Лето</label>
+                            <label class="checkbox-label"><input type="checkbox" name="season" value="autumn"> Осень</label>
+                            <label class="checkbox-label"><input type="checkbox" name="season" value="winter"> Зима</label>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group half">
+                            <label for="minAge">Минимальный возраст</label>
+                            <input type="number" id="minAge" min="0" max="100" placeholder="0">
+                        </div>
+                        <div class="form-group half">
+                            <label for="maxParticipants">Макс. участников</label>
+                            <input type="number" id="maxParticipants" min="1" placeholder="Не ограничено">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="additionalTips">Дополнительные советы</label>
+                        <textarea id="additionalTips" rows="3" placeholder="Погода, питание, ночёвка, экстренные контакты..."></textarea>
+                    </div>
+                </div>
+
+                <!-- Фотографии (РАБОЧАЯ ЗАГРУЗКА) -->
+                <div class="form-section">
+                    <div class="section-header">
+                        <h2><i class="fas fa-images"></i> Фотографии</h2>
+                    </div>
+                    <p>Минимум 3 фотографии</p>
+
+                    <!-- Улучшенная загрузка фото -->
+                    <div class="form-group">
+                        <label for="routePhotos">Выберите фотографии (можно несколько)</label>
+                        <input type="file" id="routePhotos" accept="image/*" multiple style="padding: 10px; border: 2px dashed #ccc; border-radius: 12px;">
+                        <small>Выберите минимум 3 фотографии. Поддерживаются JPG, PNG, GIF</small>
+                    </div>
+
+                    <!-- Превью фото -->
+                    <div id="photosPreview" style="display: flex; gap: 15px; flex-wrap: wrap; margin-top: 15px;"></div>
+                    <input type="hidden" id="photosData" value="">
+                </div>
+
+                <!-- GPX трек -->
+                <div class="form-section">
+                    <div class="section-header">
+                        <h2><i class="fas fa-map-marked-alt"></i> Файл маршрута</h2>
+                    </div>
+                    <div class="form-group">
+                        <label for="gpxFile" id="gpxLabel">GPX трек *</label>
+                        <input type="file" id="gpxFile" accept=".gpx,.kml,.geojson">
+                        <small id="gpxNote">Загрузите файл трека в формате GPX, KML или GeoJSON</small>
+                    </div>
+                </div>
+
+                <!-- Цена -->
+                <div class="form-section">
+                    <div class="section-header">
+                        <h2><i class="fas fa-ruble-sign"></i> Стоимость</h2>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group half">
+                            <label for="price">Цена (₽) *</label>
+                            <input type="number" id="price" min="99" max="9999" required>
+                            <small id="authorEarnings">Вы получите: <span id="earningsAmount">0 ₽</span> (после комиссии 30%)</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary btn-large" id="submitRouteBtn">
+                        <i class="fas fa-check-circle"></i> <span id="submitBtnText">Опубликовать маршрут</span>
+                    </button>
+                </div>
+
+                <div class="form-note">
+                    <i class="fas fa-shield-alt"></i> После публикации маршрут пройдёт модерацию в течение 24 часов.
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>© 2026 СвояТропа.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/auth.js"></script>
+    <script src="js/create-route.js"></script>
+</body>
+
+</html>

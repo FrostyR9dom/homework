@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Маршрут | СвояТропа</title>
+
+    <!-- Стили из отдельных файлов -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/forms.css">
+    <link rel="stylesheet" href="css/route.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- ===== ШАПКА ===== -->
+    <header class="header">
+        <div class="container header-inner">
+            <a href="index.html" class="logo">
+                <i class="fas fa-hiking"></i>
+                <span>СвояТропа</span>
+            </a>
+            <button class="mobile-menu-toggle" aria-label="Меню">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav class="nav">
+                <a href="index.html" class="nav-link">Маршруты</a>
+                <a href="create-route.html" class="nav-link auth-only" style="display: none;">Создать маршрут</a>
+                <div class="guest-only">
+                    <a href="register.html" class="btn btn-outline btn-small">Войти</a>
+                </div>
+                <div class="auth-only" style="display: none;">
+                    <div class="user-menu">
+                        <a href="profile.html" class="user-profile-link">
+                            <img src="img/avatars/default-avatar.png" class="user-avatar-display" alt="Аватар">
+                            <span class="user-name-display"></span>
+                        </a>
+                        <button class="btn btn-outline btn-small logout-btn">Выйти</button>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ===== ОСНОВНОЙ КОНТЕНТ ===== -->
+    <main class="route-page">
+        <div class="container">
+
+            <!-- Хлебные крошки -->
+            <div class="breadcrumbs">
+                <a href="index.html">Главная</a> <i class="fas fa-chevron-right"></i>
+                <a href="index.html">Маршруты</a> <i class="fas fa-chevron-right"></i>
+                <span id="breadcrumbTitle">Загрузка...</span>
+            </div>
+
+            <!-- Заголовок маршрута -->
+            <div class="route-header">
+                <h1 class="route-title" id="routeTitle">Загрузка...</h1>
+                <div class="route-meta-header">
+                    <span class="route-badge hike" id="routeType">Загрузка...</span>
+                    <span class="route-difficulty medium" id="routeDifficulty">Загрузка...</span>
+                    <span class="route-location-header" id="routeLocation">
+                        <i class="fas fa-map-pin"></i> Загрузка...
+                    </span>
+                </div>
+            </div>
+
+            <!-- Галерея фото -->
+            <div class="route-gallery">
+                <div class="gallery-main" id="galleryMain">
+                    <i class="fas fa-mountain" style="font-size: 4rem; color: white;"></i>
+                </div>
+                <div class="gallery-thumbs" id="galleryThumbs"></div>
+            </div>
+
+            <!-- Основная сетка: левая колонка (контент) + правая (покупка) -->
+            <div class="route-content-grid">
+
+                <!-- ===== ЛЕВАЯ КОЛОНКА ===== -->
+                <div class="route-info">
+
+                    <!-- Карточка автора -->
+                    <div class="author-card" id="authorCard">
+                        <div class="author-avatar-large" style="background: #4CAF50;">А</div>
+                        <div class="author-info-detailed">
+                            <h3 id="authorName">Загрузка...</h3>
+                            <div class="author-rating-large" id="authorRating">
+                                <i class="fas fa-star"></i> Загрузка...
+                            </div>
+                            <p class="author-bio" id="authorBio">Загрузка...</p>
+                        </div>
+                    </div>
+
+                    <!-- Описание -->
+                    <div class="info-block">
+                        <h2><i class="fas fa-info-circle"></i> Описание</h2>
+                        <p id="routeDescription">Загрузка...</p>
+                    </div>
+
+                    <div class="locked-area locked" id="routeLockedArea">
+                        <div class="locked-area__inner">
+                            <!-- Параметры -->
+                            <div class="info-block" id="routeParamsBlock">
+                                <h2><i class="fas fa-chart-bar"></i> Параметры</h2>
+                                <div class="params-grid">
+                                    <div class="param-item">
+                                        <i class="fas fa-route"></i>
+                                        <span class="param-label">Протяжённость</span>
+                                        <span class="param-value" id="paramDistance">--</span>
+                                    </div>
+                                    <div class="param-item">
+                                        <i class="fas fa-clock"></i>
+                                        <span class="param-label">Время</span>
+                                        <span class="param-value" id="paramDuration">--</span>
+                                    </div>
+                                    <div class="param-item">
+                                        <i class="fas fa-arrow-up"></i>
+                                        <span class="param-label">Набор высоты</span>
+                                        <span class="param-value" id="paramElevation">--</span>
+                                    </div>
+                                    <div class="param-item">
+                                        <i class="fas fa-calendar-alt"></i>
+                                        <span class="param-label">Лучшее время</span>
+                                        <span class="param-value" id="paramBestTime">--</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Точки маршрута -->
+                            <div class="info-block" id="routePointsBlock">
+                                <h2><i class="fas fa-map-marked-alt"></i> Точки маршрута</h2>
+                                <div class="point-item">
+                                    <div class="point-icon start">
+                                        <i class="fas fa-flag-checkered"></i>
+                                    </div>
+                                    <div class="point-content">
+                                        <h4>Старт</h4>
+                                        <p id="startPoint">--</p>
+                                    </div>
+                                </div>
+                                <div class="point-item">
+                                    <div class="point-icon end">
+                                        <i class="fas fa-flag"></i>
+                                    </div>
+                                    <div class="point-content">
+                                        <h4>Финиш</h4>
+                                        <p id="endPoint">--</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Лучшее время выхода -->
+                            <div class="info-block highlight" id="routeTimeBlock">
+                                <h2><i class="fas fa-clock"></i> Когда лучше выходить</h2>
+                                <p id="bestStartTime">--</p>
+                            </div>
+
+                            <!-- Экипировка -->
+                            <div class="info-block" id="routeEquipmentBlock">
+                                <h2><i class="fas fa-hiking"></i> Минимальная экипировка</h2>
+                                <div class="equipment-grid" id="equipmentGrid"></div>
+                            </div>
+
+                            <!-- Рекомендации -->
+                            <div class="info-block" id="routeRecommendationsBlock">
+                                <h2><i class="fas fa-lightbulb"></i> Рекомендации</h2>
+                                <ul class="tips-list" id="recommendationsList"></ul>
+                            </div>
+                        </div>
+                        <div class="locked-area__overlay">
+                            <div class="locked-area__badge">
+                                <i class="fas fa-lock"></i> Доступно после покупки
+                            </div>
+                            <p>Вам видно, что входит в трек, но детали станут доступными полностью после оплаты.</p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- ===== ПРАВАЯ КОЛОНКА (сайдбар) ===== -->
+                <div class="route-sidebar">
+
+                    <!-- Карточка покупки -->
+                    <div class="purchase-card">
+                        <div class="purchase-header">
+                            <span class="purchase-price" id="routePrice">-- ₽</span>
+                            <span class="purchase-badge">GPX трек + гайд</span>
+                        </div>
+                        <div class="purchase-features">
+                            <div class="feature-item">
+                                <i class="fas fa-check-circle"></i> GPX трек для навигатора
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-check-circle"></i> Офлайн-карта маршрута
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-check-circle"></i> Секретные места и лайфхаки
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-check-circle"></i> Контакты проверенных водителей
+                            </div>
+                        </div>
+
+                        <!-- Кнопка покупки -->
+                        <button class="btn btn-primary btn-block btn-large" id="buyRouteBtn">
+                            <i class="fas fa-shopping-cart"></i> Купить маршрут
+                        </button>
+                        <p class="purchase-note">
+                            <i class="fas fa-lock"></i> Мгновенный доступ после оплаты
+                        </p>
+
+                        <!-- Блок скачивания (появляется после покупки) -->
+                        <div class="download-block" id="downloadBlock" style="display: none;">
+                            <hr>
+                            <h4><i class="fas fa-download"></i> Ваши материалы</h4>
+                            <div class="download-link" id="downloadGpxLink">
+                                <i class="fas fa-file"></i> Скачать GPX трек
+                            </div>
+                            <div class="download-link" id="downloadPdfLink">
+                                <i class="fas fa-file-pdf"></i> Скачать PDF-гайд
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Статистика -->
+                    <div class="stats-card">
+                        <div class="stat-row">
+                            <span class="stat-label"><i class="fas fa-users"></i> Купили</span>
+                            <span class="stat-number" id="statSales">--</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label"><i class="fas fa-star"></i> Рейтинг</span>
+                            <span class="stat-number" id="statRating">--</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label"><i class="fas fa-comment"></i> Отзывов</span>
+                            <span class="stat-number" id="statReviews">--</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- ===== ОТЗЫВЫ ===== -->
+            <div class="reviews-section">
+                <div class="reviews-header">
+                    <h2><i class="fas fa-comments"></i> Отзывы путешественников</h2>
+                    <div class="reviews-summary">
+                        <span class="reviews-rating" id="reviewsSummaryRating">--</span>
+                        <div class="stars" id="reviewsStars"></div>
+                        <span id="reviewsCount">-- отзывов</span>
+                    </div>
+                </div>
+
+                <div class="reviews-grid" id="reviewsGrid">
+                    <!-- Отзывы загружаются через JS -->
+                </div>
+
+                <!-- Форма отправки отзыва (появляется после покупки) -->
+                <div class="add-review-block" id="addReviewBlock" style="display: none;">
+                    <h3>Оставить отзыв</h3>
+                    <form id="reviewForm">
+                        <div class="form-group">
+                            <label>Оценка</label>
+                            <div class="rating-input">
+                                <input type="radio" name="rating" value="5" id="star5">
+                                <label for="star5"><i class="fas fa-star"></i></label>
+                                <input type="radio" name="rating" value="4" id="star4">
+                                <label for="star4"><i class="fas fa-star"></i></label>
+                                <input type="radio" name="rating" value="3" id="star3">
+                                <label for="star3"><i class="fas fa-star"></i></label>
+                                <input type="radio" name="rating" value="2" id="star2">
+                                <label for="star2"><i class="fas fa-star"></i></label>
+                                <input type="radio" name="rating" value="1" id="star1">
+                                <label for="star1"><i class="fas fa-star"></i></label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="reviewText" placeholder="Поделитесь впечатлениями о маршруте..." rows="4" style="width: 100%; padding: 12px; border: 2px solid var(--gray-light); border-radius: var(--border-radius-sm); font-family: inherit;"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-paper-plane"></i> Отправить отзыв
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- ===== ПОДВАЛ ===== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>© 2026 СвояТропа. Найди свою тропу ❤️</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== JAVASCRIPT ===== -->
+    <script src="js/auth.js"></script>
+    <script src="js/route.js"></script>
+</body>
+
+</html>

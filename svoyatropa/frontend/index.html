@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>СвояТропа — туристические маршруты по России</title>
+
+    <!-- Основные стили -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/forms.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <!-- FontAwesome 6.5.2 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- Резервные стили если FontAwesome не загрузился -->
+    <style>
+        .no-fa .fa-mountain::before {
+            content: "🏔️";
+            font-family: "Segoe UI Emoji", "Apple Color Emoji", sans-serif;
+        }
+        
+        .no-fa .fa-compass::before {
+            content: "🧭";
+        }
+        
+        .no-fa .fa-images::before {
+            content: "🖼️";
+        }
+        
+        .no-fa .fa-comments::before {
+            content: "💬";
+        }
+        
+        .no-fa .fa-plus-circle::before {
+            content: "➕";
+        }
+        
+        .no-fa .fa-search::before {
+            content: "🔍";
+        }
+        
+        .no-fa .fa-sign-in-alt::before {
+            content: "🚪";
+        }
+        
+        .no-fa .fa-sign-out-alt::before {
+            content: "🚪";
+        }
+        
+        .no-fa .fa-user::before {
+            content: "👤";
+        }
+        
+        .no-fa .fa-car::before {
+            content: "🚗";
+        }
+        
+        .no-fa .fa-bicycle::before {
+            content: "🚲";
+        }
+        
+        .no-fa .fa-motorcycle::before {
+            content: "🏍️";
+        }
+        
+        .no-fa .fa-hiking::before {
+            content: "🥾";
+        }
+        
+        .no-fa .fa-water::before {
+            content: "💧";
+        }
+        
+        .no-fa .fa-swimmer::before {
+            content: "🏊";
+        }
+        
+        .no-fa .fa-horse::before {
+            content: "🐴";
+        }
+        
+        .no-fa .fa-snowflake::before {
+            content: "❄️";
+        }
+        
+        .no-fa .fa-star::before {
+            content: "⭐";
+        }
+        
+        .no-fa .fa-map::before {
+            content: "🗺️";
+        }
+        
+        .no-fa .fa-clock::before {
+            content: "🕐";
+        }
+        
+        .no-fa .fa-credit-card::before {
+            content: "💳";
+        }
+        
+        .no-fa .fa-download::before {
+            content: "⬇️";
+        }
+        
+        .no-fa .fa-bars::before {
+            content: "☰";
+        }
+        
+        .no-fa .fa-chevron-right::before {
+            content: "›";
+        }
+        
+        .no-fa .fa-chevron-down::before {
+            content: "⌄";
+        }
+        
+        .no-fa .fa-arrow-left::before {
+            content: "←";
+        }
+        
+        .no-fa .fa-times::before {
+            content: "✕";
+        }
+        
+        .no-fa .fa-check::before {
+            content: "✓";
+        }
+        
+        .no-fa .fa-heart::before {
+            content: "❤️";
+        }
+        
+        .no-fa .fa-shield-alt::before {
+            content: "🛡️";
+        }
+        
+        .no-fa .fa-envelope::before {
+            content: "✉️";
+        }
+        
+        .no-fa .fa-telegram::before {
+            content: "📱";
+        }
+        
+        .no-fa .fa-globe::before {
+            content: "🌍";
+        }
+        
+        .no-fa .fa-users::before {
+            content: "👥";
+        }
+        
+        .no-fa .fa-route::before {
+            content: "🛣️";
+        }
+        
+        .no-fa .fa-flag-checkered::before {
+            content: "🏁";
+        }
+        
+        .no-fa .fa-flag::before {
+            content: "🚩";
+        }
+        
+        .no-fa .fa-map-pin::before {
+            content: "📍";
+        }
+        
+        .no-fa .fa-map-signs::before {
+            content: "🗺️";
+        }
+        
+        .no-fa .fa-plus::before {
+            content: "+";
+        }
+        
+        .no-fa .fa-ruble-sign::before {
+            content: "₽";
+        }
+        
+        .no-fa .fa-eye::before {
+            content: "👁️";
+        }
+        
+        .no-fa .fa-shopping-cart::before {
+            content: "🛒";
+        }
+        
+        .no-fa .fa-chart-bar::before {
+            content: "📊";
+        }
+        
+        .no-fa .fa-cog::before {
+            content: "⚙️";
+        }
+        
+        .no-fa .fa-save::before {
+            content: "💾";
+        }
+        
+        .no-fa .fa-chart-line::before {
+            content: "📈";
+        }
+        
+        .no-fa .fa-shopping-bag::before {
+            content: "🛍️";
+        }
+        
+        .no-fa .fa-info-circle::before {
+            content: "ℹ️";
+        }
+        
+        .no-fa .fa-check-circle::before {
+            content: "✅";
+        }
+        
+        .no-fa .fa-lock::before {
+            content: "🔒";
+        }
+        
+        .no-fa .fa-calendar::before {
+            content: "📅";
+        }
+        
+        .no-fa .fa-edit::before {
+            content: "✏️";
+        }
+        
+        .no-fa .fa-trash::before {
+            content: "🗑️";
+        }
+        
+        .no-fa .fa-reply::before {
+            content: "↩️";
+        }
+        
+        .no-fa .fa-quote-right::before {
+            content: "❞";
+        }
+        
+        .no-fa .fa-cloud-upload-alt::before {
+            content: "☁️";
+        }
+        
+        .no-fa .fa-folder-open::before {
+            content: "📂";
+        }
+        
+        .no-fa .fa-reply-all::before {
+            content: "↩️";
+        }
+        
+        .no-fa .fa-question-circle::before {
+            content: "❓";
+        }
+        
+        .no-fa .fa-lightbulb::before {
+            content: "💡";
+        }
+        
+        .no-fa .fa-paper-plane::before {
+            content: "📨";
+        }
+        
+        .no-fa .fa-signal::before {
+            content: "📶";
+        }
+        
+        .no-fa .fa-arrow-up::before {
+            content: "⬆️";
+        }
+    </style>
+
+    <script>
+        // Проверка загрузки FontAwesome
+        function loadFallbackIcons() {
+            console.log('FontAwesome не загрузился, использую эмодзи');
+            document.documentElement.classList.add('no-fa');
+        }
+        setTimeout(function() {
+            var iconTest = document.createElement('i');
+            iconTest.className = 'fas fa-check';
+            iconTest.style.cssText = 'position:absolute;opacity:0;pointer-events:none;';
+            document.body.appendChild(iconTest);
+            var computed = window.getComputedStyle(iconTest, ':before');
+            var fontFamily = computed.getPropertyValue('font-family');
+            document.body.removeChild(iconTest);
+            if (fontFamily.indexOf('Font Awesome') === -1) {
+                loadFallbackIcons();
+            } else {
+                console.log('✅ FontAwesome загружен');
+            }
+        }, 1500);
+    </script>
+</head>
+
+<body>
+
+    <!-- ============================================================ -->
+    <!-- ШАПКА САЙТА -->
+    <!-- ============================================================ -->
+    <header class="header">
+        <div class="container">
+            <div class="header-inner">
+                <!-- Логотип "СвояТропа" -->
+                <a href="index.html" class="logo">
+                    <i class="fas fa-hiking"></i>
+                    <span>СвояТропа</span>
+                </a>
+
+                <!-- Кнопка мобильного меню (бургер) -->
+                <button class="mobile-menu-toggle" aria-label="Меню">
+                    <i class="fas fa-bars"></i>
+                </button>
+
+                <!-- Навигация -->
+                <nav class="nav">
+                    <a href="#catalog" class="btn btn-primary btn-small nav-find-route">
+                        <i class="fas fa-search"></i> Найти маршрут
+                    </a>
+                    <a href="gallery.html" class="nav-link">
+                        <i class="fas fa-images"></i> Галерея
+                    </a>
+                    <a href="forum.html" class="nav-link">
+                        <i class="fas fa-comments"></i> Форум
+                    </a>
+
+                    <!-- Кнопка "Создать маршрут" — только для авторов -->
+                    <a href="create-route.html" class="nav-link auth-only" style="display: none;">
+                        <i class="fas fa-plus-circle"></i> Создать маршрут
+                    </a>
+
+                    <!-- Блок для НЕавторизованных пользователей -->
+                    <div class="guest-only">
+                        <a href="register.html" class="btn btn-outline">
+                            <i class="fas fa-sign-in-alt"></i> Войти
+                        </a>
+                    </div>
+
+                    <!-- Блок для авторизованных пользователей -->
+                    <div class="auth-only" style="display: none;">
+                        <div class="user-menu">
+                            <a href="profile.html" class="user-profile-link">
+                                <img src="img/avatars/default-avatar.png" class="user-avatar-display" alt="Аватар">
+                                <span class="user-name-display"></span>
+                            </a>
+                            <button class="btn btn-outline btn-small logout-btn">
+                                <i class="fas fa-sign-out-alt"></i> Выйти
+                            </button>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- ============================================================ -->
+    <!-- ГЕРОЙ-БЛОК С ВИДЕО -->
+    <!-- ============================================================ -->
+    <section class="hero">
+        <!-- Видео-фон -->
+        <video autoplay muted loop playsinline webkit-playsinline class="hero-video-bg" id="heroVideo">
+            <source src="video/krasnodar-nature.mp4" type="video/mp4">
+            Ваш браузер не поддерживает видео
+        </video>
+
+        <!-- Градиентная заглушка (показывается если видео не загрузилось) -->
+        <div class="hero-fallback-gradient" id="heroFallback" style="display: none;"></div>
+
+        <!-- Затемнение для читаемости текста -->
+        <div class="hero-overlay"></div>
+
+        <!-- Контент поверх видео -->
+        <div class="container hero-content">
+            <h1 class="hero-title">
+                Найди <span>свою тропу</span>
+            </h1>
+
+            <p class="hero-subtitle">
+                Маркетплейс авторских туристических маршрутов.<br>
+                <strong>Выбирай, покупай, скачивай GPX-трек и отправляйся в путь!</strong>
+            </p>
+
+            <!-- Статистика -->
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <i class="fas fa-map stat-icon"></i>
+                    <span class="stat-number" id="totalRoutes">0</span>
+                    <span class="stat-label">маршрутов</span>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-users stat-icon"></i>
+                    <span class="stat-number" id="totalUsers">0</span>
+                    <span class="stat-label">путешественников</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Скрипт для обработки ошибок видео -->
+    <script>
+        (function() {
+            var video = document.getElementById('heroVideo');
+            var fallback = document.getElementById('heroFallback');
+            if (video && fallback) {
+                video.addEventListener('error', function() {
+                    video.style.display = 'none';
+                    fallback.style.display = 'block';
+                });
+                // Проверка через 1 секунду
+                setTimeout(function() {
+                    if (video.paused || video.readyState === 0) {
+                        video.style.display = 'none';
+                        fallback.style.display = 'block';
+                    }
+                }, 1000);
+            }
+        })();
+    </script>
+
+    <!-- ============================================================ -->
+    <!-- ФИЛЬТРЫ -->
+    <!-- ============================================================ -->
+    <div class="filters" id="catalog">
+        <div class="container">
+            <div class="filter-header">
+                <h2>Выбери свой маршрут</h2>
+                <p>Фильтруй по типу и региону</p>
+            </div>
+
+            <!-- Фильтр по типу -->
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all"><i class="fas fa-compass"></i> Все</button>
+                <button class="filter-btn" data-filter="car"><i class="fas fa-car"></i> Авто</button>
+                <button class="filter-btn" data-filter="bike"><i class="fas fa-bicycle"></i> Вело</button>
+                <button class="filter-btn" data-filter="moto"><i class="fas fa-motorcycle"></i> Мото</button>
+                <button class="filter-btn" data-filter="hike"><i class="fas fa-hiking"></i> Пешие</button>
+                <button class="filter-btn" data-filter="kayak"><i class="fas fa-water"></i> Каякинг</button>
+                <button class="filter-btn" data-filter="sup"><i class="fas fa-swimmer"></i> SUP</button>
+                <button class="filter-btn" data-filter="water"><i class="fas fa-water"></i> Водный</button>
+                <button class="filter-btn" data-filter="horse"><i class="fas fa-horse"></i> Конные</button>
+                <button class="filter-btn" data-filter="rock"><i class="fas fa-mountain"></i> Скалолазание</button>
+                <button class="filter-btn" data-filter="ski"><i class="fas fa-snowflake"></i> Лыжи</button>
+            </div>
+
+            <!-- Фильтр по региону -->
+            <div class="region-filters">
+                <button class="region-btn active" data-region="all"><i class="fas fa-globe"></i> Все регионы</button>
+                <button class="region-btn" data-region="krasnodar">Краснодарский край</button>
+                <button class="region-btn" data-region="adygea">Адыгея</button>
+                <button class="region-btn" data-region="crimea">Крым</button>
+                <button class="region-btn" data-region="altai">Алтай</button>
+                <button class="region-btn" data-region="baikal">Байкал</button>
+                <button class="region-btn" data-region="kareliya">Карелия</button>
+                <button class="region-btn" data-region="caucasus">Кавказ</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- КАТАЛОГ МАРШРУТОВ -->
+    <!-- ============================================================ -->
+    <section class="catalog">
+        <div class="container">
+            <div class="routes-grid" id="routesGrid">
+                <!-- Маршруты загружаются из filters.js -->
+            </div>
+            <div class="load-more-wrapper">
+                <button class="btn btn-outline btn-large" id="loadMoreBtn">
+                    <i class="fas fa-plus"></i> Показать ещё маршруты
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- БЛОК "КАК ЭТО РАБОТАЕТ" -->
+    <!-- ============================================================ -->
+    <section class="how-it-works">
+        <div class="container">
+            <h2 class="section-title">Как это работает</h2>
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-icon"><i class="fas fa-search"></i></div>
+                    <h3>Найди маршрут</h3>
+                    <p>Выбери подходящий по типу, региону и сложности</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-icon"><i class="fas fa-credit-card"></i></div>
+                    <h3>Оплати</h3>
+                    <p>Безопасная оплата, автор получает 70%</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-icon"><i class="fas fa-download"></i></div>
+                    <h3>Скачай GPX</h3>
+                    <p>Загрузи трек в навигатор или телефон</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-icon"><i class="fas fa-star"></i></div>
+                    <h3>Оставь отзыв</h3>
+                    <p>Помоги другим с выбором маршрута</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- ГАЛЕРЕЯ ФОТОГРАФИЙ (ТОЛЬКО ТОП-10) -->
+    <!-- ============================================================ -->
+    <section class="gallery-section" id="gallery">
+        <div class="container">
+            <div class="gallery-header">
+                <h2 class="section-title">Галерея путешествий</h2>
+                <p class="section-subtitle">
+                    Лучшие фотографии от наших путешественников.
+                    <span class="guest-only">
+                        <a href="register.html">Войдите</a>, чтобы загружать свои фото
+                    </span>
+                    <span class="auth-only" style="display: none;">Загружайте свои фото и участвуйте в рейтинге!</span>
+                </p>
+            </div>
+
+            <div class="gallery-grid" id="homeGalleryGrid">
+                <!-- Топ-10 фото загружаются через JS -->
+            </div>
+
+            <div class="load-more-wrapper">
+                <a href="gallery.html" class="btn btn-primary btn-large">
+                    <i class="fas fa-images"></i> Смотреть всю галерею
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- ПОДВАЛ -->
+    <!-- ============================================================ -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h4>СвояТропа</h4>
+                    <p>Маркетплейс авторских туристических маршрутов по России. Найди свою тропу!</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Разделы</h4>
+                    <ul>
+                        <li><a href="index.html">Маршруты</a></li>
+                        <li><a href="gallery.html">Галерея</a></li>
+                        <li><a href="forum.html">Форум</a></li>
+                        <li><a href="profile.html">Профиль</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Контакты</h4>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> hello@svoyatropa.ru</li>
+                        <li><i class="fab fa-telegram"></i> @svoyatropa</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 СвояТропа. Найди свою тропу ❤️</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ============================================================ -->
+    <!-- JAVASCRIPT -->
+    <!-- ============================================================ -->
+    <script src="js/auth.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/filters.js"></script>
+    <script src="js/gallery.js"></script>
+</body>
+
+</html>

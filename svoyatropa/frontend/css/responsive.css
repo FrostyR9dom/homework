@@ -1,0 +1,240 @@
+/* ============================================================
+   АДАПТИВНОСТЬ ДЛЯ ВСЕХ УСТРОЙСТВ
+   ============================================================ */
+
+
+/* Планшеты (до 1024px) */
+
+@media (max-width: 1024px) {
+    .container {
+        max-width: 960px;
+    }
+    /* ВАЖНО: Исправляем видео на планшетах */
+    .hero {
+        min-height: 450px;
+        max-height: 550px;
+    }
+    .hero-video-bg {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    .steps-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .routes-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+
+/* Маленькие планшеты (до 768px) */
+
+@media (max-width: 768px) {
+    .container {
+        padding: 0 16px;
+    }
+    /* Мобильное меню */
+    .mobile-menu-toggle {
+        display: block;
+    }
+    .nav {
+        position: fixed;
+        top: 70px;
+        left: 0;
+        right: 0;
+        background: var(--white);
+        flex-direction: column;
+        padding: 20px;
+        box-shadow: var(--shadow);
+        display: none;
+        z-index: 99;
+    }
+    .nav.active {
+        display: flex;
+    }
+    .header-inner {
+        flex-wrap: wrap;
+    }
+    /* ВАЖНО: Исправляем видео на мобильных */
+    .hero {
+        min-height: 400px;
+        max-height: 500px;
+    }
+    .hero-video-bg {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    .hero-title {
+        font-size: 2rem;
+    }
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+    .hero-stats {
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+    .stat-number {
+        font-size: 1.8rem;
+    }
+    /* Фильтры */
+    .filter-btn {
+        padding: 8px 16px;
+        font-size: 0.85rem;
+    }
+    .region-btn {
+        padding: 6px 14px;
+        font-size: 0.8rem;
+    }
+    /* Каталог */
+    .routes-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    /* Как это работает */
+    .steps-grid {
+        grid-template-columns: 1fr;
+    }
+    /* Галерея */
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    /* Подвал */
+    .footer-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+}
+
+
+/* Телефоны (до 480px) */
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0 12px;
+    }
+    /* ВАЖНО: Исправляем видео на маленьких телефонах */
+    .hero {
+        min-height: 350px;
+        max-height: 450px;
+    }
+    .hero-video-bg {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    .hero-content {
+        padding: 20px 12px;
+    }
+    .hero-title {
+        font-size: 1.6rem;
+    }
+    .hero-subtitle {
+        font-size: 0.9rem;
+    }
+    .hero-stats {
+        flex-direction: column;
+        gap: 15px;
+    }
+    .stat-icon {
+        font-size: 1.5rem;
+    }
+    .stat-number {
+        font-size: 1.5rem;
+    }
+    /* Фильтры */
+    .filter-buttons {
+        gap: 6px;
+    }
+    .filter-btn {
+        padding: 6px 12px;
+        font-size: 0.75rem;
+    }
+    .region-filters {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .region-btn {
+        width: 100%;
+        justify-content: center;
+    }
+    /* Галерея */
+    .gallery-grid {
+        grid-template-columns: 1fr;
+    }
+    .gallery-image {
+        height: 220px;
+    }
+    /* Карточки маршрутов */
+    .card-img {
+        height: 160px;
+    }
+    .card-title {
+        font-size: 1rem;
+    }
+    /* Кнопки */
+    .btn {
+        padding: 8px 16px;
+        font-size: 0.85rem;
+    }
+    .btn-large {
+        padding: 12px 20px;
+    }
+}
+
+
+/* Большие экраны (от 1440px) */
+
+@media (min-width: 1440px) {
+    .container {
+        max-width: 1320px;
+    }
+    .hero {
+        min-height: 600px;
+        max-height: 700px;
+    }
+    .hero-title {
+        font-size: 3.5rem;
+    }
+    .routes-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+
+/* Поддержка очень маленьких экранов */
+
+@media (max-width: 360px) {
+    .hero {
+        min-height: 300px;
+        max-height: 400px;
+    }
+    .hero-title {
+        font-size: 1.4rem;
+    }
+    .hero-subtitle {
+        font-size: 0.8rem;
+    }
+    .filter-btn {
+        padding: 5px 10px;
+        font-size: 0.7rem;
+    }
+}
+
+
+/* Адаптация для печати */
+
+@media print {
+    .header,
+    .footer,
+    .filter-section,
+    .btn,
+    .hero-video-bg {
+        display: none;
+    }
+}
