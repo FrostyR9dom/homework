@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
         commissionElements[i].textContent = '30%';
     }
 
-    console.log('✅ yatyrist загружен. Комиссия сервиса: 30%');
+    console.log('✅ СвояТропа загружена. Комиссия сервиса: 30%');
 });
 
 // Форматирование цены
